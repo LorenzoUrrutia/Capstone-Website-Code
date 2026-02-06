@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ADHD — Learning Simulation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+</head>
+<body class="dark-site">
+  <header class="topbar">
+    <div class="container">
+      
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="adhd.html" class="active">ADHD</a>
+        <a href="dyslexia.html">Dyslexia</a>
+        <a href="dyscalculia.html">Dyscalculia</a>
+        
+      </nav>
+    </div>
+  </header>
+
+    <main class="content page-layout">
+    <div class="content-column">
+    
+
+    <div class="section-grid">
+    <section id="what-is" class="section card">
+      <h2>What is ADHD?</h2>
+      <ul>
+        <li> ADHD stands for Attention Deficit Hyperactivity Disorder. It is a neurodevelopmental condition that affects how the brain functions, particularly in areas related to attention, impulse control, and hyperactivity. </li>
+        <li> It is estimated that 5% to 11% of people of ADHD in the United States. </li>
+        <li> People with ADHD have trouble with a group of key skills known as <strong><a class="subtype-link" href="executive-function.html">executive function</a></strong>. And that creates challenges in many areas of life, from school to work to everyday living. </li>
+        <li> Because of the way ADHD is often misunderstood and stigmatized, individuals with ADHD may face additional barriers in their daily lives.</li>
+      </ul>
+    </section>
+
+    </section>
+
+    <section id="types" class="section card">
+      <h2>Types of ADHD</h2>
+        <ul>
+          <li><strong> <a class="subtype-link" href="adhd-inattentive.html">Predominantly Inattentive Type</a>:</strong> Symptoms are mainly related to inattention, such as difficulty focusing, staying on task, and being organized.</li>
+          <li><strong> <a class="subtype-link" href="adhd-hyperactive-impulsive.html">Predominantly Hyperactive-Impulsive Type</a>:</strong> Symptoms are mainly related to hyperactivity and impulsivity, such as fidgeting or interrupting others.</li>
+          <li><strong> <a class="subtype-link" href="adhd-combined.html">Combined Type</a>:</strong> This is the most common type and includes symptoms of inattention and hyperactivity-impulsivity.</li>
+        </ul>
+
+    <section id="diagnosis" class="section card">
+        <h2>Diagnosis of ADHD</h2>
+          <ul>
+            <li>ADHD is diagnosed by a trained healthcare professional, such as a pediatrician, psychologist, or psychiatrist. There is <strong>no single test</strong> for ADHD. Instead, diagnosis is based on patterns of behavior over time.</li> 
+            <li>Clinicians gather information from multiple sources, which may include: Interviews with the individual and caregivers, teacher reports or school records, and a review of medical, developmental, and educational history</li>
+            <li>A person must have at least 5-6 symptoms occur frequently</li>
+            <li>Several symptoms must have been present before the age 12</li>
+            <li>Symptoms must be noticeably greater than expected for the person's age</li>
+            <li>Symptoms must appear in more than one setting, such as at school and at home</li>
+          </ul>
+    </section>
+
+    <section id="quiz" class="section card">
+      <h2>Quiz</h2>
+      <div id="quiz-controls" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+        <div id="quiz-score" aria-live="polite" style="font-weight:700">Score: 0 / 5</div>
+        <button id="quiz-reset" class="cta-button">Reset Quiz</button>
+      </div>
+
+      <div class="quiz-questions">
+        <details data-q="1">
+          <summary>1. What does ADHD stand for?</summary>
+          <div class="answers" style="margin-top:8px">
+            <button class="quiz-choice" data-correct="true">Attention Deficit Hyperactivity Disorder</button>
+            <button class="quiz-choice" data-correct="false">Active Disorder Hyper Distraction</button>
+            <button class="quiz-choice" data-correct="false">Attention Disorder, Highly Distracted</button>
+          </div>
+          <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+        </details>
+
+        <details data-q="2">
+          <summary>2. Which group of skills is mentioned as being affected by ADHD?</summary>
+          <div class="answers" style="margin-top:8px">
+            <button class="quiz-choice" data-correct="false">Gross motor skills</button>
+            <button class="quiz-choice" data-correct="false">Taste perception</button>
+            <button class="quiz-choice" data-correct="true">Executive function</button>
+          </div>
+          <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+        </details>
+
+        <details data-q="3">
+          <summary>3. What percentage of people have ADHD in the United States?</summary>
+          <div class="answers" style="margin-top:8px">
+            <button class="quiz-choice" data-correct="false">About 20% to 30%</button>
+            <button class="quiz-choice" data-correct="true">About 5% to 11%</button>
+            <button class="quiz-choice" data-correct="false">Less than 1% to 2%</button>
+          </div>
+          <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+        </details>
+
+        <details data-q="4">
+          <summary>4. Is there a single test that definitively diagnoses ADHD?</summary>
+          <div class="answers" style="margin-top:8px">
+            <button class="quiz-choice" data-correct="false">Yes — a single blood test</button>
+            <button class="quiz-choice" data-correct="false">Yes — an IQ test</button>
+            <button class="quiz-choice" data-correct="true">No — diagnosis is based on patterns of behavior</button>
+          </div>
+          <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+        </details>
+
+        <details data-q="5">
+          <summary>5. For diagnosis, symptoms must occur in:</summary>
+          <div class="answers" style="margin-top:8px">
+            <button class="quiz-choice" data-correct="true">Two or more settings (e.g., home and school/work)</button>
+            <button class="quiz-choice" data-correct="false">Only at home</button>
+            <button class="quiz-choice" data-correct="false">Only during tests</button>
+          </div>
+          <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+        </details>
+      </div>
+    </section>
+
+    <section id="simulation-link" class="section card">
+      <h2>Open the full simulation</h2>
+      <p>Explore the full interactive simulation for ADHD.</p>
+      <div class="cta-row">
+      <a class="cta-button" href="simulations.html#adhd-sim">Open Full Simulation</a>
+      </div>
+    </section>
+
+    </div>
+    <aside class="media-column" aria-hidden="true"></aside>
+    </main>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/site.js"></script>
+</body>
+</html>

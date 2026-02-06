@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ADHD Simulation — Understanding Learning Disabilities</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-site">
+  <header class="topbar">
+    <div class="container">
+      
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="adhd.html">ADHD</a>
+        <a href="dyslexia.html">Dyslexia</a>
+        <a href="dyscalculia.html">Dyscalculia</a>
+        <a href="simulations.html">Simulations</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content">
+    <h2>Focus task simulation</h2>
+    <p class="muted">Instructions: Use the controls to pause, reset, or change intensity. This page includes a placeholder simulation area.</p>
+
+    <div class="card" style="text-align:center;">
+      <div id="canvas-container" class="sketch" style="max-width:760px;margin:0 auto;">Canvas will appear here.</div>
+
+      <div class="controls" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px;">
+        <button id="pauseBtn" class="btn">Pause</button>
+        <button id="resetBtn" class="btn">Reset</button>
+
+        <label style="display:flex;align-items:center;gap:8px;">
+          Intensity
+          <select id="intensitySelect" class="btn">
+            <option value="mild">Mild</option>
+            <option value="moderate">Moderate</option>
+            <option value="strong">Strong</option>
+          </select>
+        </label>
+
+        <label style="display:flex;align-items:center;gap:8px;">
+          <input id="reduceMotion" type="checkbox">
+          Reduce motion
+        </label>
+      </div>
+
+      <div style="margin-top:14px;text-align:left;">
+        <h3>What this shows / what it doesn't</h3>
+        <p>Short note: Blank</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <small>Created for educational purposes.</small>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+  <script src="js/sim-adhd.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>

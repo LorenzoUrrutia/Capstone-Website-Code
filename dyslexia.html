@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dyslexia — Learning Simulation</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+</head>
+<body class="dark-site">
+  <header class="topbar">
+    <div class="container">
+      
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="adhd.html">ADHD</a>
+        <a href="dyslexia.html" class="active">Dyslexia</a>
+        <a href="dyscalculia.html">Dyscalculia</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content page-layout">
+    <div class="content-column">
+
+      <div class="section-grid">
+
+        <section id="what-is" class="section card">
+          <h2>What is Dyslexia?</h2>
+            <ul>
+          <li> Dyslexia is a lifelong reading related disorder that makes reading and language related tasks harder, primarily impacting a persons <strong>phonological processing</strong>: the ability to accurately and fluently recognize words, decode unfamiliar words, and spell</li>
+          <li> Dyslexia affects 7% of the population world-wide and occurs because of disruptions in the way the brain processes written and spoken language so you can understand it </li>
+            </ul>
+        </section>
+
+        <section id="types" class="section card">
+          <h2>Dyslexia Profiles</h2>
+          <ul>
+            <li> Dyslexia does not have official subtypes. Instead, it exists on a <a href="dyslexia-spectrum.html">spectrum</a>, meaning individuals can experience different challenges and levels of difficulty with reading and language </li>
+            <li> Some <a href="dyslexia-spectrum.html">symptoms</a> of Dyslexia include difficulty with accurate and/or fluent word recognition, poor spelling, and decoding abilities </li>
+          </ul>
+        </section>
+
+      <section id="causes" class= "section card"> 
+        <h2>Causes of Dyslexia</h2>
+        <ul>
+          <li> Dyslexia is a neurodevelopmental disorder caused by differences in how the brain develops and functions</li>
+          <li> Researchers have used brain-imaging scans to compare how the brain of a kid with and without dyslexia compare. <a href="dyslexia-studies.html">These studies</a> have found that kids with dyselxia show less activity in areas of the brain that process language </li>
+          <li> Dyslexia also runs in families. Researchers have found several genes that affect brain development and language skills </li>
+        </ul>
+      </section>
+
+        <section id="diagnosis" class="section card">
+          <h2>Diagnosis</h2>
+            <ul>
+              <li> Dyslexia is not diagnosed with a single test. Initial assesments involve short dyslexia screenings to flag a risk for dyselxia. </li>
+              <li> If the screener indicates a potential risk, a <a href="dyslexia-eval.html">comprehensive evaluation</a> by a specialist is recommended for a definitive diagnosis. </li>
+              <li> Dyslexia diagnosis is typically made when there is a significant <strong>gap</strong> between listening comprehension skills and word reading and spelling skills.</li>
+            </ul>
+            
+        </section>
+
+        <section id="quiz" class="section card">
+          <h2>Quiz</h2>
+          <div id="quiz-controls" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px">
+            <div id="quiz-score" aria-live="polite" style="font-weight:700">Score: 0 / 5</div>
+            <button id="quiz-reset" class="cta-button">Reset Quiz</button>
+          </div>
+
+          <div class="quiz-questions">
+            <details data-q="1">
+              <summary>1. Which skill is most affected by dyslexia?</summary>
+              <div class="answers" style="margin-top:8px">
+                <button class="quiz-choice" data-correct="true">Phonological processing (linking sounds to letters)</button>
+                <button class="quiz-choice" data-correct="false">Visual color recognition</button>
+                <button class="quiz-choice" data-correct="false">Fine motor coordination</button>
+              </div>
+              <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+            </details>
+
+            <details data-q="2">
+              <summary>2. How is dyslexia best described?</summary>
+              <div class="answers" style="margin-top:8px">
+                <button class="quiz-choice" data-correct="false">A short-term memory loss condition</button>
+                <button class="quiz-choice" data-correct="true">A lifelong reading-related disorder</button>
+                <button class="quiz-choice" data-correct="false">A math-only learning difficulty</button>
+              </div>
+              <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+            </details>
+
+            <details data-q="3">
+              <summary>3. What do brain-imaging studies show about dyslexia?</summary>
+              <div class="answers" style="margin-top:8px">
+                <button class="quiz-choice" data-correct="false">Identical language-area activity to typical readers</button>
+                <button class="quiz-choice" data-correct="true">Lower activity in brain regions that support language processing</button>
+                <button class="quiz-choice" data-correct="false">Only differences in motor-control regions</button>
+              </div>
+              <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+            </details>
+
+            <details data-q="4">
+              <summary>4. Which task was used in the linked dyslexia study?</summary>
+              <div class="answers" style="margin-top:8px">
+                <button class="quiz-choice" data-correct="true">A word-rhyme decision task during fMRI</button>
+                <button class="quiz-choice" data-correct="false">A long-division test in the scanner</button>
+                <button class="quiz-choice" data-correct="false">A color-matching reaction task</button>
+              </div>
+              <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+            </details>
+
+            <details data-q="5">
+              <summary>5. What is typically recommended after a screening flags risk?</summary>
+              <div class="answers" style="margin-top:8px">
+                <button class="quiz-choice" data-correct="false">No follow-up is needed</button>
+                <button class="quiz-choice" data-correct="true">A comprehensive evaluation by a specialist</button>
+                <button class="quiz-choice" data-correct="false">A single blood test for diagnosis</button>
+              </div>
+              <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
+            </details>
+          </div>
+        </section>
+
+        <section id="simulation-link" class="section card">
+          <h2>Open the full simulation</h2>
+          <p></p>
+          <div class="cta-row">
+            <a class="cta-button" href="simulations.html#dyslexia-sim">Open Full Simulation</a>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="media-column" aria-hidden="true"></aside>
+    </div>
+  </main>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/site.js"></script>
+</body>
+</html>
