@@ -5,61 +5,148 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dyslexia Simulation — Understanding Learning Disabilities</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .sim-dyslexia-page {
+      background: #F2F6FA;
+      min-height: 100vh;
+    }
+
+    .sim-dyslexia-page .sim-fullscreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px 48px;
+    }
+
+    .sim-dyslexia-page .sim-stage {
+      position: relative;
+      width: min(1100px, 92vw);
+      min-height: 75vh;
+      height: min(720px, 80vh);
+    }
+
+    .sim-dyslexia-page #canvas-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #F7F6F2;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(15, 25, 40, 0.08);
+      border: 1px solid rgba(15, 25, 40, 0.08);
+      overflow: hidden;
+    }
+
+    .sim-dyslexia-page #canvas-container canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .sim-dyslexia-page .sim-hud {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      z-index: 4;
+      background: rgba(255, 255, 255, 0.92);
+      color: #1e2a35;
+      padding: 10px 14px;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
+      max-width: min(900px, 94vw);
+    }
+
+    .sim-dyslexia-page .sim-hud .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .sim-dyslexia-page .sim-timer-hud {
+      position: fixed;
+      left: 20px;
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      z-index: 4;
+      background: rgba(255, 255, 255, 0.92);
+      color: #1e2a35;
+      padding: 8px 12px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    @media (max-width: 640px) {
+      .sim-dyslexia-page .sim-hud {
+        padding: 8px 10px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+      }
+
+      .sim-dyslexia-page .sim-hud .btn {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+      }
+
+      .sim-dyslexia-page .sim-timer-hud {
+        bottom: calc(84px + env(safe-area-inset-bottom));
+        font-size: 0.85rem;
+      }
+    }
+
+    .sim-dyslexia-page .sim-back {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.9);
+      color: #1e2a35;
+      border: 1px solid rgba(15, 25, 40, 0.12);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
+    }
+  </style>
 </head>
-<body class="dark-site">
-  <header class="topbar">
-    <div class="container">
-      
-      <nav class="topnav">
-        <a href="index.html">Home</a>
-        <a href="adhd.html">ADHD</a>
-        <a href="dyslexia.html">Dyslexia</a>
-        <a href="dyscalculia.html">Dyscalculia</a>
-        <a href="simulations.html">Simulations</a>
-      </nav>
-    </div>
-  </header>
+<body class="dark-site sim-dyslexia-page">
 
-  <main class="content">
-    <h2>Reading distortion simulation</h2>
-    <p class="muted">Instructions: Use the controls below to change intensity, pause, reset, or reduce motion.</p>
-
-    <div class="card" style="text-align:center;">
-      <div id="canvas-container" class="sketch" style="max-width:760px;margin:0 auto;">Canvas will appear here.</div>
-
-      <div class="controls" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px;">
-        <button id="pauseBtn" class="btn">Pause</button>
-        <button id="resetBtn" class="btn">Reset</button>
-
-        <label style="display:flex;align-items:center;gap:8px;">
-          Intensity
-          <select id="intensitySelect" class="btn">
-            <option value="mild">Mild</option>
-            <option value="moderate">Moderate</option>
-            <option value="strong">Strong</option>
-          </select>
-        </label>
-
-        <label style="display:flex;align-items:center;gap:8px;">
-          <input id="reduceMotion" type="checkbox">
-          Reduce motion
-        </label>
-      </div>
-
-      <div style="margin-top:14px;text-align:left;">
-        <h3>What this shows / what it doesn't</h3>
-        <p>Short note: Blank</p>
-      </div>
-    </div>
-
-    <div class="cta-row">
-      <a class="cta-button" href="sim-dyslexia.html">Open Full Simulation</a>
+  <main class="content sim-fullscreen">
+    <div class="sim-stage">
+      <div id="canvas-container" class="sketch"></div>
     </div>
   </main>
 
-  <footer>
-    <small>Created for educational purposes.</small>
-  </footer>
+  <div class="sim-hud" role="group" aria-label="Simulation controls">
+    <div class="controls">
+      <button id="pauseBtn" class="btn">Pause</button>
+      <button id="resetBtn" class="btn">Reset</button>
+
+      <label style="display:flex;align-items:center;gap:8px;">
+        Intensity
+        <select id="intensitySelect" class="btn">
+          <option value="mild">Mild</option>
+          <option value="moderate">Moderate</option>
+          <option value="strong">Strong</option>
+        </select>
+      </label>
+
+      <label style="display:flex;align-items:center;gap:8px;">
+        <input id="reduceMotion" type="checkbox">
+        Reduce motion
+      </label>
+    </div>
+  </div>
+
+  <div class="sim-timer-hud" aria-live="polite">
+    <span id="timerLabel">15s</span>
+  </div>
+
+  <a class="sim-back" href="index.html">Back</a>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
   <script src="js/sim-dyslexia.js"></script>

@@ -5,8 +5,12 @@ let intensity = 'mild'; // 'mild' | 'moderate' | 'strong'
 let reduceMotion = false;
 
 let canvas, containerEl;
+let timerLabelEl;
 let textLines = [
-  'Reading can feel unstable: letters may appear to shift or crowd together.'
+  'A quiet room can still feel busy on the page.',
+  'Short words sometimes look longer than they are.',
+  'Lines can blur together even when you try to focus.',
+  'A simple sentence can take extra time to settle.'
 ];
 let charOffsets = []; // last offsets (used for pause / reduceMotion)
 
@@ -88,8 +92,10 @@ function updateControlsUI() {
 
 function setup() {
   containerEl = document.getElementById('canvas-container') || document.body;
-  const w = Math.max(300, containerEl.clientWidth || 600);
-  const h = Math.round(w * 0.28);
+  containerEl.textContent = '';
+  timerLabelEl = document.getElementById('timerLabel');
+  const w = containerEl.clientWidth || windowWidth;
+  const h = containerEl.clientHeight || windowHeight;
   canvas = createCanvas(w, h);
   canvas.parent(containerEl);
   textFont('Arial');
@@ -110,8 +116,8 @@ function setup() {
 
 function windowResized() {
   if (!containerEl) return;
-  const w = Math.max(300, containerEl.clientWidth || 600);
-  const h = Math.round(w * 0.28);
+  const w = containerEl.clientWidth || windowWidth;
+  const h = containerEl.clientHeight || windowHeight;
   resizeCanvas(w, h);
 }
 
@@ -129,7 +135,7 @@ function draw() {
     }
   }
 
-  background(250);
+  background(247, 246, 242);
   fill(40);
   noStroke();
 
@@ -188,44 +194,9 @@ function draw() {
     y += textLeading();
   }
 
-  // Render timer UI in top-right corner
-  if (reduceMotion) {
-    // Reduce Motion: simple text label, no animations
-    const timerText = `Time: ${timerLeft.toFixed(1)}s`;
-    push();
-    textAlign(RIGHT, TOP);
-    textSize(16);
-    fill(40);
-    noStroke();
-    text(timerText, width - 20, 20);
-    pop();
-  } else {
-    // Normal mode: progress bar
-    const barMaxWidth = Math.min(200, width * 0.3);
-    const barHeight = 10;
-    const barX = width - barMaxWidth - 20;
-    const barY = 20;
-    const progress = timerMax > 0 ? timerLeft / timerMax : 0;
-    const barCurrentWidth = barMaxWidth * Math.max(0, Math.min(1, progress));
-
-    // Background (empty bar)
-    push();
-    noStroke();
-    fill(220);
-    rect(barX, barY, barMaxWidth, barHeight, 4);
-    
-    // Foreground (filled portion)
-    fill(80);
-    rect(barX, barY, barCurrentWidth, barHeight, 4);
-    pop();
-
-    // Optional numeric label below bar
-    push();
-    textAlign(RIGHT, TOP);
-    textSize(12);
-    fill(60);
-    noStroke();
-    text(`${Math.ceil(timerLeft)}s`, width - 20, barY + barHeight + 4);
-    pop();
+  if (timerLabelEl) {
+    timerLabelEl.textContent = reduceMotion
+      ? `Time: ${timerLeft.toFixed(1)}s`
+      : `${Math.ceil(timerLeft)}s`;
   }
 }
