@@ -9,13 +9,54 @@ let canvas, containerEl;
 let timerLabelEl;
 let startOverlayEl;
 let startBtnEl;
-let textLines = [
-  'A quiet room can still feel busy on the page.',
-  'Short words sometimes look longer than they are.',
-  'Lines can blur together even when you try to focus.',
-  'A simple sentence can take extra time to settle.'
-];
+let textLines = [];
 let charOffsets = []; // last offsets (used for pause / reduceMotion)
+
+// Sentence pool organized by difficulty level
+const sentencePool = {
+  mild: [
+    'A quiet room can still feel busy on the page.',
+    'Short words sometimes look longer than they are.',
+    'Lines can blur together even when you try to focus.',
+    'A simple sentence can take extra time to settle.',
+    'Reading feels different when you are pressed for time.',
+    'Text can seem to shift even when it stays still.',
+    'Words blend when they are packed too closely.',
+    'Clear spacing usually helps reading flow smoothly.',
+    'Careful focus is needed for every word now.',
+    'Reading takes more effort under time pressure.'
+  ],
+  moderate: [
+    'Visual crowding can substantially impair reading comprehension.',
+    'Typographic density affects cognitive processing efficiency significantly.',
+    'Character spacing influences reading fluency and comprehension rates.',
+    'Perceptual load increases when text displays excessive crowding.',
+    'Typography impacts legibility across various presentation contexts.',
+    'Attention allocation becomes challenging during visually dense tasks.',
+    'Information processing demands increase proportionally with text density.',
+    'Cognitive resources deplete faster under heightened visual complexity.',
+    'Readability metrics demonstrate inverse relationships with character spacing.',
+    'Excessive crowding diminishes reading speed and accuracy substantially.'
+  ],
+  strong: [
+    'Typographical crowding exacerbates perceptual degradation through increased visual complexity.',
+    'Diminished letterspace proportionality obfuscates orthographic recognition mechanisms fundamentally.',
+    'Metacognitive interference proliferates exponentially within hypercompressed textual architectures.',
+    'Graphemic disambiguation deteriorates significantly when intercharacter proximity exceeds threshold parameters.',
+    'Visuospatial disambiguation mechanisms become comprehensively overextended during text-dense paradigms.',
+    'Phenomenological occlusion intensifies proportionally with progressive typographic compaction ratios.',
+    'Neurocognitive resource allocation constraints intensify dramatically amid elevated visual density.',
+    'Orthographic parsing becomes substantially more laborious within typographically compressed environments.',
+    'Attentional bandwidth depletion accelerates precipitously during extended crowded-text engagement.',
+    'Cognitive ergonomics deteriorate substantially when environmental typographic parameters exceed optimization thresholds.'
+  ]
+};
+
+function selectRandomSentences(count, level = 'mild') {
+  const pool = sentencePool[level] || sentencePool.mild;
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, Math.min(count, pool.length));
+}
 
 // Timer state
 let timerMax = 15; // seconds
@@ -23,9 +64,7 @@ let timerLeft = 15; // seconds remaining
 let lastTickMs = 0;
 
 function getTimerMaxForIntensity(level) {
-  if (level === 'moderate') return 10;
-  if (level === 'strong') return 7;
-  return 15; // mild
+  return 15;
 }
 
 function resetTimer() {
@@ -39,6 +78,7 @@ function initState() {
   intensity = 'mild';
   reduceMotion = false;
   hasStarted = false;
+  textLines = selectRandomSentences(7, intensity);
   generateStaticOffsets();
   resetTimer();
   updateControlsUI();
@@ -55,9 +95,9 @@ function generateStaticOffsets() {
 }
 
 function intensityToMag(level) {
-  if (level === 'moderate') return 3.5;
-  if (level === 'strong') return 7.0;
-  return 1.5; // mild
+  if (level === 'moderate') return 2.2;
+  if (level === 'strong') return 4.5;
+  return 0.8; // mild
 }
 
 function setPaused(v) {
@@ -78,6 +118,7 @@ function resetSim() {
 
 function setIntensity(v) {
   intensity = v;
+  textLines = selectRandomSentences(7, intensity);
   generateStaticOffsets();
   resetTimer();
 }
@@ -117,7 +158,7 @@ function setup() {
   const h = containerEl.clientHeight || windowHeight;
   canvas = createCanvas(w, h);
   canvas.parent(containerEl);
-  textFont('Arial');
+  textFont("system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif");
   textAlign(LEFT, TOP);
   initState();
 
@@ -172,14 +213,40 @@ function draw() {
   const mag = intensityToMag(intensity);
   const effectiveMag = reduceMotion ? mag * 0.5 : mag;
 
+  // Set font size and line height based on intensity
+  let sz;
+  let lineHeightMult;
+  if (intensity === 'strong') {
+    sz = Math.max(11, width * 0.016);
+    lineHeightMult = 1.2;
+  } else if (intensity === 'moderate') {
+    sz = Math.max(14, width * 0.024);
+    lineHeightMult = 1.4;
+  } else {
+    sz = Math.max(15, width * 0.026);
+    lineHeightMult = 1.55;
+  }
+
+  textSize(sz);
+  textLeading(sz * lineHeightMult);
+
+  // Measure text width for centering on reading block
+  const maxLineWidth = textLines.reduce((max, line) => Math.max(max, textWidth(line)), 0);
+  const panelPadding = 50;
+  const panelWidth = width - (panelPadding * 2);
+  const maxContentWidth = panelWidth * 0.9;
+  const contentWidth = Math.min(maxLineWidth, maxContentWidth);
+  const horizontalCenter = width / 2;
+  const startX = horizontalCenter - contentWidth / 2;
+
+  // Vertically center text block with generous bounds checking
+  const totalLineHeight = textLines.length * sz * lineHeightMult;
+  const verticalCenter = height / 2;
+  let y = Math.max(30, Math.min(verticalCenter - totalLineHeight / 2, height - totalLineHeight - 30));
+
   // Draw each character with per-character offset
   const padding = 20;
-  const startX = padding;
   let x = startX;
-  let y = padding;
-  const sz = Math.max(14, width * 0.028);
-  textSize(sz);
-  textLeading(sz * 1.6);
 
   // Flatten lines into characters so offsets index matches
   const allText = textLines.join('\n');
@@ -210,7 +277,7 @@ function draw() {
       // draw character with offset
       push();
       translate(ox, oy);
-      fill(30);
+      fill(25);
       text(ch, x, y);
       pop();
 
