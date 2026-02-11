@@ -10,20 +10,39 @@ let textLines = [
 ];
 let charOffsets = []; // last offsets (used for pause / reduceMotion)
 
+// Timer state
+let timerMax = 15; // seconds
+let timerLeft = 15; // seconds remaining
+let lastTickMs = 0;
+
+function getTimerMaxForIntensity(level) {
+  if (level === 'moderate') return 10;
+  if (level === 'strong') return 7;
+  return 15; // mild
+}
+
+function resetTimer() {
+  timerMax = getTimerMaxForIntensity(intensity);
+  timerLeft = timerMax;
+  lastTickMs = 0;
+}
+
 function initState() {
   paused = false;
   intensity = 'mild';
   reduceMotion = false;
   generateStaticOffsets();
+  resetTimer();
   updateControlsUI();
 }
 
 function generateStaticOffsets() {
   const mag = intensityToMag(intensity);
+  const effectiveMag = reduceMotion ? mag * 0.5 : mag;
   charOffsets = [];
   const totalChars = textLines.join('\n').length;
   for (let i = 0; i < totalChars; i++) {
-    charOffsets.push({ x: random(-mag, mag), y: random(-mag, mag) });
+    charOffsets.push({ x: random(-effectiveMag, effectiveMag), y: random(-effectiveMag, effectiveMag) });
   }
 }
 
@@ -34,16 +53,23 @@ function intensityToMag(level) {
 }
 
 function setPaused(v) {
+  const wasPaused = paused;
   paused = !!v;
+  // Reset timer tracking when unpausing to avoid jump
+  if (wasPaused && !paused) {
+    lastTickMs = 0;
+  }
 }
 
 function resetSim() {
   initState();
+  resetTimer();
 }
 
 function setIntensity(v) {
   intensity = v;
   generateStaticOffsets();
+  resetTimer();
 }
 
 function setReduceMotion(v) {
@@ -90,18 +116,34 @@ function windowResized() {
 }
 
 function draw() {
+  // Update timer
+  if (!paused) {
+    if (lastTickMs === 0) {
+      lastTickMs = millis();
+    } else {
+      const now = millis();
+      const delta = (now - lastTickMs) / 1000; // convert to seconds
+      lastTickMs = now;
+      timerLeft -= delta;
+      if (timerLeft < 0) timerLeft = 0;
+    }
+  }
+
   background(250);
   fill(40);
   noStroke();
 
   const mag = intensityToMag(intensity);
+  const effectiveMag = reduceMotion ? mag * 0.5 : mag;
 
   // Draw each character with per-character offset
   const padding = 20;
   const startX = padding;
   let x = startX;
   let y = padding;
-  textSize(Math.max(14, width * 0.028));
+  const sz = Math.max(14, width * 0.028);
+  textSize(sz);
+  textLeading(sz * 1.6);
 
   // Flatten lines into characters so offsets index matches
   const allText = textLines.join('\n');
@@ -119,8 +161,8 @@ function draw() {
       } else {
         if (!paused) {
           // animate jitter
-          ox = random(-mag, mag);
-          oy = random(-mag, mag);
+          ox = random(-effectiveMag, effectiveMag);
+          oy = random(-effectiveMag, effectiveMag);
           // store last offsets so pause preserves state
           charOffsets[idx] = { x: ox, y: oy };
         } else {
@@ -139,8 +181,51 @@ function draw() {
       x += textWidth(ch);
       idx++;
     }
-    // line break
-    y += textLeading() || textSize() * 1.4;
-    idx++; // account for the newline in join mapping
+    // line break (only increment idx for newline if not the last line)
+    if (lineI < textLines.length - 1) {
+      idx++; // account for the newline in join mapping
+    }
+    y += textLeading();
+  }
+
+  // Render timer UI in top-right corner
+  if (reduceMotion) {
+    // Reduce Motion: simple text label, no animations
+    const timerText = `Time: ${timerLeft.toFixed(1)}s`;
+    push();
+    textAlign(RIGHT, TOP);
+    textSize(16);
+    fill(40);
+    noStroke();
+    text(timerText, width - 20, 20);
+    pop();
+  } else {
+    // Normal mode: progress bar
+    const barMaxWidth = Math.min(200, width * 0.3);
+    const barHeight = 10;
+    const barX = width - barMaxWidth - 20;
+    const barY = 20;
+    const progress = timerMax > 0 ? timerLeft / timerMax : 0;
+    const barCurrentWidth = barMaxWidth * Math.max(0, Math.min(1, progress));
+
+    // Background (empty bar)
+    push();
+    noStroke();
+    fill(220);
+    rect(barX, barY, barMaxWidth, barHeight, 4);
+    
+    // Foreground (filled portion)
+    fill(80);
+    rect(barX, barY, barCurrentWidth, barHeight, 4);
+    pop();
+
+    // Optional numeric label below bar
+    push();
+    textAlign(RIGHT, TOP);
+    textSize(12);
+    fill(60);
+    noStroke();
+    text(`${Math.ceil(timerLeft)}s`, width - 20, barY + barHeight + 4);
+    pop();
   }
 }
