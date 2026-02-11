@@ -3,9 +3,12 @@
 let paused = false;
 let intensity = 'mild'; // 'mild' | 'moderate' | 'strong'
 let reduceMotion = false;
+let hasStarted = false;
 
 let canvas, containerEl;
 let timerLabelEl;
+let startOverlayEl;
+let startBtnEl;
 let textLines = [
   'A quiet room can still feel busy on the page.',
   'Short words sometimes look longer than they are.',
@@ -35,6 +38,7 @@ function initState() {
   paused = false;
   intensity = 'mild';
   reduceMotion = false;
+  hasStarted = false;
   generateStaticOffsets();
   resetTimer();
   updateControlsUI();
@@ -57,6 +61,7 @@ function intensityToMag(level) {
 }
 
 function setPaused(v) {
+  if (!hasStarted) return;
   const wasPaused = paused;
   paused = !!v;
   // Reset timer tracking when unpausing to avoid jump
@@ -68,6 +73,7 @@ function setPaused(v) {
 function resetSim() {
   initState();
   resetTimer();
+  showStartOverlay(true);
 }
 
 function setIntensity(v) {
@@ -83,17 +89,30 @@ function setReduceMotion(v) {
 
 function updateControlsUI() {
   const pauseBtn = document.getElementById('pauseBtn');
-  if (pauseBtn) pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+  if (pauseBtn) {
+    pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+    pauseBtn.disabled = !hasStarted;
+  }
   const sel = document.getElementById('intensitySelect');
   if (sel) sel.value = intensity;
   const rm = document.getElementById('reduceMotion');
   if (rm) rm.checked = reduceMotion;
 }
 
+function showStartOverlay(visible) {
+  if (!startOverlayEl) return;
+  startOverlayEl.style.display = visible ? 'flex' : 'none';
+  if (containerEl) {
+    containerEl.classList.toggle('hidden-before-start', visible);
+  }
+}
+
 function setup() {
   containerEl = document.getElementById('canvas-container') || document.body;
   containerEl.textContent = '';
   timerLabelEl = document.getElementById('timerLabel');
+  startOverlayEl = document.getElementById('startOverlay');
+  startBtnEl = document.getElementById('startBtn');
   const w = containerEl.clientWidth || windowWidth;
   const h = containerEl.clientHeight || windowHeight;
   canvas = createCanvas(w, h);
@@ -112,6 +131,17 @@ function setup() {
   if (resetBtn) resetBtn.addEventListener('click', () => { resetSim(); });
   if (sel) sel.addEventListener('change', (e) => { setIntensity(e.target.value); });
   if (rm) rm.addEventListener('change', (e) => { setReduceMotion(e.target.checked); });
+  if (startBtnEl) {
+    startBtnEl.addEventListener('click', () => {
+      hasStarted = true;
+      paused = false;
+      resetTimer();
+      showStartOverlay(false);
+      updateControlsUI();
+    });
+  }
+
+  showStartOverlay(true);
 }
 
 function windowResized() {
@@ -123,7 +153,7 @@ function windowResized() {
 
 function draw() {
   // Update timer
-  if (!paused) {
+  if (hasStarted && !paused && timerLeft > 0) {
     if (lastTickMs === 0) {
       lastTickMs = millis();
     } else {
@@ -196,7 +226,7 @@ function draw() {
 
   if (timerLabelEl) {
     timerLabelEl.textContent = reduceMotion
-      ? `Time: ${timerLeft.toFixed(1)}s`
-      : `${Math.ceil(timerLeft)}s`;
+      ? `Timer: ${timerLeft.toFixed(1)}s`
+      : `Timer: ${Math.ceil(timerLeft)}s`;
   }
 }
