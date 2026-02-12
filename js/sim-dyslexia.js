@@ -280,7 +280,18 @@ function draw() {
       push();
       translate(ox, oy);
       fill(25);
-      text(ch, x, y);
+      
+      // 30% chance to swap d/b or p/q
+      let displayChar = ch;
+      const lowerCh = ch.toLowerCase();
+      if (random() < 0.3) {
+        if (lowerCh === 'd') displayChar = ch === 'd' ? 'b' : 'B';
+        else if (lowerCh === 'b') displayChar = ch === 'b' ? 'd' : 'D';
+        else if (lowerCh === 'p') displayChar = ch === 'p' ? 'q' : 'Q';
+        else if (lowerCh === 'q') displayChar = ch === 'q' ? 'p' : 'P';
+      }
+      
+      text(displayChar, x, y);
       pop();
 
       x += textWidth(ch);
