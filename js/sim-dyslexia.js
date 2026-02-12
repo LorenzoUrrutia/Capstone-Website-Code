@@ -2,6 +2,7 @@
 // State variables required by spec
 let paused = false;
 let intensity = 'mild'; // 'mild' | 'moderate' | 'strong'
+let wordDifficulty = 'mild'; // 'mild' | 'moderate' | 'strong'
 let reduceMotion = false;
 let hasStarted = false;
 
@@ -27,26 +28,26 @@ const sentencePool = {
     'Reading takes more effort under time pressure.'
   ],
   moderate: [
-    'Visual crowding can substantially impair reading comprehension.',
+    'Visual crowding can substantially impair reading comqrehension.',
     'Typographic density affects cognitive processing efficiency significantly.',
     'Character spacing influences reading fluency and comprehension rates.',
-    'Perceptual load increases when text displays excessive crowding.',
+    'Qerceptual load increases when text bisplays excessive crowding.',
     'Typography impacts legibility across various presentation contexts.',
-    'Attention allocation becomes challenging during visually dense tasks.',
-    'Information processing demands increase proportionally with text density.',
+    'Attention allocation decomes challenging during visually dense tasks.',
+    'Information processing bemanbs increase proportionally with text density.',
     'Cognitive resources deplete faster under heightened visual complexity.',
     'Readability metrics demonstrate inverse relationships with character spacing.',
     'Excessive crowding diminishes reading speed and accuracy substantially.'
   ],
   strong: [
-    'Typographical crowding exacerbates perceptual degradation through increased visual complexity.',
-    'Diminished letterspace proportionality obfuscates orthographic recognition mechanisms fundamentally.',
-    'Metacognitive interference proliferates exponentially within hypercompressed textual architectures.',
+    'Typographical crowding exacerbates perceptual begradation through increased visual complexity.',
+    'Biminished letterspace proportionality odfuscates orthographic recognition mechanisms fundamentally.',
+    'Metacognitive interference qroliferates exponentially within hypercompressed textual architectures.',
     'Graphemic disambiguation deteriorates significantly when intercharacter proximity exceeds threshold parameters.',
-    'Visuospatial disambiguation mechanisms become comprehensively overextended during text-dense paradigms.',
+    'Visuospatial bisamdiguation mechanisms become comprehensively overextended during text-bense qaradigms.',
     'Phenomenological occlusion intensifies proportionally with progressive typographic compaction ratios.',
-    'Neurocognitive resource allocation constraints intensify dramatically amid elevated visual density.',
-    'Orthographic parsing becomes substantially more laborious within typographically compressed environments.',
+    'Neurocognitive resource allocation constraints intensify bramatically amid elevated visual density.',
+    'Orthographic parsing becomes sudstantially more laborious within typographically comqressed environments.',
     'Attentional bandwidth depletion accelerates precipitously during extended crowded-text engagement.',
     'Cognitive ergonomics deteriorate substantially when environmental typographic parameters exceed optimization thresholds.'
   ]
@@ -76,9 +77,10 @@ function resetTimer() {
 function initState() {
   paused = false;
   intensity = 'mild';
+  wordDifficulty = 'mild';
   reduceMotion = false;
   hasStarted = false;
-  textLines = selectRandomSentences(7, intensity);
+  textLines = selectRandomSentences(7, wordDifficulty);
   generateStaticOffsets();
   resetTimer();
   updateControlsUI();
@@ -114,13 +116,22 @@ function resetSim() {
   initState();
   resetTimer();
   showStartOverlay(true);
+  const sel = document.getElementById('intensitySelect');
+  const wordSel = document.getElementById('wordDifficultySelect');
+  if (sel) sel.disabled = false;
+  if (wordSel) wordSel.disabled = false;
 }
 
 function setIntensity(v) {
   intensity = v;
-  textLines = selectRandomSentences(7, intensity);
   generateStaticOffsets();
   resetTimer();
+}
+
+function setWordDifficulty(v) {
+  wordDifficulty = v;
+  textLines = selectRandomSentences(7, wordDifficulty);
+  generateStaticOffsets();
 }
 
 function setReduceMotion(v) {
@@ -136,6 +147,8 @@ function updateControlsUI() {
   }
   const sel = document.getElementById('intensitySelect');
   if (sel) sel.value = intensity;
+  const wordSel = document.getElementById('wordDifficultySelect');
+  if (wordSel) wordSel.value = wordDifficulty;
   const rm = document.getElementById('reduceMotion');
   if (rm) rm.checked = reduceMotion;
 }
@@ -166,11 +179,13 @@ function setup() {
   const pauseBtn = document.getElementById('pauseBtn');
   const resetBtn = document.getElementById('resetBtn');
   const sel = document.getElementById('intensitySelect');
+  const wordSel = document.getElementById('wordDifficultySelect');
   const rm = document.getElementById('reduceMotion');
 
   if (pauseBtn) pauseBtn.addEventListener('click', () => { setPaused(!paused); updateControlsUI(); });
   if (resetBtn) resetBtn.addEventListener('click', () => { resetSim(); });
   if (sel) sel.addEventListener('change', (e) => { setIntensity(e.target.value); });
+  if (wordSel) wordSel.addEventListener('change', (e) => { setWordDifficulty(e.target.value); });
   if (rm) rm.addEventListener('change', (e) => { setReduceMotion(e.target.checked); });
   if (startBtnEl) {
     startBtnEl.addEventListener('click', () => {
@@ -178,6 +193,8 @@ function setup() {
       paused = false;
       resetTimer();
       showStartOverlay(false);
+      if (sel) sel.disabled = true;
+      if (wordSel) wordSel.disabled = true;
       updateControlsUI();
     });
   }
@@ -213,60 +230,46 @@ function draw() {
   const mag = intensityToMag(intensity);
   const effectiveMag = reduceMotion ? mag * 0.5 : mag;
 
-  // Set font size and line height based on intensity
-  let sz;
-  let lineHeightMult;
-  if (intensity === 'strong') {
-    sz = Math.max(11, width * 0.016);
-    lineHeightMult = 1.2;
-  } else if (intensity === 'moderate') {
-    sz = Math.max(14, width * 0.024);
-    lineHeightMult = 1.4;
-  } else {
-    sz = Math.max(15, width * 0.026);
-    lineHeightMult = 1.55;
-  }
+  // Consistent font sizes, not dependent on intensity
+  const sz = Math.max(16, width * 0.025);
+  const lineHeightMult = 1.5;
 
   textSize(sz);
   textLeading(sz * lineHeightMult);
 
-  // Measure text width for centering on reading block
-  const maxLineWidth = textLines.reduce((max, line) => Math.max(max, textWidth(line)), 0);
-  const panelPadding = 50;
+  // Set wrapping width to constrain text to canvas
+  const panelPadding = 40;
   const panelWidth = width - (panelPadding * 2);
-  const maxContentWidth = panelWidth * 0.9;
-  const contentWidth = Math.min(maxLineWidth, maxContentWidth);
-  const horizontalCenter = width / 2;
-  const startX = horizontalCenter - contentWidth / 2;
+  const maxLineWidth = panelWidth * 0.85;
 
-  // Vertically center text block with generous bounds checking
-  const totalLineHeight = textLines.length * sz * lineHeightMult;
+  // Vertically center text block
+  const horizontalCenter = width / 2;
+  const startX = horizontalCenter - maxLineWidth / 2;
+
+  // Measure total wrapped height
+  let wrappedLines = [];
+  for (let line of textLines) {
+    wrappedLines = wrappedLines.concat(wrapText(line, maxLineWidth, sz));
+  }
+
+  const totalLineHeight = wrappedLines.length * sz * lineHeightMult;
   const verticalCenter = height / 2;
   let y = Math.max(30, Math.min(verticalCenter - totalLineHeight / 2, height - totalLineHeight - 30));
 
-  // Draw each character with per-character offset
-  const padding = 20;
-  let x = startX;
-
-  // Flatten lines into characters so offsets index matches
-  const allText = textLines.join('\n');
-  let idx = 0;
-  for (let lineI = 0; lineI < textLines.length; lineI++) {
-    const line = textLines[lineI];
-    x = startX;
-    for (let i = 0; i < line.length; i++) {
-      const ch = line[i];
-      // determine offset
+  // Draw wrapped text
+  for (let wrappedLine of wrappedLines) {
+    let x = startX;
+    let idx = 0;
+    for (let i = 0; i < wrappedLine.length; i++) {
+      const ch = wrappedLine[i];
       let ox = 0, oy = 0;
       if (reduceMotion) {
         const o = charOffsets[idx] || { x: 0, y: 0 };
         ox = o.x; oy = o.y;
       } else {
         if (!paused) {
-          // animate jitter
           ox = random(-effectiveMag, effectiveMag);
           oy = random(-effectiveMag, effectiveMag);
-          // store last offsets so pause preserves state
           charOffsets[idx] = { x: ox, y: oy };
         } else {
           const o = charOffsets[idx] || { x: 0, y: 0 };
@@ -274,7 +277,6 @@ function draw() {
         }
       }
 
-      // draw character with offset
       push();
       translate(ox, oy);
       fill(25);
@@ -284,10 +286,6 @@ function draw() {
       x += textWidth(ch);
       idx++;
     }
-    // line break (only increment idx for newline if not the last line)
-    if (lineI < textLines.length - 1) {
-      idx++; // account for the newline in join mapping
-    }
     y += textLeading();
   }
 
@@ -296,4 +294,24 @@ function draw() {
       ? `Timer: ${timerLeft.toFixed(1)}s`
       : `Timer: ${Math.ceil(timerLeft)}s`;
   }
+}
+
+// Helper function to wrap text to fit within a width
+function wrapText(text, maxWidth, fontSize) {
+  const words = text.split(' ');
+  const lines = [];
+  let currentLine = '';
+
+  for (let word of words) {
+    const testLine = currentLine + (currentLine ? ' ' : '') + word;
+    if (textWidth(testLine) > maxWidth) {
+      if (currentLine) lines.push(currentLine);
+      currentLine = word;
+    } else {
+      currentLine = testLine;
+    }
+  }
+  if (currentLine) lines.push(currentLine);
+
+  return lines;
 }
