@@ -37,6 +37,33 @@
       overflow: hidden;
     }
 
+    .sim-dyslexia-page .paper-scroll {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 48px 56px;
+      box-sizing: border-box;
+    }
+
+    .sim-dyslexia-page .paper-content {
+      max-width: 720px;
+      margin: 0 auto;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.8;
+      color: #1a1a1a;
+    }
+
+    .sim-dyslexia-page .paper-content p {
+      margin: 0 0 1.5em 0;
+    }
+
+    .sim-dyslexia-page .paper-content .char {
+      display: inline-block;
+      position: relative;
+    }
+
     .sim-dyslexia-page #canvas-container.hidden-before-start {
       background: #F3F2EE;
     }
@@ -80,6 +107,58 @@
       margin: 8px 0 0 0;
       font-size: 0.95rem;
       color: #2a3a48;
+    }
+
+    .sim-dyslexia-page .sim-quiz-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.22);
+      padding: 20px;
+    }
+
+    .sim-dyslexia-page .sim-quiz-card {
+      background: #fff;
+      color: #1e2a35;
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: 0 12px 28px rgba(15, 25, 40, 0.18);
+      max-width: min(680px, 94vw);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .sim-dyslexia-page .sim-quiz-card h2 {
+      margin: 0 0 20px 0;
+      font-size: 1.5rem;
+    }
+
+    .sim-dyslexia-page .sim-quiz-questions {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .sim-dyslexia-page .sim-quiz-question {
+      padding: 16px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .sim-dyslexia-page .sim-quiz-question h3 {
+      margin: 0 0 12px 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .sim-dyslexia-page .sim-quiz-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
     }
 
     .sim-dyslexia-page .sim-start-btn {
@@ -173,7 +252,13 @@
 
   <main class="content sim-fullscreen">
     <div class="sim-stage">
-      <div id="canvas-container" class="sketch"></div>
+      <div id="canvas-container" class="sketch">
+        <div class="paper-scroll" id="paper-scroll">
+          <div class="paper-content" id="paper-content" aria-label="Reading passage">
+            <!-- Passage text will be rendered here -->
+          </div>
+        </div>
+      </div>
 
       <div id="startOverlay" class="sim-start-overlay" role="dialog" aria-modal="true" aria-label="Start simulation">
         <div class="sim-start-card">
@@ -182,12 +267,26 @@
           <p>This demonstrates reading under visual crowding + time pressure.</p>
         </div>
       </div>
+
+      <div id="quizOverlay" class="sim-quiz-overlay" role="dialog" aria-modal="true" aria-label="Reading comprehension quiz">
+        <div class="sim-quiz-card">
+          <h2>Reading Comprehension Questions</h2>
+          <div class="sim-quiz-questions" id="quizQuestions">
+            <!-- Questions will be populated here -->
+            <p style="text-align: center; color: #666;">Questions will appear here...</p>
+          </div>
+          <div class="sim-quiz-actions">
+            <button id="submitQuizBtn" class="btn" style="background: #1e2a35; color: #fff; padding: 10px 24px;">Submit Answers</button>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
   <div class="sim-hud" role="group" aria-label="Simulation controls">
     <div class="controls">
       <button id="pauseBtn" class="btn">Pause</button>
+      <button id="doneReadingBtn" class="btn">Done Reading</button>
       <button id="resetBtn" class="btn">Reset</button>
 
       <label style="display:flex;align-items:center;gap:8px;">
@@ -210,14 +309,15 @@
     </div>
   </div>
 
-  <div class="sim-timer-hud" aria-live="polite">
-    <span id="timerLabel">Timer: 15s</span>
-  </div>
-
   <a class="sim-back" href="index.html">Back</a>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
   <script src="js/sim-dyslexia.js"></script>
   <script src="js/site.js"></script>
+  <script>
+    // Initialize simulation when page loads
+    if (typeof setup === 'function') {
+      document.addEventListener('DOMContentLoaded', setup);
+    }
+  </script>
 </body>
 </html>
