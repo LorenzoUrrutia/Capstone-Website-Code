@@ -37,45 +37,36 @@
       overflow: hidden;
     }
 
-    .sim-dyslexia-page .paper-scroll {
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 48px 56px;
-      box-sizing: border-box;
-    }
-
-    .sim-dyslexia-page .paper-content {
-      max-width: 720px;
-      margin: 0 auto;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      font-size: clamp(16px, 2.5vw, 20px);
-      line-height: 1.8;
-      color: #1a1a1a;
-    }
-
-    .sim-dyslexia-page .paper-content p {
-      margin: 0 0 1.5em 0;
-    }
-
-    .sim-dyslexia-page .paper-content .char {
-      display: inline-block;
-      position: relative;
-    }
-
     .sim-dyslexia-page #canvas-container.hidden-before-start {
       background: #F3F2EE;
     }
 
-    .sim-dyslexia-page #canvas-container.hidden-before-start canvas {
-      visibility: hidden;
+    .sim-dyslexia-page .paper-scroll {
+      position: absolute;
+      inset: 40px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .sim-dyslexia-page #canvas-container canvas {
-      display: block;
-      width: 100%;
-      height: 100%;
+    .sim-dyslexia-page #paper-content {
+      padding: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #1a1a1a;
+      font-family: "Georgia", "Times New Roman", serif;
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .sim-dyslexia-page #paper-content p {
+      margin-bottom: 0;
+    }
+
+    .sim-dyslexia-page #paper-content span {
+      display: inline-block;
     }
 
     .sim-dyslexia-page .sim-start-overlay {
@@ -253,10 +244,8 @@
   <main class="content sim-fullscreen">
     <div class="sim-stage">
       <div id="canvas-container" class="sketch">
-        <div class="paper-scroll" id="paper-scroll">
-          <div class="paper-content" id="paper-content" aria-label="Reading passage">
-            <!-- Passage text will be rendered here -->
-          </div>
+        <div class="paper-scroll">
+          <div id="paper-content"></div>
         </div>
       </div>
 
@@ -312,12 +301,13 @@
   <a class="sim-back" href="index.html">Back</a>
 
   <script src="js/sim-dyslexia.js"></script>
-  <script src="js/site.js"></script>
   <script>
-    // Initialize simulation when page loads
-    if (typeof setup === 'function') {
-      document.addEventListener('DOMContentLoaded', setup);
-    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof setup === 'function') {
+        setup();
+      }
+    });
   </script>
+  <script src="js/site.js"></script>
 </body>
 </html>
