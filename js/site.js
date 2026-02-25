@@ -27,60 +27,34 @@ document.addEventListener('DOMContentLoaded', () => {
   // Quiz logic (ADHD page)
   const quizRoot = document.getElementById('quiz');
   if (quizRoot) {
-    const scoreEl = document.getElementById('quiz-score');
-    const resetBtn = document.getElementById('quiz-reset');
-    let score = 0;
-    const total = 5;
-
-    function updateScore() {
-      if (scoreEl) scoreEl.textContent = `Score: ${score} / ${total}`;
-    }
-
     // Event delegation for answer buttons
     quizRoot.addEventListener('click', (e) => {
       const btn = e.target.closest('.quiz-choice');
       if (!btn) return;
       const details = btn.closest('details');
       if (!details) return;
-      // If already locked, ignore
-      if (details.dataset.locked === 'true') return;
 
-      const correct = btn.getAttribute('data-correct') === 'true';
-
-      // Lock the question
-      details.dataset.locked = 'true';
-      // Disable all buttons in this details
+      // Remove selection from all buttons in this question
       const buttons = details.querySelectorAll('.quiz-choice');
-      buttons.forEach(b => b.disabled = true);
+      buttons.forEach(b => b.classList.remove('selected'));
 
-      // Show feedback
-      const feedback = details.querySelector('.feedback');
-      if (feedback) feedback.textContent = correct ? 'Correct' : 'Incorrect';
+      // Add selection to clicked button
+      btn.classList.add('selected');
 
-      if (correct) {
-        score += 1;
-        updateScore();
-      }
+      // Auto-advance to next question immediately
+      setTimeout(() => {
+        // Close current question
+        details.open = false;
+        
+        // Find and open next question
+        const currentQ = parseInt(details.getAttribute('data-q'));
+        const nextDetails = quizRoot.querySelector(`details[data-q="${currentQ + 1}"]`);
+        if (nextDetails) {
+          nextDetails.open = true;
+          // Smooth scroll to next question
+          nextDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }, 300);
     });
-
-    // Reset behavior
-    if (resetBtn) {
-      resetBtn.addEventListener('click', () => {
-        score = 0;
-        updateScore();
-        // Unlock all
-        const allDetails = quizRoot.querySelectorAll('details');
-        allDetails.forEach(d => {
-          delete d.dataset.locked;
-          const buttons = d.querySelectorAll('.quiz-choice');
-          buttons.forEach(b => { b.disabled = false; });
-          const feedback = d.querySelector('.feedback');
-          if (feedback) feedback.textContent = '';
-          // Close details
-          d.open = false;
-        });
-      });
-    }
-    updateScore();
   }
 });
