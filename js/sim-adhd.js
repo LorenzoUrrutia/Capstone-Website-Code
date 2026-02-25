@@ -66,9 +66,9 @@ const interruptMessages = [
 // Hardcoded questions (no randomization yet)
 const questions = [
   {
-    question: "Birk lives in an orange tractor on the coast of Chile. On Monday, Birk shovels sand in his tractor for 15 hours. That day, Birk has 2 eggs for breakfast, 4 tacos and 2 apples for lunch, and a salad for dinner. Birk works for the same amount of hours on Tuesday, but eats a different set of meals. He has cereal for breakfast, a 5 sandwiches and 3 bananas for lunch, and pasta for dinner. Birk works 15 hours each day for the rest of the week. If the food Birk eats is on Monday is the same food he eats on Wednesday and Friday, and the food Birk eats on Tuesday is the same food he eats on Thursday. By the end of the week, how many fruits has Birk eaten?",
+    question: "Birk lives in an orange tractor on the coast of Chile. On Monday, Birk shovels sand in his tractor for 15 hours. That day, Birk has 2 eggs for breakfast, 4 tacos and 2 apples for lunch, and a salad for dinner. Birk works for the same amount of hours on Tuesday, but eats a different set of meals. He has cereal for breakfast, a 5 sandwiches and 3 bananas for lunch, and pasta for dinner. Birk works 15 hours each day for the rest of the week. If the food Birk eats is on Monday is the same food he eats on Wednesday and Friday, and the food Birk eats on Tuesday is the same food he eats on Thursday. From Monday through Friday, how many fruits has Birk eaten?",
     answers: ["10", "12", "11", "9"]
-  },
+  },  
   {
   question: "Every day after school, Jordan does activities in a different order. On Monday, Jordan studies, then plays video games, then eats dinner. On Tuesday, Jordan plays video games, then eats dinner, then studies. On Wednesday, Jordan follows the same order as Monday. On Thursday, Jordan follows the same order as Tuesday. On Friday, Jordan studies first and eats dinner last. Which activity does Jordan do right before eating dinner on Wednesday?",
   answers: ["Studying", "Playing video games", "Going to bed", "Watching TV"]
@@ -76,11 +76,11 @@ const questions = [
   {
   question: "Lena has three pets: a dog, a cat, and a fish. On Monday, she feeds the dog in the morning and the cat at night. On Tuesday, she feeds the cat in the morning and the fish at night. On Wednesday, she feeds the dog in the morning and the cat at night again. On Thursday, she feeds the cat in the morning and the fish at night again. On Friday, she feeds the dog in the morning and the fish at night. On Saturday, she feeds the same pets as Monday. Which pet is fed at night the most times by the end of the week?",
   answers: ["Dog", "Cat", "Fish", "All equally"]
-``},
+  },
   {
-  question: "In class, Jordan follows a different routine each day. On Monday, Jordan writes notes, then reads a page. On Tuesday, Jordan reads a page, then solves one problem. On Wednesday, Jordan writes notes, then reads a page again. On Thursday, Jordan reads a page, then solves one problem again. On Friday, Jordan writes notes, then solves one problem. If Jordan follows the same pattern for the next Monday as the first Monday, how many days total does Jordan read a page by the end of the week (Monday through Friday plus the next Monday)?",
+  question: "In class, Jordan follows a different routine each day. On Monday, Jordan writes notes, then reads a page. On Tuesday, Jordan reads a page, then solves one problem. On Wednesday, Jordan writes notes, then reads a page, and then watches a YouTube video. On Thursday, Jordan reads a page, then solves one problem again. On Friday, Jordan writes notes, then solves one problem, then reads a page. On Saturday and Sunday, Jordan follows the same pattern he does on Monday. How many days total is Jordan's last activity reading a page?",
   answers: ["3", "4", "5", "6"]
-  }
+  },
 ];
 
 function setup() {
