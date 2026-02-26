@@ -63,6 +63,11 @@
       width: 100%;
     }
 
+    .sim-adhd-page.pre-start .question-card {
+      opacity: 0;
+      visibility: hidden;
+    }
+
     .sim-adhd-page .question-text {
       font-size: 1.1rem;
       color: #1e2a35;
@@ -221,14 +226,27 @@
     .sim-adhd-page .toast {
       background: rgba(255, 255, 255, 0.98);
       color: #1e2a35;
-      padding: 12px 16px;
+      padding: 16px 20px;
       border-radius: 10px;
       box-shadow: 0 6px 20px rgba(15, 25, 40, 0.16);
       border: 1px solid rgba(15, 25, 40, 0.1);
-      font-size: 0.9rem;
+      font-size: 1.05rem;
       line-height: 1.4;
       animation: slideIn 0.3s ease-out;
       pointer-events: auto;
+    }
+
+    .sim-adhd-page.sim-shake {
+      animation: simShake 0.25s ease;
+    }
+
+    @keyframes simShake {
+      0% { transform: translateX(0); }
+      20% { transform: translateX(-2px); }
+      40% { transform: translateX(2px); }
+      60% { transform: translateX(-1px); }
+      80% { transform: translateX(1px); }
+      100% { transform: translateX(0); }
     }
 
     .sim-adhd-page .toast.no-motion {

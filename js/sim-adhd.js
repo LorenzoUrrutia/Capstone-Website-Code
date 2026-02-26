@@ -32,7 +32,7 @@ const MAX_TOASTS = 3;
 
 // Toast messages pool
 const toastMessages = [
-  "New message from Sarah",
+  "New message from Luna",
   "Meeting reminder: Team sync in 15 min",
   "Calendar: Math homework due tomorrow",
   "Email: Parent-teacher conference scheduled",
@@ -129,6 +129,8 @@ function initState() {
   paused = false;
   intensity = 'mild';
   distractionEnabled = false;
+
+  document.body.classList.add('pre-start');
   
   // Show start overlay
   if (startOverlayEl) {
@@ -166,6 +168,8 @@ function updateControlsUI() {
 function handleStart() {
   hasStarted = true;
   distractionEnabled = true;
+
+  document.body.classList.remove('pre-start');
   
   // Hide start overlay
   if (startOverlayEl) {
@@ -318,13 +322,13 @@ function getRandomToastInterval() {
       max = 3000;
       break;
     case 'moderate':
-      min = 3000;
-      max = 6000;
+      min = 2800;
+      max = 5600;
       break;
     case 'mild':
     default:
-      min = 6000;
-      max = 10000;
+      min = 5600;
+      max = 9500;
       break;
   }
   
@@ -340,13 +344,13 @@ function getRandomInterruptInterval() {
       max = 15000;
       break;
     case 'moderate':
-      min = 15000;
-      max = 25000;
+      min = 14000;
+      max = 23000;
       break;
     case 'mild':
     default:
-      min = 25000;
-      max = 40000;
+      min = 23000;
+      max = 38000;
       break;
   }
   
@@ -368,11 +372,14 @@ function spawnToast() {
   // Create new toast
   const toast = document.createElement('div');
   toast.className = 'toast';
+  toast.style.backgroundColor = getRandomBrightColor();
   
   const message = toastMessages[Math.floor(Math.random() * toastMessages.length)];
   toast.textContent = message;
   
   toastLayerEl.appendChild(toast);
+
+  triggerScreenShake();
   
   const toastId = toastIdCounter++;
   const toastData = { id: toastId, element: toast };
@@ -389,6 +396,31 @@ function spawnToast() {
       activeToasts.splice(index, 1);
     }
   }, duration);
+}
+
+function getRandomBrightColor() {
+  const colors = [
+    '#FFD166',
+    '#FF6B6B',
+    '#4D96FF',
+    '#6BCB77',
+    '#F15BB5',
+    '#F7B801',
+    '#9B5DE5',
+    '#00BBF9'
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function triggerScreenShake() {
+  const root = document.body;
+  if (!root || !root.classList) return;
+  root.classList.remove('sim-shake');
+  void root.offsetWidth;
+  root.classList.add('sim-shake');
+  setTimeout(() => {
+    root.classList.remove('sim-shake');
+  }, 260);
 }
 
 function clearAllToasts() {
