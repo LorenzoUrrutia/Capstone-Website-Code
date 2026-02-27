@@ -43,11 +43,17 @@ a:hover{color:var(--accent-primary) !important;}
   .card{max-width:none}
 
   /* Slightly larger column gap for two-column grids */
-  .section-grid{gap:32px 80px}
+  .section-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    max-width: 75ch;
+    margin: 0 auto;
+    gap: 0.5rem;
+  }
 
 /* Container - expanded for editorial layout */
 .container{width:min(var(--max-width),96vw);margin:0 auto;padding:0 2rem}
-.content{width:min(var(--max-width),96vw);margin:var(--spacing-content) auto;padding:var(--spacing-content) 2rem}
+.content{width:min(var(--max-width),96vw);margin:var(--spacing-content) auto;padding:1rem 2rem var(--spacing-content) 2rem}
 
 /* Top navigation bar (slim, editorial) */
 header.topbar{
@@ -179,7 +185,7 @@ header.topbar{
   transform:translateY(-8px) scale(1.02);
   box-shadow:0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
 }
-.topic-tile:hover::before{opacity:1}
+.topic-tile:hover::before{opacity:0}
 .topic-tile h3{margin:0 0 6px;font-size:1.5rem;font-weight:700;color:var(--text-primary)}
 .topic-tile p{margin:0 0 10px;color:var(--text-secondary)}
 
@@ -231,7 +237,7 @@ header.topbar{
   transform:translateY(-8px) scale(1.02);
   box-shadow:0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
 }
-.card:hover::before{opacity:1}
+.card:hover::before{opacity:0}
 .card:nth-child(odd){border-radius:14px}
 .card:nth-child(even){border-radius:14px}
 .card h2{margin-top:0;font-size:2rem;margin-bottom:1.25rem;font-weight:700;letter-spacing:-0.3px;color:var(--text-primary)}
@@ -299,27 +305,28 @@ header.topbar{
 /* CTA primary button: calm accent */
 .cta-row{display:flex;justify-content:flex-start;margin:2rem 0;gap:1rem}
 .cta-button{
-  background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));
-  color:#fff;
+  background:#fff;
+  color:var(--text-primary);
   display:inline-block;
   padding:1rem 2.5rem;
   border-radius:14px;
   text-decoration:none;
   font-weight:700;
-  border:none;
+  border:1px solid var(--border-subtle);
   font-size:1.05rem;
   letter-spacing:0.3px;
-  box-shadow:0 8px 16px rgba(124, 58, 237, 0.3);
+  box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
   transition:all 0.3s ease;
   cursor:pointer;
 }
 .cta-button:hover{
   transform:translateY(-4px);
-  box-shadow:0 12px 24px rgba(124, 58, 237, 0.4);
+  box-shadow:0 8px 16px rgba(0, 0, 0, 0.15);
+  background:#fafafa;
 }
 .cta-button:active{
   transform:translateY(-1px);
-  box-shadow:0 4px 8px rgba(124, 58, 237, 0.3);
+  box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Adjust cards grid */
