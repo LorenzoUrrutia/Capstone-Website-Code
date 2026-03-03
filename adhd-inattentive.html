@@ -5,17 +5,35 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Predominantly Inattentive Type — ADHD</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
 <body class="dark-site">
-  <main class="content">
+  <header class="topbar">
+    <div class="container">
+
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="adhd.html" class="active">ADHD</a>
+        <a href="dyslexia.html">Dyslexia</a>
+        <a href="dyscalculia.html">Dyscalculia</a>
+        <a href="simulations.html">Simulations</a>
+      </nav> 
+    </div>
+  </header>
+
+  <main class="content page-layout">
+    <div class="content-column">
+    
     <div class="back-row">
       <a class="cta-button" href="adhd.html#types">← Back</a>
     </div>
 
-    <h1>Predominantly Inattentive Type</h1>
+    <div class="section-grid">
+    <section id="inattentive-type" class="section card">
+      <h2>Predominantly Inattentive Type</h2>
     <p>This subtype primarily affects attention and the ability to sustain focus. People with the inattentive type often seem quiet or 'spacey', and they may miss details, lose track of tasks, or need extra time to complete reading or written work.</p>
 
-    <h2>Common signs</h2>
+      <h3>Common signs</h3>
     <ul>
       <li>Does not pay close attention to details or makes careless mistakes in schoolwork.</li>
       <li>Has difficulty staying focused on tasks or activities.</li>
@@ -27,13 +45,21 @@
       <li>Forgets daily tasks.</li>
     </ul>
 
-    <h2>In school this can look like…</h2>
-    <ul>
-      <li>Missing details on worksheets and tests.</li>
-      <li>Starting assignments but not finishing them.</li>
-      <li>Frequently asking the teacher to repeat instructions.</li>
-    </ul>
-
+      <h3>In school this can look like…</h3>
+      <ul>
+        <li>Missing details on worksheets and tests.</li>
+        <li>Starting assignments but not finishing them.</li>
+        <li>Frequently asking the teacher to repeat instructions.</li>
+      </ul>
+    </section>
+    </div>
+    
+    </div>
+    <aside class="media-column" aria-hidden="true"></aside>
   </main>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/site.js"></script>
 </body>
 </html>

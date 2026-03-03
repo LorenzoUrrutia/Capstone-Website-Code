@@ -5,14 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dyslexia — Studies</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
 <body class="dark-site">
-  <main class="content">
+  <header class="topbar">
+    <div class="container">
+
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="adhd.html">ADHD</a>
+        <a href="dyslexia.html" class="active">Dyslexia</a>
+        <a href="dyscalculia.html">Dyscalculia</a>
+        <a href="simulations.html">Simulations</a>
+      </nav> 
+    </div>
+  </header>
+
+  <main class="content page-layout">
+    <div class="content-column">
+    
     <div class="back-row">
       <a class="cta-button" href="dyslexia.html#causes">← Back</a>
     </div>
 
-    <h1>Study</h1>
+    <div class="section-grid">
+    <section id="dyslexia-study" class="section card">
+      <h2>Study</h2>
     <p> A study compared 10 children with dyslexia to age-matched and reading-matched control groups, using MRI and behavioral tests to identify brain differences specifically linked to dyslexia rather than just lower reading levels </p>
 
     <h2>Study details</h2>
@@ -35,7 +53,15 @@
     <ul>
       <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6674758/#:~:text=Dyslexic%20children%20exhibited%20reduced%20activation,that%20support%20learning%20to%20read.">Dyslexia fMRI study</a></li>
     </ul>
-
+    </section>
+    </div>
+    
+    </div>
+    <aside class="media-column" aria-hidden="true"></aside>
   </main>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/site.js"></script>
 </body>
 </html>

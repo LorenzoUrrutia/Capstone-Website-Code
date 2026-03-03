@@ -5,14 +5,32 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Comprehensive Evaluation — Dyslexia</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
 <body class="dark-site">
-  <main class="content">
+  <header class="topbar">
+    <div class="container">
+
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="adhd.html">ADHD</a>
+        <a href="dyslexia.html" class="active">Dyslexia</a>
+        <a href="dyscalculia.html">Dyscalculia</a>
+        <a href="simulations.html">Simulations</a>
+      </nav> 
+    </div>
+  </header>
+
+  <main class="content page-layout">
+    <div class="content-column">
+    
     <div class="back-row">
       <a class="cta-button" href="dyslexia.html#diagnosis">← Back</a>
     </div>
 
-    <h1>Below is an Example of a Comprehensive Evaluation</h1>
+    <div class="section-grid">
+    <section id="dyslexia-eval" class="section card">
+      <h2>Below is an Example of a Comprehensive Evaluation</h2>
 
     <div class="eval-steps">
       <div class="step">
@@ -27,7 +45,15 @@
         <p><strong>③ Follow-up and action plan: </strong> Finally, a 30-minute follow-up with your a therapist reviews findings, answers questions, and outlines practical next steps and treatment or support options.</p>
       </div>
     </div>
-
+    </section>
+    </div>
+    
+    </div>
+    <aside class="media-column" aria-hidden="true"></aside>
   </main>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/site.js"></script>
 </body>
 </html>

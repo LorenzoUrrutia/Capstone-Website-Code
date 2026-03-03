@@ -5,16 +5,33 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dyscalculia Symptoms</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
 </head>
 <body class="dark-site">
-  <main class="content">
+  <header class="topbar">
+    <div class="container">
+
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="adhd.html">ADHD</a>
+        <a href="dyslexia.html">Dyslexia</a>
+        <a href="dyscalculia.html" class="active">Dyscalculia</a>
+        <a href="simulations.html">Simulations</a>
+      </nav> 
+    </div>
+  </header>
+
+  <main class="content page-layout">
+    <div class="content-column">
+    
     <div class="back-row">
       <a class="cta-button" href="dyscalculia.html#symptoms">← Back</a>
     </div>
 
-    <h1>Dyscalculia</h1>
+    <div class="section-grid">
+    <section id="dyscalculia-symptoms" class="section card">
 
-    <h2>What Dyscalculia affects</h2>
+      <h3>What Dyscalculia affects</h3>
     <ul>
       <li><strong>Visual processing:</strong> the ability of your eyes to take in the whole equation and send each part to the brain to sort out.</li>
       <li><strong>Short-term memory:</strong> capacity to hold numbers, symbols, and their order in mind while solving.</li>
@@ -24,10 +41,10 @@
       <li><strong>Calculation:</strong> all of these pieces combine to work out the answer (e.g., 2 + 2 = 4).</li>
     </ul>
 
-    <h2>Symptoms</h2>
+      <h3>Symptoms</h3>
     <p>The symptoms of dyscalculia depend on which parts of the process a person struggles with most and the person's age.</p>
 
-    <h4>Young children</h4>
+      <h4>Young children</h4>
     <ul>
       <li>Counting upward.</li>
       <li>Connecting a number to that many of an object: number 7 to that many blocks in front of them.</li>
@@ -37,7 +54,7 @@
       <li>Learning using money</li>
     </ul>
 
-    <h4>School age children</h4>
+      <h4>School age children</h4>
     <ul>
       <li>Counting on fingers with small numbers when not necessary.</li>
       <li>Identifying small quantities of items just by looking</li>
@@ -58,6 +75,13 @@
       <li>Using money to pay for items, exchanging bills for coins, and making change.</li>
       <li>Understanding and converting fractions.</li>
     </ul>
+    </section>
+    </div>
+    
+    </div>
+    <aside class="media-column" aria-hidden="true"></aside>
   </main>
-</body>
-</html>
+
+  <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <script src="js/site.js"></script>
