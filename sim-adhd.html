@@ -9,6 +9,7 @@
     .sim-adhd-page {
       background: #F2F6FA;
       min-height: 100vh;
+      overflow: hidden;
     }
 
     .sim-adhd-page .sim-fullscreen {
@@ -16,7 +17,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 32px 20px 48px;
+      padding: 32px 20px 500px;
+      overflow: hidden;
     }
 
     .sim-adhd-page .sim-stage {
@@ -175,6 +177,13 @@
       font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
+    }
+
+    .sim-adhd-page .sim-hud select {
+      padding-right: 28px;
+      background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%230B6CD4" d="M1 1l5 5 5-5" stroke="%230B6CD4" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 8px center;
     }
 
     .sim-adhd-page .sim-hud .btn[disabled] {
@@ -419,7 +428,6 @@
 
       <label style="display:flex;align-items:center;gap:8px;">
         Intensity
-        <span class="intensity-hint" title="Change the intensity" aria-label="Change the intensity">i</span>
         <select id="intensitySelect" class="btn">
           <option value="mild">Mild</option>
           <option value="moderate">Moderate</option>
