@@ -191,19 +191,6 @@
       cursor: not-allowed;
     }
 
-    @media (max-width: 640px) {
-      .sim-adhd-page .sim-hud {
-        padding: 8px 10px;
-        border-radius: 12px;
-        font-size: 0.9rem;
-      }
-
-      .sim-adhd-page .sim-hud .btn {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-      }
-    }
-
     .sim-adhd-page .sim-back {
       position: fixed;
       right: 18px;
@@ -258,10 +245,6 @@
       100% { transform: translateX(0); }
     }
 
-    .sim-adhd-page .toast.no-motion {
-      animation: none;
-    }
-
     @keyframes slideIn {
       from {
         opacity: 0;
@@ -283,10 +266,6 @@
       align-items: center;
       justify-content: center;
       animation: fadeIn 0.2s ease-out;
-    }
-
-    .sim-adhd-page .interrupt-overlay.no-motion {
-      animation: none;
     }
 
     @keyframes fadeIn {
@@ -328,22 +307,12 @@
       transition: filter 0.4s ease-out, opacity 0.4s ease-out;
     }
 
-    .sim-adhd-page .task-blur.no-motion {
-      transition: none;
-      filter: none;
-      opacity: 0.85;
-    }
-
     .sim-adhd-page .question-highlight {
       outline: 2px solid rgba(192, 130, 97, 0.5);
       outline-offset: 4px;
       background: rgba(199, 111, 97, 0.04);
       border-radius: 8px;
       transition: outline 0.3s ease-out, background 0.3s ease-out;
-    }
-
-    .sim-adhd-page .question-highlight.no-motion {
-      transition: none;
     }
 
     @media (max-width: 640px) {
@@ -388,9 +357,7 @@
   <main class="content sim-fullscreen">
     <div class="sim-stage">
       <div id="task-container">
-        <div class="task-content">
-          <h1 class="task-title">Classroom Task</h1>
-          
+        <div class="task-content">        
           <div class="question-card">
             <p id="question-text" class="question-text"></p>
             <div id="answer-buttons" class="answer-buttons"></div>

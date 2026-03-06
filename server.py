@@ -6,10 +6,6 @@ app = Flask(__name__, static_folder=".", static_url_path="")
 def home():
     return send_from_directory(".", "index.html")
 
-@app.get("/info")
-def info():
-    return send_from_directory(".", "info.html")
-
 @app.get("/<path:filename>")
 def assets(filename):
     return send_from_directory(".", filename)

@@ -74,16 +74,6 @@ header.topbar{
   width:min(var(--max-width),96vw);
   margin:0 auto
 }
-.site-title{
-  font-weight:700;
-  color:var(--text-primary);
-  text-decoration:none;
-  font-size:1.1rem;
-  transition: color 0.3s ease;
-}
-.site-title:hover{
-  color:var(--accent-secondary);
-}
 .topnav{
   display:flex;
   gap:2.5rem;
@@ -125,7 +115,6 @@ header.topbar{
     transition-duration: 0.01ms !important;
   }
   header.topbar,
-  .site-title,
   .topnav a,
   .back-to-top,
   .cta-button,
@@ -134,7 +123,6 @@ header.topbar{
   .jump {
     transition: none;
   }
-  .site-title:hover,
   .topnav a:hover,
   .topnav a.active:hover,
   .back-to-top:hover,
@@ -185,7 +173,6 @@ header.topbar{
   transform:translateY(-8px) scale(1.02);
   box-shadow:0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
 }
-.topic-tile:hover::before{opacity:0}
 .topic-tile h3{margin:0 0 6px;font-size:1.5rem;font-weight:700;color:var(--text-primary)}
 .topic-tile p{margin:0 0 10px;color:var(--text-secondary)}
 
@@ -238,8 +225,6 @@ header.topbar{
   box-shadow:0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 .card:hover::before{opacity:0}
-.card:nth-child(odd){border-radius:14px}
-.card:nth-child(even){border-radius:14px}
 .card h2{margin-top:0;font-size:2rem;margin-bottom:1.25rem;font-weight:700;letter-spacing:-0.3px;color:var(--text-primary)}
 .card p, .card li{color:var(--text-secondary);font-size:1.05rem;line-height:1.8;margin-bottom:1rem}
 
@@ -344,7 +329,6 @@ h4{font-size:22px;margin:0 0 8px;font-weight:700;color:var(--text-primary)}
 /* Responsive tweaks */
 @media (max-width:900px){
   .topbar .container{padding:0 10px}
-  .site-title{font-size:0.98rem}
 }
 @media (max-width:600px){
   .topnav{flex-wrap:wrap;gap:8px}
@@ -365,7 +349,6 @@ body.dark-site header.topbar{
   border-bottom: 1px solid var(--border-subtle);
 }
 
-body.dark-site .site-title,
 body.dark-site .topnav a{
   color: #2D2520;
 }
@@ -424,17 +407,6 @@ body.dark-site .back-to-top{
 .section-grid .card ul { margin-top: 6px; margin-bottom: 10px; }
 .section-grid .card li { margin-bottom: 6px; }
 
-/* Lift quiz closer to the Myths section on ADHD page */
-/* Position quiz a short distance below myths on ADHD page */
-body.adhd-theme #quiz {
-  margin-top: -35px;
-  position: relative;
-}
-/* Fallback for small screens */
-@media (max-width:900px) {
-  body.adhd-theme #quiz { margin-top: 24px; }
-}
-
 /* Quiz choice buttons */
 .quiz-choice {
   display: block;
@@ -491,10 +463,6 @@ body.dark-site .quiz-choice.selected {
     gap: 8px;
   }
 
-  .site-title {
-    font-size: 1rem;
-  }
-
   .topnav {
     gap: 1.5rem;
   }
@@ -543,10 +511,6 @@ body.dark-site .quiz-choice.selected {
   .topbar .container {
     gap: 6px;
     padding: 0 1rem;
-  }
-
-  .site-title {
-    font-size: 0.95rem;
   }
 
   .topnav {

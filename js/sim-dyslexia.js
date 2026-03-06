@@ -3,14 +3,12 @@
 let paused = false;
 let intensity = 'mild'; // 'mild' | 'moderate' | 'strong'
 let wordDifficulty = 'Harry_Potter';
-let reduceMotion = false;
 let hasStarted = false;
 
 let containerEl;
 let paperContentEl;
 let startOverlayEl;
 let startBtnEl;
-let quizOverlayEl;
 let textLines = [];
 let charElements = []; // array of character span elements
 let animationFrameId = null;
@@ -27,7 +25,7 @@ const sentencePool = {
   'He sat up and Hagrid’s heavy coat fell off him. The hut was full of sunlight, the storm was over, Hagrid himself was asleep on the collapsed sofa, and there was an owl rapping its claw on the window, a newspaper held in its beak.',
   'Harry scrambled to his feet, so happy he felt as though a large balloon was swelling inside him. He went straight to the window and jerked it open. The owl swooped in and dropped the newspaper on top of Hagrid, who didn’t wake up. The owl then fluttered onto the floor and began to attack Hagrid’s coat.'
   ],
-  The_House_on_Mango_Street: [
+  House_on_Mango_Street: [
     'We did not always live on Mango Street. Before that we lived on Loomis on the third floor, and before that we lived on Keeler. Before Keeler it was Paulina, and before that I can not remember. But what I remember most is moving a lot. Each time it seemed there would be one more of us. By the time we got to Mango Street we were six—Mama, Papa, Carlos, Kiki, my sister Nenny and me.',
     'The house on Mango Street is ours, and we don not have to pay rent to anybody, or share the yard with the people downstairs, or be careful not to make too much noise, and there is not a landlord banging on the ceiling with a broom. But even so, it is not the house we had thought we would get.',
     'We had to leave the flat on Loomis quick. The water pipes broke and the landlord would not fix them because the house was too old. We had to leave fast. We were using the washroom next door and carrying water over in empty milk gallons. That is why Mama and Papa looked for a house, and that is why we moved into the house on Mango Street, far away, on the other side of town.',
@@ -57,7 +55,6 @@ function initState() {
   paused = false;
   intensity = 'mild';
   wordDifficulty = 'Harry_Potter';
-  reduceMotion = false;
   hasStarted = false;
   
   textLines = selectSentencesInOrder(wordDifficulty);
@@ -129,22 +126,12 @@ function applyJitterEffect() {
   if (!hasStarted || paused) return;
   
   const mag = intensityToMag(intensity);
-  const effectiveMag = reduceMotion ? mag * 0.5 : mag;
+  const effectiveMag = mag;
   
   charElements.forEach((span) => {
-    if (reduceMotion) {
-      // Static offset for reduce motion
-      if (!span.dataset.offsetX) {
-        span.dataset.offsetX = (Math.random() - 0.5) * effectiveMag;
-        span.dataset.offsetY = (Math.random() - 0.5) * effectiveMag;
-      }
-      span.style.transform = `translate(${span.dataset.offsetX}px, ${span.dataset.offsetY}px)`;
-    } else {
-      // Dynamic jitter
-      const ox = (Math.random() - 0.5) * effectiveMag * 2;
-      const oy = (Math.random() - 0.5) * effectiveMag * 2;
-      span.style.transform = `translate(${ox}px, ${oy}px)`;
-    }
+    const ox = (Math.random() - 0.5) * effectiveMag * 2;
+    const oy = (Math.random() - 0.5) * effectiveMag * 2;
+    span.style.transform = `translate(${ox}px, ${oy}px)`;
   });
 }
 
@@ -187,11 +174,6 @@ function setWordDifficulty(v) {
   renderPassage();
 }
 
-function generateStaticOffsets() {
-  // Generate static random offsets for reduce motion mode
-  // This is called once when reduce motion is enabled
-}
-
 function setPaused(value) {
   paused = value;
   if (paused) {
@@ -213,11 +195,6 @@ function resetSim() {
   updateControlsUI();
 }
 
-function setReduceMotion(v) {
-  reduceMotion = !!v;
-  if (reduceMotion) generateStaticOffsets();
-}
-
 function updateControlsUI() {
   const pauseBtn = document.getElementById('pauseBtn');
   if (pauseBtn) {
@@ -228,8 +205,6 @@ function updateControlsUI() {
   if (sel) sel.value = intensity;
   const wordSel = document.getElementById('wordDifficultySelect');
   if (wordSel) wordSel.value = wordDifficulty;
-  const rm = document.getElementById('reduceMotion');
-  if (rm) rm.checked = reduceMotion;
 }
 
 function showStartOverlay(visible) {
@@ -241,6 +216,7 @@ function showStartOverlay(visible) {
 }
 
 function setup() {
+  containerEl = document.getElementById('canvas-container');
   startOverlayEl = document.getElementById('startOverlay');
   startBtnEl = document.getElementById('startBtn');
   paperContentEl = document.getElementById('paper-content');
@@ -251,14 +227,12 @@ function setup() {
   const resetBtn = document.getElementById('resetBtn');
   const sel = document.getElementById('intensitySelect');
   const wordSel = document.getElementById('wordDifficultySelect');
-  const rm = document.getElementById('reduceMotion');
   const doneBtn = document.getElementById('doneReadingBtn');
 
   if (pauseBtn) pauseBtn.addEventListener('click', () => { setPaused(!paused); updateControlsUI(); });
   if (resetBtn) resetBtn.addEventListener('click', () => { resetSim(); });
   if (sel) sel.addEventListener('change', (e) => { setIntensity(e.target.value); });
   if (wordSel) wordSel.addEventListener('change', (e) => { setWordDifficulty(e.target.value); });
-  if (rm) rm.addEventListener('change', (e) => { setReduceMotion(e.target.checked); });
   if (doneBtn) doneBtn.addEventListener('click', () => {
     stopAnimation();
   });

@@ -7,7 +7,6 @@ let intensity = 'mild';
 let distractionEnabled = false;
 
 // DOM elements
-let taskContainerEl;
 let questionTextEl;
 let answerButtonsEl;
 let startOverlayEl;
@@ -22,45 +21,43 @@ let dismissInterruptBtnEl;
 
 // Distraction scheduler
 let toastIntervalId = null;
-let interruptIntervalId = null;
 let nextToastTime = 0;
 let nextInterruptTime = 0;
-let lastFrameTime = 0;
 let toastIdCounter = 0;
 let activeToasts = [];
 const MAX_TOASTS = 3;
 
 // Toast messages pool
 const toastMessages = [
-  "New message from Luna",
-  "Meeting reminder: Team sync in 15 min",
-  "Calendar: Math homework due tomorrow",
-  "Email: Parent-teacher conference scheduled",
-  "Group chat: Anyone have notes from yesterday?",
-  "Notification: New assignment posted",
-  "Reminder: Library book is overdue",
-  "Alert: School assembly at 2pm",
-  "Message: Can you send the project file?",
-  "Notification: Your ride is here",
-  "Calendar: Soccer practice after school",
-  "Email: Permission slip needed by Friday",
-  "Group chat: Study group meets at 4",
-  "Alert: Fire drill scheduled today",
-  "Message: Did you finish the reading?"
+  "Group chat: Are we sitting together at lunch?",
+  "Reminder: Math homework due tonight",
+  "Google Classroom: New assignment posted",
+  "Text from Mom: What time is practice over?",
+  "Team chat: Quizlet link for vocab quiz",
+  "School app: Bus route delayed 10 minutes",
+  "Coach: Practice starts 30 min earlier today",
+  "Friend: Can you send me yesterday's notes?",
+  "Calendar: Science test tomorrow",
+  "Student portal: Grade posted in English",
+  "Reminder: Bring signed permission slip",
+  "Group project chat: Who is doing slide 4?",
+  "Notification: Yearbook order deadline Friday",
+  "Text from Dad: I'm here for pickup",
+  "Club chat: Meeting after school in Room 203"
 ];
 
 // Interruption messages pool
 const interruptMessages = [
-  "Your phone is ringing. Do you want to answer?",
-  "Someone is knocking at the door.",
-  "You just remembered you forgot your lunch.",
-  "A loud noise outside caught your attention.",
-  "You need to use the bathroom.",
-  "Your friend just walked by and waved.",
-  "The teacher is making an announcement.",
-  "Someone dropped books in the hallway.",
-  "You realize you left your assignment at home.",
-  "A text notification is buzzing repeatedly."
+  "Your phone keeps buzzing in your backpack.",
+  "You remember you forgot your PE clothes.",
+  "Your friend whispers and tries to get your attention.",
+  "The hallway gets loud during passing period.",
+  "You suddenly remember a quiz in your next class.",
+  "An announcement comes over the classroom speaker.",
+  "Someone nearby drops a water bottle loudly.",
+  "You start thinking about lunch plans with friends.",
+  "You realize your assignment might be in your locker.",
+  "A classmate taps your desk to ask a question."
 ];
 
 // Hardcoded questions (no randomization yet)
@@ -85,7 +82,6 @@ const questions = [
 
 function setup() {
   // Get DOM elements
-  taskContainerEl = document.getElementById('task-container');
   questionTextEl = document.getElementById('question-text');
   answerButtonsEl = document.getElementById('answer-buttons');
   startOverlayEl = document.getElementById('startOverlay');
@@ -206,17 +202,17 @@ function showQuestion() {
   if (answerButtonsEl) {
     answerButtonsEl.innerHTML = '';
 
-    currentQuestion.answers.forEach((answer, index) => {
+    currentQuestion.answers.forEach((answer) => {
       const btn = document.createElement('button');
       btn.className = 'answer-btn';
       btn.textContent = answer;
-      btn.addEventListener('click', () => handleAnswerClick(index));
+      btn.addEventListener('click', () => handleAnswerClick());
       answerButtonsEl.appendChild(btn);
     });
   }
 }
 
-function handleAnswerClick(answerIndex) {
+function handleAnswerClick() {
   // Disable all answer buttons immediately to prevent double-clicks
   if (answerButtonsEl) {
     const buttons = answerButtonsEl.querySelectorAll('.answer-btn');
@@ -279,8 +275,7 @@ function startDistractionScheduler() {
   const now = Date.now();
   nextToastTime = now + getRandomToastInterval();
   nextInterruptTime = now + getRandomInterruptInterval();
-  
-  lastFrameTime = now;
+
   scheduleDistractions();
 }
 
