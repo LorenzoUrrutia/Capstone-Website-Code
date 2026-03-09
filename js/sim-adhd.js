@@ -18,6 +18,7 @@ let toastLayerEl;
 let interruptOverlayEl;
 let interruptTextEl;
 let dismissInterruptBtnEl;
+let ambientAudioEl;
 
 // Distraction scheduler
 let toastIntervalId = null;
@@ -93,6 +94,12 @@ function setup() {
   interruptOverlayEl = document.getElementById('interruptOverlay');
   interruptTextEl = document.getElementById('interruptText');
   dismissInterruptBtnEl = document.getElementById('dismissInterruptBtn');
+  ambientAudioEl = document.getElementById('adhdAmbientAudio');
+
+  // Configure audio settings
+  if (ambientAudioEl) {
+    ambientAudioEl.volume = 0.2;
+  }
 
   // Set up event listeners
   if (startBtnEl) {
@@ -177,6 +184,13 @@ function handleStart() {
     intensitySelectEl.disabled = true;
   }
 
+  // Start background audio
+  if (ambientAudioEl) {
+    ambientAudioEl.play().catch(err => {
+      console.warn('Audio autoplay blocked:', err);
+    });
+  }
+
   // Show first question
   showQuestion();
 
@@ -236,6 +250,13 @@ function handleReset() {
   if (intensitySelectEl) {
     intensitySelectEl.disabled = false;
   }
+  
+  // Stop and reset audio
+  if (ambientAudioEl) {
+    ambientAudioEl.pause();
+    ambientAudioEl.currentTime = 0;
+  }
+  
   initState();
 }
 
@@ -256,6 +277,18 @@ function showCompletionMessage() {
 // Control handlers
 function handlePause() {
   paused = !paused;
+  
+  // Pause/resume audio
+  if (ambientAudioEl) {
+    if (paused) {
+      ambientAudioEl.pause();
+    } else {
+      ambientAudioEl.play().catch(err => {
+        console.warn('Audio playback failed:', err);
+      });
+    }
+  }
+  
   updateControlsUI();
 }
 
