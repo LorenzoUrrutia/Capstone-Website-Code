@@ -227,15 +227,11 @@ function setup() {
   const resetBtn = document.getElementById('resetBtn');
   const sel = document.getElementById('intensitySelect');
   const wordSel = document.getElementById('wordDifficultySelect');
-  const doneBtn = document.getElementById('doneReadingBtn');
 
   if (pauseBtn) pauseBtn.addEventListener('click', () => { setPaused(!paused); updateControlsUI(); });
   if (resetBtn) resetBtn.addEventListener('click', () => { resetSim(); });
   if (sel) sel.addEventListener('change', (e) => { setIntensity(e.target.value); });
   if (wordSel) wordSel.addEventListener('change', (e) => { setWordDifficulty(e.target.value); });
-  if (doneBtn) doneBtn.addEventListener('click', () => {
-    stopAnimation();
-  });
 
   if (startBtnEl) {
     startBtnEl.addEventListener('click', () => {

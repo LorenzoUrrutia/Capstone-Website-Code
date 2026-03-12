@@ -44,7 +44,8 @@ const toastMessages = [
   "Group project chat: Who is doing slide 4?",
   "Notification: Yearbook order deadline Friday",
   "Text from Dad: I'm here for pickup",
-  "Club chat: Meeting after school in Room 203"
+  "Club chat: Meeting after school in Room 203",
+  "New Snapchat from Messi"
 ];
 
 // Interruption messages pool

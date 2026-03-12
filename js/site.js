@@ -27,6 +27,85 @@ document.addEventListener('DOMContentLoaded', () => {
   // Quiz logic (ADHD page)
   const quizRoot = document.getElementById('quiz');
   if (quizRoot) {
+    function getOrCreateQuizModal() {
+      let overlay = document.getElementById('quizFeedbackOverlay');
+      if (overlay) return overlay;
+
+      overlay = document.createElement('div');
+      overlay.id = 'quizFeedbackOverlay';
+      overlay.className = 'quiz-feedback-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Quiz feedback');
+
+      overlay.innerHTML = `
+        <div class="quiz-feedback-modal">
+          <p id="quizFeedbackSelection"></p>
+          <p id="quizFeedbackResult"></p>
+          <p id="quizFeedbackExplanation"></p>
+          <button id="quizFeedbackDoneBtn" class="cta-button" type="button">Done</button>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+
+      const doneBtn = overlay.querySelector('#quizFeedbackDoneBtn');
+      if (doneBtn) {
+        doneBtn.addEventListener('click', () => {
+          overlay.classList.remove('visible');
+          document.body.classList.remove('quiz-modal-open');
+        });
+      }
+
+      return overlay;
+    }
+
+    function advanceToNextQuestion(details) {
+      details.open = false;
+      const currentQ = parseInt(details.getAttribute('data-q'));
+      const nextDetails = quizRoot.querySelector(`details[data-q="${currentQ + 1}"]`);
+      if (nextDetails) {
+        nextDetails.open = true;
+        nextDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function showTrueFalseFeedback(details, selectedBtn) {
+      const overlay = getOrCreateQuizModal();
+      const selectionEl = overlay.querySelector('#quizFeedbackSelection');
+      const resultEl = overlay.querySelector('#quizFeedbackResult');
+      const explanationEl = overlay.querySelector('#quizFeedbackExplanation');
+      const doneBtn = overlay.querySelector('#quizFeedbackDoneBtn');
+
+      const selectedLabel = selectedBtn.textContent.trim().toLowerCase();
+      const selectedIsCorrect = selectedBtn.getAttribute('data-correct') === 'true';
+      const selectedPretty = selectedLabel === 'true' ? 'True' : 'False';
+
+      const correctAnswer = (details.dataset.correctAnswer || '').toLowerCase();
+      const normalizedCorrectAnswer = correctAnswer === 'true' || correctAnswer === 'false'
+        ? correctAnswer
+        : null;
+      const isCorrect = normalizedCorrectAnswer
+        ? selectedLabel === normalizedCorrectAnswer
+        : selectedIsCorrect;
+
+      const trueExplanation = details.dataset.trueExplanation || 'Review the statement and compare it to the facts above.';
+      const falseExplanation = details.dataset.falseExplanation || 'Review the statement and compare it to the facts above.';
+      const selectedExplanation = selectedLabel === 'true' ? trueExplanation : falseExplanation;
+
+      if (resultEl) {
+        resultEl.innerHTML = `<strong>That is ${isCorrect ? 'correct' : 'incorrect'}.</strong>`;
+      }
+      if (explanationEl) {
+        explanationEl.textContent = selectedExplanation;
+      }
+
+      overlay.classList.add('visible');
+      document.body.classList.add('quiz-modal-open');
+      details.open = true;
+      if (doneBtn) doneBtn.focus();
+    }
+
     // Event delegation for answer buttons
     quizRoot.addEventListener('click', (e) => {
       const btn = e.target.closest('.quiz-choice');
@@ -41,20 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add selection to clicked button
       btn.classList.add('selected');
 
-      // Auto-advance to next question immediately
-      setTimeout(() => {
-        // Close current question
-        details.open = false;
-        
-        // Find and open next question
-        const currentQ = parseInt(details.getAttribute('data-q'));
-        const nextDetails = quizRoot.querySelector(`details[data-q="${currentQ + 1}"]`);
-        if (nextDetails) {
-          nextDetails.open = true;
-          // Smooth scroll to next question
-          nextDetails.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      }, 300);
+      const choice = btn.textContent.trim().toLowerCase();
+      const hasTrueFalseExplanations = !!(details.dataset.trueExplanation || details.dataset.falseExplanation);
+
+      if (hasTrueFalseExplanations && (choice === 'true' || choice === 'false')) {
+        showTrueFalseFeedback(details, btn);
+      } else {
+        setTimeout(() => {
+          advanceToNextQuestion(details);
+        }, 300);
+      }
     });
   }
 });
