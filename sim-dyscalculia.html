@@ -20,46 +20,39 @@
     </div>
   </header>
 
-  <main class="content">
-    <h2>Number processing simulation</h2>
-    <p class="muted">Instructions: Use the controls below to pause, reset, and change intensity.</p>
+  <main class="content sim-page-content">
+    <section class="section card dyscalc-sim-card" aria-labelledby="simTitle">
+      <h2 id="simTitle">Dyscalculia Simulation</h2>
+      <p class="dyscalc-subtitle">This simulation is designed to build empathy. The math stays simple while numbers and symbols feel slightly unstable.</p>
 
-    <div class="card" style="text-align:center;">
-      <div id="canvas-container" class="sketch" style="max-width:760px;margin:0 auto;">Canvas will appear here.</div>
+      <div class="dyscalc-progress" id="taskProgress" aria-live="polite"></div>
 
-      <div class="controls" style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:14px;">
-        <button id="pauseBtn" class="btn">Pause</button>
-        <button id="resetBtn" class="btn">Reset</button>
+      <div id="simTaskArea" class="dyscalc-task-area" aria-live="polite"></div>
 
-        <label style="display:flex;align-items:center;gap:8px;">
+      <div class="dyscalc-controlbar" role="group" aria-label="Simulation controls">
+        <button id="pauseBtn" class="cta-button" type="button">Pause</button>
+        <button id="resetBtn" class="cta-button" type="button">Reset</button>
+        <label class="dyscalc-intensity-label">
           Intensity
-          <select id="intensitySelect" class="btn">
+          <select id="intensitySelect" class="dyscalc-intensity-select" aria-label="Intensity">
             <option value="mild">Mild</option>
-            <option value="moderate">Moderate</option>
-            <option value="strong">Strong</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
           </select>
         </label>
-
-        <label style="display:flex;align-items:center;gap:8px;">
-          <input id="reduceMotion" type="checkbox">
-          Reduce motion
-        </label>
       </div>
 
-      <div style="margin-top:14px;text-align:left;">
-        <h3>What this shows / what it doesn't</h3>
-        <p>Short note: Blank</p>
-      </div>
-    </div>
+      <section id="reflectionCard" class="dyscalc-reflection" hidden>
+        <h3>Reflection</h3>
+        <p>For many people with dyscalculia, numbers can feel unstable or unreliable. Even simple tasks may require extra effort because symbols, quantities, and positions can feel difficult to trust in the moment.</p>
+        <p>This simulation cannot capture every experience, but it models how uncertainty can appear even when the math itself is not complex.</p>
+      </section>
+    </section>
 
     <div class="cta-row">
-      <a class="cta-button" href="sim-dyscalculia.html">Open Full Simulation</a>
+      <a class="cta-button" href="simulations.html">Back to Simulations Hub</a>
     </div>
   </main>
-
-  <footer>
-    <small>Created for educational purposes.</small>
-  </footer>
 
   <script src="js/sim-dyscalculia.js"></script>
   <script src="js/site.js"></script>

@@ -62,58 +62,49 @@
 
         <section id="quiz" class="section card">
           <h2>Quiz</h2>
-          <div id="quiz-controls" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px">
-            <div id="quiz-score" aria-live="polite" style="font-weight:700">Score: 0 / 5</div>
-            <button id="quiz-reset" class="cta-button">Reset Quiz</button>
-          </div>
 
           <div class="quiz-questions">
-            <details data-q="1">
-              <summary>1. Which skill is most affected by dyslexia?</summary>
+            <details data-q="1" data-correct-answer="true" data-true-explanation="Correct. Dyslexia most strongly affects phonological processing, including decoding and linking letters to sounds." data-false-explanation="Incorrect. Dyslexia is primarily related to language processing, especially phonological processing.">
+              <summary>1. Dyslexia most strongly affects phonological processing skills used for reading and decoding.</summary>
               <div class="answers" style="margin-top:8px">
-                <button class="quiz-choice" data-correct="true">Phonological processing (linking sounds to letters)</button>
-                <button class="quiz-choice" data-correct="false">Visual color recognition</button>
-                <button class="quiz-choice" data-correct="false">Fine motor coordination</button>
+                <button class="quiz-choice" data-correct="true">True</button>
+                <button class="quiz-choice" data-correct="false">False</button>
               </div>
               <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
             </details>
 
-            <details data-q="2">
-              <summary>2. How is dyslexia best described?</summary>
+            <details data-q="2" data-correct-answer="true" data-true-explanation="Correct. Dyslexia is generally a lifelong reading-related learning difference." data-false-explanation="Incorrect. Dyslexia is not temporary; it is typically lifelong, though support can improve outcomes.">
+              <summary>2. Dyslexia is typically a lifelong reading-related learning disorder.</summary>
               <div class="answers" style="margin-top:8px">
-                <button class="quiz-choice" data-correct="false">A short-term memory loss condition</button>
-                <button class="quiz-choice" data-correct="true">A lifelong reading-related disorder</button>
-                <button class="quiz-choice" data-correct="false">A math-only learning difficulty</button>
+                <button class="quiz-choice" data-correct="true">True</button>
+                <button class="quiz-choice" data-correct="false">False</button>
               </div>
               <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
             </details>
 
-            <details data-q="3">
-              <summary>3. What do brain-imaging studies show about dyslexia?</summary>
+            <details data-q="3" data-correct-answer="true" data-true-explanation="Correct. Brain-imaging studies often show lower activity in language-related processing regions for many readers with dyslexia." data-false-explanation="Incorrect. Studies do report differences in language-processing activity patterns in dyslexia.">
+              <summary>3. Brain-imaging studies often show lower activity in language-processing regions in people with dyslexia.</summary>
               <div class="answers" style="margin-top:8px">
-                <button class="quiz-choice" data-correct="false">Identical language-area activity to typical readers</button>
-                <button class="quiz-choice" data-correct="true">Lower activity in brain regions that support language processing</button>
-                <button class="quiz-choice" data-correct="false">Only differences in motor-control regions</button>
+                <button class="quiz-choice" data-correct="true">True</button>
+                <button class="quiz-choice" data-correct="false">False</button>
               </div>
               <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
             </details>
 
-            <details data-q="4">
-              <summary>4. Which task was used in the linked dyslexia study?</summary>
+            <details data-q="4" data-correct-answer="true" data-true-explanation="Correct. The linked study used a word-rhyme style task during fMRI to examine language processing." data-false-explanation="Incorrect. The linked study was not a math or color task; it focused on language/word processing.">
+              <summary>4. The linked dyslexia study used a word-rhyme decision task during fMRI.</summary>
               <div class="answers" style="margin-top:8px">
-                <button class="quiz-choice" data-correct="true">A word-rhyme decision task during fMRI</button>
-                <button class="quiz-choice" data-correct="false">A long-division test in the scanner</button>
-                <button class="quiz-choice" data-correct="false">A color-matching reaction task</button>
+                <button class="quiz-choice" data-correct="true">True</button>
+                <button class="quiz-choice" data-correct="false">False</button>
               </div>
               <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
             </details>
 
-            <details data-q="5">
-              <summary>5. What is typically recommended after a screening flags risk?</summary>
+            <details data-q="5" data-correct-answer="true" data-true-explanation="Correct. A specialist-led comprehensive evaluation is usually recommended after a risk screen." data-false-explanation="Incorrect. Screening alone is not a final diagnosis; follow-up evaluation is typically needed.">
+              <summary>5. If screening suggests dyslexia risk, a comprehensive specialist evaluation is usually recommended.</summary>
               <div class="answers" style="margin-top:8px">
-                <button class="quiz-choice" data-correct="false">No follow-up is needed</button>
-                <button class="quiz-choice" data-correct="true">A comprehensive evaluation by a specialist</button>
-                <button class="quiz-choice" data-correct="false">A single blood test for diagnosis</button>
+                <button class="quiz-choice" data-correct="true">True</button>
+                <button class="quiz-choice" data-correct="false">False</button>
               </div>
               <div class="feedback" aria-live="polite" style="margin-top:8px"></div>
             </details>
