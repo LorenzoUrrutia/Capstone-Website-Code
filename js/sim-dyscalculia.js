@@ -3,7 +3,7 @@ let intensity = 'mild'; // mild | medium | high
 let currentTaskIndex = 0;
 let animationTimerId = null;
 
-const totalTasks = 4;
+const totalTasks = 3;
 const taskDurationHint = 'Take your time. The full simulation usually takes about 2–3 minutes.';
 
 const intensityMap = {
@@ -21,7 +21,6 @@ const lineTaskState = {
 };
 
 let simTaskAreaEl;
-let taskProgressEl;
 let reflectionEl;
 let pauseBtnEl;
 let resetBtnEl;
@@ -35,15 +34,8 @@ function randBetween(min, max) {
   return min + Math.random() * (max - min);
 }
 
-function renderProgress() {
-  if (!taskProgressEl) return;
-  taskProgressEl.textContent = currentTaskIndex < totalTasks
-    ? `Task ${currentTaskIndex + 1} of ${totalTasks} · ${taskDurationHint}`
-    : 'Reflection';
-}
-
 function clearTaskEffects() {
-  const unstableEls = simTaskAreaEl.querySelectorAll('.unstable-number, .unstable-expression, .unstable-dots, .number-line-shell, .line-marker');
+  const unstableEls = simTaskAreaEl.querySelectorAll('.unstable-number, .unstable-expression, .unstable-dots, .number-line-shell, .line-marker, .dot');
   unstableEls.forEach((el) => {
     el.style.transform = '';
     el.style.filter = '';
@@ -107,7 +99,6 @@ function showReflection() {
     </div>
   `;
   reflectionEl.hidden = false;
-  renderProgress();
   const restartBtn = document.getElementById('restartFromReflectionBtn');
   if (restartBtn) {
     restartBtn.addEventListener('click', resetSimulation);
@@ -117,19 +108,15 @@ function showReflection() {
 function renderTask() {
   if (!simTaskAreaEl) return;
   if (reflectionEl) reflectionEl.hidden = true;
-  renderProgress();
 
   switch (currentTaskIndex) {
     case 0:
-      renderNumberComparisonTask();
-      break;
-    case 1:
       renderSymbolInstabilityTask();
       break;
-    case 2:
+    case 1:
       renderQuantityMatchingTask();
       break;
-    case 3:
+    case 2:
       renderNumberLineTask();
       break;
     default:
@@ -175,21 +162,30 @@ function renderNumberComparisonTask() {
 }
 
 function renderSymbolInstabilityTask() {
+  const leftNum = Math.floor(randBetween(5, 25));
+  const rightNum = Math.floor(randBetween(3, 20));
+  const operatorPool = [
+    { symbol: '+', label: 'Addition (+)' },
+    { symbol: '-', label: 'Subtraction (-)' },
+    { symbol: '×', label: 'Multiplication (×)' }
+  ];
+  const intendedOp = operatorPool[Math.floor(Math.random() * operatorPool.length)].symbol;
+
   simTaskAreaEl.innerHTML = `
     <div class="dyscalc-task-card" data-task="symbol">
       <h3>Symbol Instability</h3>
       <p>Read the expression and choose the operation you think is shown.</p>
       <div class="symbol-expression unstable-expression" aria-live="polite">
-        <span>12</span>
-        <span id="operatorEl" class="operator">+</span>
-        <span>8</span>
+        <span>${leftNum}</span>
+        <span id="operatorEl" class="operator" data-original="${intendedOp}">${intendedOp}</span>
+        <span>${rightNum}</span>
       </div>
       <div class="symbol-options">
         <button type="button" class="dyscalc-option-btn" data-op="+">Addition (+)</button>
         <button type="button" class="dyscalc-option-btn" data-op="-">Subtraction (-)</button>
         <button type="button" class="dyscalc-option-btn" data-op="×">Multiplication (×)</button>
       </div>
-      <p class="task-feedback" id="taskFeedback">The intended symbol is addition (+), but it may briefly appear different.</p>
+      <p class="task-feedback" id="taskFeedback">The intended symbol may briefly appear different.</p>
       <button type="button" class="cta-button" id="nextTaskBtn">Next Task</button>
     </div>
   `;
@@ -202,9 +198,9 @@ function renderSymbolInstabilityTask() {
       btn.classList.add('selected');
       const op = btn.dataset.op;
       if (feedback) {
-        feedback.textContent = op === '+'
-          ? 'You selected addition. The core problem is still simple, but the symbol can feel unreliable.'
-          : 'That hesitation is part of the simulation: symbols can momentarily look different.';
+        feedback.textContent = op === intendedOp
+          ? 'You matched the intended operation. The math is simple, but symbol recognition can still feel unstable.'
+          : 'That hesitation is part of the simulation: symbols can momentarily look different and feel unreliable.';
       }
     });
   });
@@ -227,8 +223,17 @@ function createDotGroup(count) {
 }
 
 function renderQuantityMatchingTask() {
-  const target = 6;
-  const choices = [5, 6, 7];
+  const target = Math.floor(randBetween(4, 10)); // 4..9
+  const lower = clamp(target - 1, 1, 12);
+  const upper = clamp(target + 1, 1, 12);
+  const choices = Array.from(new Set([lower, target, upper]));
+
+  while (choices.length < 3) {
+    const fallback = clamp(target + (choices.length === 1 ? 2 : -2), 1, 12);
+    if (!choices.includes(fallback)) choices.push(fallback);
+  }
+
+  choices.sort(() => Math.random() - 0.5);
   simTaskAreaEl.innerHTML = `
     <div class="dyscalc-task-card" data-task="quantity">
       <h3>Quantity Matching</h3>
@@ -266,7 +271,7 @@ function renderQuantityMatchingTask() {
 }
 
 function renderNumberLineTask() {
-  lineTaskState.target = 37;
+  lineTaskState.target = Math.floor(randBetween(8, 93)); // 8..92
   lineTaskState.value = 50;
   lineTaskState.dragging = false;
   lineTaskState.markerDriftPx = 0;
@@ -377,8 +382,8 @@ function applyDistortionEffects() {
     }
 
     if (operatorEl && Math.random() < chance) {
-      const alternatives = ['×', '−'];
-      const original = '+';
+      const original = operatorEl.dataset.original || '+';
+      const alternatives = ['+', '-', '×'].filter((symbol) => symbol !== original);
       operatorEl.textContent = alternatives[Math.floor(Math.random() * alternatives.length)];
       operatorEl.style.opacity = '0.88';
       setTimeout(() => {
@@ -391,9 +396,14 @@ function applyDistortionEffects() {
   if (taskName === 'quantity') {
     const groups = simTaskAreaEl.querySelectorAll('.unstable-dots');
     groups.forEach((group) => {
-      group.style.transform = `translate(${randBetween(-amp, amp)}px, ${randBetween(-amp * 0.5, amp * 0.5)}px)`;
+      group.style.transform = `translate(${randBetween(-amp * 1.6, amp * 1.6)}px, ${randBetween(-amp * 0.9, amp * 0.9)}px)`;
       group.style.gap = `${randBetween(5, 8 + amp)}px`;
       group.style.opacity = `${randBetween(0.9, 1)}`;
+
+      const dots = group.querySelectorAll('.dot');
+      dots.forEach((dot) => {
+        dot.style.transform = `translate(${randBetween(-amp * 0.45, amp * 0.45)}px, ${randBetween(-amp * 0.45, amp * 0.45)}px)`;
+      });
     });
   }
 
@@ -404,7 +414,8 @@ function applyDistortionEffects() {
 
     if (shell) {
       lineTaskState.lineShiftX = randBetween(-amp, amp);
-      shell.style.transform = `translateX(${lineTaskState.lineShiftX}px)`;
+      const lineShiftY = randBetween(-amp * 0.4, amp * 0.4);
+      shell.style.transform = `translate(${lineTaskState.lineShiftX}px, ${lineShiftY}px)`;
     }
 
     ticks.forEach((tick) => {
@@ -413,8 +424,9 @@ function applyDistortionEffects() {
       }
     });
 
-    if (marker && lineTaskState.dragging && Math.random() < chance) {
-      lineTaskState.markerDriftPx = randBetween(-amp * 1.1, amp * 1.1);
+    if (marker) {
+      const driftMultiplier = lineTaskState.dragging ? 1.4 : 0.75;
+      lineTaskState.markerDriftPx = randBetween(-amp * driftMultiplier, amp * driftMultiplier);
       marker.style.transform = `translateX(calc(-50% + ${lineTaskState.markerDriftPx}px))`;
     }
   }
@@ -454,7 +466,6 @@ function setupControls() {
 
 document.addEventListener('DOMContentLoaded', () => {
   simTaskAreaEl = document.getElementById('simTaskArea');
-  taskProgressEl = document.getElementById('taskProgress');
   reflectionEl = document.getElementById('reflectionCard');
 
   if (!simTaskAreaEl) return;

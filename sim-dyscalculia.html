@@ -5,6 +5,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dyscalculia Simulation — Understanding Learning Disabilities</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .dark-site .sim-back {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 3;
+      background: rgba(255, 255, 255, 0.9);
+      color: #1e2a35;
+      border: 1px solid rgba(15, 25, 40, 0.12);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      text-decoration: none;
+      box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
+    }
+  </style>
 </head>
 <body class="dark-site">
   <header class="topbar">
@@ -23,9 +39,6 @@
   <main class="content sim-page-content">
     <section class="section card dyscalc-sim-card" aria-labelledby="simTitle">
       <h2 id="simTitle">Dyscalculia Simulation</h2>
-      <p class="dyscalc-subtitle">This simulation is designed to build empathy. The math stays simple while numbers and symbols feel slightly unstable.</p>
-
-      <div class="dyscalc-progress" id="taskProgress" aria-live="polite"></div>
 
       <div id="simTaskArea" class="dyscalc-task-area" aria-live="polite"></div>
 
@@ -49,9 +62,7 @@
       </section>
     </section>
 
-    <div class="cta-row">
-      <a class="cta-button" href="simulations.html">Back to Simulations Hub</a>
-    </div>
+    <a class="sim-back" href="simulations.html">Back</a>
   </main>
 
   <script src="js/sim-dyscalculia.js"></script>
