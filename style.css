@@ -914,3 +914,129 @@ body.quiz-modal-open {
     border-radius: 12px;
   }
 }
+
+/* ==============================================
+   Simulations page
+   ============================================== */
+
+.card p, .card li { color: #000000; }
+
+/* Simulation card header bars */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 -2rem 1.25rem;
+  padding: 10px 20px;
+  border-radius: 0;
+}
+.card-adhd .card-header       { background-color: #0ea5a0; }
+.card-dyslexia .card-header    { background-color: #7c3aed; }
+.card-dyscalculia .card-header { background-color: #e07b10; }
+
+.card-header h2 {
+  margin: 0;
+  color: #ffffff !important;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+.card-adhd .card-icon       { background-color: rgba(0,0,0,0.18); }
+.card-dyslexia .card-icon    { background-color: rgba(0,0,0,0.18); }
+.card-dyscalculia .card-icon { background-color: rgba(0,0,0,0.18); }
+
+/* Hero section */
+.sim-hero {
+  text-align: center;
+  padding: 2.5rem 1rem 1.75rem;
+}
+.sim-hero h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 0 0.65rem;
+  color: #2D2520;
+}
+.sim-hero p {
+  font-size: 1.05rem;
+  color: #5F5550;
+  margin: 0;
+}
+
+/* Card body text */
+.card-body-text {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #000000;
+  margin: 0 0 1rem;
+}
+
+/* Keyword tags */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  color: #444;
+  background: transparent;
+}
+.card-adhd .tag       { border-color: #0ea5a0; color: #0a7a76; }
+.card-dyslexia .tag    { border-color: #7c3aed; color: #5b24c4; }
+.card-dyscalculia .tag { border-color: #e07b10; color: #b05e08; }
+
+/* Card hover lift */
+.card-adhd,
+.card-dyslexia,
+.card-dyscalculia {
+  transition: all 0.2s ease;
+  overflow: hidden;
+  padding-top: 0;
+}
+.card-adhd:hover,
+.card-dyslexia:hover,
+.card-dyscalculia:hover {
+  transform: translateY(-2px);
+}
+
+/* Solid filled simulation buttons */
+.card-adhd .cta-button,
+.card-dyslexia .cta-button,
+.card-dyscalculia .cta-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+.card-adhd .cta-button       { background-color: #0ea5a0; }
+.card-dyslexia .cta-button    { background-color: #7c3aed; }
+.card-dyscalculia .cta-button { background-color: #e07b10; }
+
+.card-adhd .cta-button:hover,
+.card-dyslexia .cta-button:hover,
+.card-dyscalculia .cta-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
