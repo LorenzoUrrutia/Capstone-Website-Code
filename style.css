@@ -4,6 +4,13 @@
   --bg-elevated: #FDFCF9;
   --text-primary: #2D2520;
   --text-secondary: #5F5550;
+  --primary-color: #2b6cff;
+  --link-color: #4a6ca8;
+  --link-hover-color: #36588f;
+  --link-border-color: rgba(74, 108, 168, 0.45);
+  --link-border-hover-color: rgba(54, 88, 143, 0.8);
+  --nav-link-color: #1f3f7a;
+  --nav-link-hover-bg: rgba(43, 108, 255, 0.12);
   --accent-primary: #7C3AED;
   --accent-secondary: #06B6D4;
   --accent-warm: #F59E0B;
@@ -30,8 +37,22 @@ body{
   min-height: 100vh;
 }
 
-a{font-weight:700;color:var(--accent-secondary) !important;text-decoration:none !important;transition: all 0.3s ease;}
-a:hover{color:var(--accent-secondary) !important;}
+a{
+  color:var(--link-color);
+  text-decoration:none;
+  border-bottom:1px solid var(--link-border-color);
+  font-weight:500;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+a:hover{
+  color:var(--link-hover-color);
+  border-bottom-color:var(--link-border-hover-color);
+}
+a:focus-visible{
+  outline:2px solid rgba(43, 108, 255, 0.35);
+  outline-offset:2px;
+  border-bottom-color:var(--link-border-hover-color);
+}
 
   /* Editorial layout helpers: keep readable line length while widening page */
   .content p,
@@ -82,8 +103,9 @@ header.topbar{
   padding:0;
 }
 .topnav a{
-  color:var(--text-primary);
+  color:var(--nav-link-color);
   text-decoration:none;
+  border-bottom:none;
   padding:0.6rem 1.25rem;
   border-radius:24px;
   font-weight:600;
@@ -92,17 +114,17 @@ header.topbar{
   position: relative;
 }
 .topnav a:hover{
-  background:rgba(6, 182, 212, 0.1);
-  color:var(--text-primary);
+  background:var(--nav-link-hover-bg);
+  color:var(--nav-link-color);
 }
 .topnav a.active{
   background: transparent;
-  color: var(--text-primary);
+  color: var(--nav-link-color);
   box-shadow: none;
 }
 .topnav a.active:hover{
   box-shadow: none;
-  background: rgba(6, 182, 212, 0.1);
+  background: var(--nav-link-hover-bg);
 }
 
 /* Respect prefers-reduced-motion */
@@ -308,6 +330,7 @@ header.topbar{
   display:inline-block;
   padding:1rem 2.5rem;
   border-radius:14px;
+  border-bottom:none;
   text-decoration:none;
   font-weight:700;
   border:1px solid var(--border-subtle);
@@ -370,12 +393,13 @@ body.dark-site header.topbar{
 }
 
 body.dark-site .topnav a{
-  color: #2D2520;
+  color: var(--nav-link-color);
+  border-bottom: none;
 }
 
 body.dark-site .topnav a:hover{
-  color: #2D2520;
-  background: rgba(124, 58, 237, 0.1);
+  color: var(--nav-link-color);
+  background: var(--nav-link-hover-bg);
 }
 
 body.dark-site p,
@@ -394,8 +418,35 @@ body.dark-site .card{
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
+body.dark-site .adhd-box{
+  overflow: hidden;
+  padding-top: 0;
+}
+
+body.dark-site .adhd-card-header{
+  display: flex;
+  align-items: center;
+  margin: 0 -2rem 1rem;
+  padding: 10px 20px;
+  background: #00008B;
+  border-radius: 0;
+}
+
+body.dark-site .adhd-card-header h2{
+  margin: 0;
+  color: #ffffff !important;
+  font-size: 18px;
+  font-weight: 600;
+}
+
 body.dark-site a{
-  color: var(--accent-secondary);
+  color: var(--link-color);
+  border-bottom-color: var(--link-border-color);
+}
+
+body.dark-site a:hover{
+  color: var(--link-hover-color);
+  border-bottom-color: var(--link-border-hover-color);
 }
 
 body.dark-site .jump{
@@ -1039,4 +1090,54 @@ body.quiz-modal-open {
 .card-dyscalculia .cta-button:hover {
   transform: translateY(-2px);
   filter: brightness(1.08);
+}
+
+/* ==============================================
+   Scoped typography system (Claude-like)
+   Applies only to pages with body.claude-type
+   ============================================== */
+
+.claude-type {
+  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.claude-type p,
+.claude-type li,
+.claude-type span,
+.claude-type label,
+.claude-type summary,
+.claude-type details {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.claude-type h1,
+.claude-type h2,
+.claude-type h3,
+.claude-type h4,
+.claude-type .topnav a,
+.claude-type button,
+.claude-type .cta-button {
+  font-family: var(--font-ui);
+  font-weight: 600;
+}
+
+.claude-type input,
+.claude-type textarea,
+.claude-type select,
+.claude-type button {
+  font-family: var(--font-ui);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.claude-type .topnav a {
+  font-weight: 600;
 }

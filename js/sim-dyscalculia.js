@@ -134,7 +134,7 @@ function resetSimulation() {
     intensitySelectEl.style.display = '';
   }
   if (simBackBtnEl) {
-    simBackBtnEl.hidden = true;
+    simBackBtnEl.hidden = false;
   }
   if (reflectionEl) reflectionEl.hidden = true;
   updatePauseUI();
