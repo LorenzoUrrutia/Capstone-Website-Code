@@ -3,7 +3,9 @@ let intensity = 'mild'; // mild | medium | high
 let currentTaskIndex = 0;
 let animationTimerId = null;
 
-const totalTasks = 3;
+const totalTasks = 2;
+const totalSymbolRounds = 3;
+const totalQuantityRounds = 3;
 const taskDurationHint = 'Take your time. The full simulation usually takes about 2–3 minutes.';
 
 const intensityMap = {
@@ -12,19 +14,16 @@ const intensityMap = {
   high: { tickMs: 120, amp: 3.2, chance: 0.17 }
 };
 
-const lineTaskState = {
-  target: 37,
-  value: 50,
-  dragging: false,
-  markerDriftPx: 0,
-  lineShiftX: 0
-};
-
 let simTaskAreaEl;
 let reflectionEl;
+let controlBarEl;
+let simBackBtnEl;
 let pauseBtnEl;
 let resetBtnEl;
 let intensitySelectEl;
+let intensityLabelEl;
+let symbolRoundIndex = 1;
+let quantityRoundIndex = 1;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -32,6 +31,45 @@ function clamp(value, min, max) {
 
 function randBetween(min, max) {
   return min + Math.random() * (max - min);
+}
+
+function toRoman(value) {
+  const numerals = [
+    ['M', 1000], ['CM', 900], ['D', 500], ['CD', 400],
+    ['C', 100], ['XC', 90], ['L', 50], ['XL', 40],
+    ['X', 10], ['IX', 9], ['V', 5], ['IV', 4], ['I', 1]
+  ];
+
+  let remaining = Math.max(1, Math.floor(value));
+  let output = '';
+
+  numerals.forEach(([symbol, amount]) => {
+    while (remaining >= amount) {
+      output += symbol;
+      remaining -= amount;
+    }
+  });
+
+  return output;
+}
+
+function evaluateExpression(left, right, op) {
+  if (op === '+') return left + right;
+  if (op === '-') return left - right;
+  return left * right;
+}
+
+function buildAnswerChoices(correctValue) {
+  const choices = new Set([correctValue]);
+  const deltas = [-8, -6, -5, -4, -3, -2, 2, 3, 4, 5, 6, 7, 8];
+
+  while (choices.size < 3) {
+    const delta = deltas[Math.floor(Math.random() * deltas.length)];
+    const candidate = correctValue + delta;
+    if (candidate > 0) choices.add(candidate);
+  }
+
+  return Array.from(choices).sort(() => Math.random() - 0.5);
 }
 
 function clearTaskEffects() {
@@ -69,15 +107,48 @@ function setIntensity(level) {
 
 function resetSimulation() {
   currentTaskIndex = 0;
+  symbolRoundIndex = 1;
+  quantityRoundIndex = 1;
   paused = false;
-  lineTaskState.value = 50;
-  lineTaskState.dragging = false;
-  lineTaskState.markerDriftPx = 0;
-  lineTaskState.lineShiftX = 0;
+  if (simTaskAreaEl) {
+    simTaskAreaEl.hidden = false;
+  }
+  if (controlBarEl) {
+    controlBarEl.hidden = false;
+    controlBarEl.style.display = '';
+  }
+  if (pauseBtnEl) {
+    pauseBtnEl.hidden = false;
+    pauseBtnEl.style.display = '';
+  }
+  if (resetBtnEl) {
+    resetBtnEl.hidden = false;
+    resetBtnEl.style.display = '';
+  }
+  if (intensityLabelEl) {
+    intensityLabelEl.hidden = false;
+    intensityLabelEl.style.display = '';
+  }
+  if (intensitySelectEl) {
+    intensitySelectEl.hidden = false;
+    intensitySelectEl.style.display = '';
+  }
+  if (simBackBtnEl) {
+    simBackBtnEl.hidden = true;
+  }
   if (reflectionEl) reflectionEl.hidden = true;
   updatePauseUI();
   renderTask();
   restartAnimationLoop();
+}
+
+function advanceSymbolRound() {
+  if (symbolRoundIndex < totalSymbolRounds) {
+    symbolRoundIndex += 1;
+    renderSymbolInstabilityTask();
+    return;
+  }
+  nextTask();
 }
 
 function nextTask() {
@@ -89,20 +160,52 @@ function nextTask() {
   renderTask();
 }
 
+function advanceQuantityRound() {
+  if (quantityRoundIndex < totalQuantityRounds) {
+    quantityRoundIndex += 1;
+    renderQuantityMatchingTask();
+    return;
+  }
+  nextTask();
+}
+
 function showReflection() {
   if (!simTaskAreaEl || !reflectionEl) return;
-  simTaskAreaEl.innerHTML = `
-    <div class="dyscalc-task-card">
-      <h3>Simulation complete</h3>
-      <p>You have reached the end of the tasks.</p>
-      <button id="restartFromReflectionBtn" type="button" class="cta-button">Try Again</button>
-    </div>
-  `;
-  reflectionEl.hidden = false;
-  const restartBtn = document.getElementById('restartFromReflectionBtn');
-  if (restartBtn) {
-    restartBtn.addEventListener('click', resetSimulation);
+
+  setPaused(true);
+  if (animationTimerId) {
+    clearInterval(animationTimerId);
+    animationTimerId = null;
   }
+  simTaskAreaEl.innerHTML = '';
+  simTaskAreaEl.hidden = true;
+
+  if (controlBarEl) {
+    controlBarEl.hidden = true;
+    controlBarEl.style.display = 'none';
+  }
+  if (pauseBtnEl) {
+    pauseBtnEl.hidden = true;
+    pauseBtnEl.style.display = 'none';
+  }
+  if (resetBtnEl) {
+    resetBtnEl.hidden = true;
+    resetBtnEl.style.display = 'none';
+  }
+  if (intensityLabelEl) {
+    intensityLabelEl.hidden = true;
+    intensityLabelEl.style.display = 'none';
+  }
+  if (intensitySelectEl) {
+    intensitySelectEl.hidden = true;
+    intensitySelectEl.style.display = 'none';
+  }
+
+  if (simBackBtnEl) {
+    simBackBtnEl.hidden = false;
+  }
+
+  reflectionEl.hidden = false;
 }
 
 function renderTask() {
@@ -115,9 +218,6 @@ function renderTask() {
       break;
     case 1:
       renderQuantityMatchingTask();
-      break;
-    case 2:
-      renderNumberLineTask();
       break;
     default:
       showReflection();
@@ -162,8 +262,6 @@ function renderNumberComparisonTask() {
 }
 
 function renderSymbolInstabilityTask() {
-  const leftNum = Math.floor(randBetween(5, 25));
-  const rightNum = Math.floor(randBetween(3, 20));
   const operatorPool = [
     { symbol: '+', label: 'Addition (+)' },
     { symbol: '-', label: 'Subtraction (-)' },
@@ -171,42 +269,64 @@ function renderSymbolInstabilityTask() {
   ];
   const intendedOp = operatorPool[Math.floor(Math.random() * operatorPool.length)].symbol;
 
+  let leftNum;
+  let rightNum;
+
+  if (intendedOp === '-') {
+    leftNum = Math.floor(randBetween(12, 29));
+    rightNum = Math.floor(randBetween(3, 12));
+  } else if (intendedOp === '×') {
+    leftNum = Math.floor(randBetween(3, 10));
+    rightNum = Math.floor(randBetween(2, 7));
+  } else {
+    leftNum = Math.floor(randBetween(5, 23));
+    rightNum = Math.floor(randBetween(3, 16));
+  }
+
+  const correctAnswer = evaluateExpression(leftNum, rightNum, intendedOp);
+  const answerChoices = buildAnswerChoices(correctAnswer);
+  const leftDisplay = toRoman(leftNum);
+  const rightDisplay = toRoman(rightNum);
+
   simTaskAreaEl.innerHTML = `
     <div class="dyscalc-task-card" data-task="symbol">
       <h3>Symbol Instability</h3>
-      <p>Read the expression and choose the operation you think is shown.</p>
+      <p><strong>Round ${symbolRoundIndex} of ${totalSymbolRounds}</strong></p>
+      <p>Read the expression and choose the correct answer.</p>
       <div class="symbol-expression unstable-expression" aria-live="polite">
-        <span>${leftNum}</span>
+        <span>${leftDisplay}</span>
         <span id="operatorEl" class="operator" data-original="${intendedOp}">${intendedOp}</span>
-        <span>${rightNum}</span>
+        <span>${rightDisplay}</span>
       </div>
       <div class="symbol-options">
-        <button type="button" class="dyscalc-option-btn" data-op="+">Addition (+)</button>
-        <button type="button" class="dyscalc-option-btn" data-op="-">Subtraction (-)</button>
-        <button type="button" class="dyscalc-option-btn" data-op="×">Multiplication (×)</button>
+        ${answerChoices.map((value) => `<button type="button" class="dyscalc-option-btn" data-answer="${value}">${toRoman(value)}</button>`).join('')}
       </div>
-      <p class="task-feedback" id="taskFeedback">The intended symbol may briefly appear different.</p>
-      <button type="button" class="cta-button" id="nextTaskBtn">Next Task</button>
+      <p class="task-feedback" id="taskFeedback">The operator may briefly look different. Choose the correct result for the intended expression.</p>
+      <button type="button" class="cta-button" id="nextTaskBtn" disabled>${symbolRoundIndex < totalSymbolRounds ? 'Next Round' : 'Next Task'}</button>
     </div>
   `;
 
   const buttons = simTaskAreaEl.querySelectorAll('.dyscalc-option-btn');
   const feedback = document.getElementById('taskFeedback');
+  const nextBtn = document.getElementById('nextTaskBtn');
+
   buttons.forEach((btn) => {
     btn.addEventListener('click', () => {
       buttons.forEach((b) => b.classList.remove('selected'));
       btn.classList.add('selected');
-      const op = btn.dataset.op;
+      const selectedAnswer = Number(btn.dataset.answer);
+      const isCorrect = selectedAnswer === correctAnswer;
       if (feedback) {
-        feedback.textContent = op === intendedOp
-          ? 'You matched the intended operation. The math is simple, but symbol recognition can still feel unstable.'
-          : 'That hesitation is part of the simulation: symbols can momentarily look different and feel unreliable.';
+        feedback.textContent = isCorrect
+          ? `Correct. ${leftDisplay} ${intendedOp} ${rightDisplay} = ${toRoman(correctAnswer)}.`
+          : 'Not quite';
       }
+
+      if (nextBtn) nextBtn.disabled = !isCorrect;
     });
   });
 
-  const nextBtn = document.getElementById('nextTaskBtn');
-  if (nextBtn) nextBtn.addEventListener('click', nextTask);
+  if (nextBtn) nextBtn.addEventListener('click', advanceSymbolRound);
 }
 
 function createDotGroup(count) {
@@ -222,25 +342,46 @@ function createDotGroup(count) {
   return group;
 }
 
-function renderQuantityMatchingTask() {
-  const target = Math.floor(randBetween(4, 10)); // 4..9
-  const lower = clamp(target - 1, 1, 12);
-  const upper = clamp(target + 1, 1, 12);
-  const choices = Array.from(new Set([lower, target, upper]));
+function buildQuantityOptions() {
+  const options = [];
+  while (options.length < 3) {
+    const baseCount = Math.floor(randBetween(4, 11));
+    const magnitude = Math.floor(randBetween(1, 6));
+    const sign = Math.random() < 0.5 ? 1 : -1;
+    const adjusted = baseCount + (sign * magnitude);
 
-  while (choices.length < 3) {
-    const fallback = clamp(target + (choices.length === 1 ? 2 : -2), 1, 12);
-    if (!choices.includes(fallback)) choices.push(fallback);
+    if (adjusted <= 0) continue;
+
+    options.push({
+      baseCount,
+      sign,
+      magnitude,
+      adjusted
+    });
   }
 
-  choices.sort(() => Math.random() - 0.5);
+  // Ensure one clear greatest value
+  const maxValue = Math.max(...options.map((o) => o.adjusted));
+  const maxCount = options.filter((o) => o.adjusted === maxValue).length;
+  if (maxCount !== 1) {
+    return buildQuantityOptions();
+  }
+
+  return options.sort(() => Math.random() - 0.5);
+}
+
+function renderQuantityMatchingTask() {
+  const options = buildQuantityOptions();
+  const greatest = Math.max(...options.map((o) => o.adjusted));
+
   simTaskAreaEl.innerHTML = `
     <div class="dyscalc-task-card" data-task="quantity">
       <h3>Quantity Matching</h3>
-      <p>Which group represents <strong>${target}</strong>?</p>
+      <p><strong>Round ${quantityRoundIndex} of ${totalQuantityRounds}</strong></p>
+      <p>Each option starts with the dots shown, then applies the Roman numeral modifier. Pick the <strong>greatest resulting quantity</strong>.</p>
       <div class="dot-groups" id="dotGroups"></div>
-      <p class="task-feedback" id="taskFeedback">Select the group that matches the target quantity.</p>
-      <button type="button" class="cta-button" id="nextTaskBtn" disabled>Next Task</button>
+      <p class="task-feedback" id="taskFeedback">Choose the option with the highest final total.</p>
+      <button type="button" class="cta-button" id="nextTaskBtn" disabled>${quantityRoundIndex < totalQuantityRounds ? 'Next Round' : 'Finish Simulation'}</button>
     </div>
   `;
 
@@ -249,107 +390,37 @@ function renderQuantityMatchingTask() {
   const nextBtn = document.getElementById('nextTaskBtn');
   if (!groupsEl) return;
 
-  const groups = choices.map((count) => createDotGroup(count));
+  const groups = options.map((option) => {
+    const group = createDotGroup(option.baseCount);
+    group.dataset.adjusted = String(option.adjusted);
+
+    const modifier = document.createElement('div');
+    modifier.className = 'dot-group-modifier';
+    const symbol = option.sign > 0 ? '+' : '−';
+    modifier.innerHTML = `<span class="modifier-sign">${symbol}</span><span class="modifier-roman">${toRoman(option.magnitude)}</span>`;
+    group.appendChild(modifier);
+
+    return group;
+  });
+
   groups.forEach((group) => groupsEl.appendChild(group));
 
   groups.forEach((group) => {
     group.addEventListener('click', () => {
       groups.forEach((g) => g.classList.remove('selected'));
       group.classList.add('selected');
-      const selectedCount = Number(group.dataset.count);
-      const isCorrect = selectedCount === target;
+      const selectedTotal = Number(group.dataset.adjusted);
+      const isCorrect = selectedTotal === greatest;
       if (feedback) {
         feedback.textContent = isCorrect
-          ? 'You matched the quantity.'
-          : 'This mismatch reflects how quantity can feel less stable under visual uncertainty.';
+          ? 'Correct. You selected the greatest resulting quantity.'
+          : 'Not quite. Re-check each option after applying its Roman numeral modifier.';
       }
-      if (nextBtn) nextBtn.disabled = false;
+      if (nextBtn) nextBtn.disabled = !isCorrect;
     });
   });
 
-  if (nextBtn) nextBtn.addEventListener('click', nextTask);
-}
-
-function renderNumberLineTask() {
-  lineTaskState.target = Math.floor(randBetween(8, 93)); // 8..92
-  lineTaskState.value = 50;
-  lineTaskState.dragging = false;
-  lineTaskState.markerDriftPx = 0;
-  lineTaskState.lineShiftX = 0;
-
-  simTaskAreaEl.innerHTML = `
-    <div class="dyscalc-task-card" data-task="line">
-      <h3>Number Line Placement</h3>
-      <p>Place the marker at <strong>${lineTaskState.target}</strong> on the number line (0 to 100).</p>
-      <div class="number-line-shell" id="numberLineShell">
-        <div class="number-line" id="numberLine">
-          <div class="number-line-track"></div>
-          <div class="number-line-ticks" id="numberLineTicks"></div>
-          <button type="button" class="line-marker" id="lineMarker" aria-label="Draggable number marker"></button>
-        </div>
-      </div>
-      <p class="task-feedback" id="lineReadout">Current placement: 50</p>
-      <button type="button" class="cta-button" id="finishTaskBtn">Finish Simulation</button>
-    </div>
-  `;
-
-  const line = document.getElementById('numberLine');
-  const marker = document.getElementById('lineMarker');
-  const ticks = document.getElementById('numberLineTicks');
-  const readout = document.getElementById('lineReadout');
-  const finishBtn = document.getElementById('finishTaskBtn');
-
-  if (!line || !marker || !ticks) return;
-
-  for (let i = 0; i <= 100; i += 10) {
-    const tick = document.createElement('span');
-    tick.className = 'number-line-tick';
-    tick.style.left = `${i}%`;
-    tick.textContent = i === 0 || i === 50 || i === 100 ? String(i) : '';
-    ticks.appendChild(tick);
-  }
-
-  function updateMarkerVisual() {
-    marker.style.left = `${lineTaskState.value}%`;
-    marker.style.transform = `translateX(calc(-50% + ${lineTaskState.markerDriftPx}px))`;
-    if (readout) {
-      readout.textContent = `Current placement: ${Math.round(lineTaskState.value)}`;
-    }
-  }
-
-  function placeFromPointer(clientX) {
-    const rect = line.getBoundingClientRect();
-    const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
-    lineTaskState.value = ratio * 100;
-    updateMarkerVisual();
-  }
-
-  function pointerDown(event) {
-    lineTaskState.dragging = true;
-    placeFromPointer(event.clientX);
-  }
-
-  function pointerMove(event) {
-    if (!lineTaskState.dragging) return;
-    placeFromPointer(event.clientX);
-  }
-
-  function pointerUp() {
-    lineTaskState.dragging = false;
-  }
-
-  line.addEventListener('pointerdown', pointerDown);
-  window.addEventListener('pointermove', pointerMove);
-  window.addEventListener('pointerup', pointerUp);
-  updateMarkerVisual();
-
-  if (finishBtn) {
-    finishBtn.addEventListener('click', () => {
-      window.removeEventListener('pointermove', pointerMove);
-      window.removeEventListener('pointerup', pointerUp);
-      showReflection();
-    });
-  }
+  if (nextBtn) nextBtn.addEventListener('click', advanceQuantityRound);
 }
 
 function applyDistortionEffects() {
@@ -407,29 +478,6 @@ function applyDistortionEffects() {
     });
   }
 
-  if (taskName === 'line') {
-    const shell = document.getElementById('numberLineShell');
-    const ticks = simTaskAreaEl.querySelectorAll('.number-line-tick');
-    const marker = document.getElementById('lineMarker');
-
-    if (shell) {
-      lineTaskState.lineShiftX = randBetween(-amp, amp);
-      const lineShiftY = randBetween(-amp * 0.4, amp * 0.4);
-      shell.style.transform = `translate(${lineTaskState.lineShiftX}px, ${lineShiftY}px)`;
-    }
-
-    ticks.forEach((tick) => {
-      if (Math.random() < chance * 0.8) {
-        tick.style.opacity = `${randBetween(0.5, 1)}`;
-      }
-    });
-
-    if (marker) {
-      const driftMultiplier = lineTaskState.dragging ? 1.4 : 0.75;
-      lineTaskState.markerDriftPx = randBetween(-amp * driftMultiplier, amp * driftMultiplier);
-      marker.style.transform = `translateX(calc(-50% + ${lineTaskState.markerDriftPx}px))`;
-    }
-  }
 }
 
 function restartAnimationLoop() {
@@ -445,6 +493,7 @@ function setupControls() {
   pauseBtnEl = document.getElementById('pauseBtn');
   resetBtnEl = document.getElementById('resetBtn');
   intensitySelectEl = document.getElementById('intensitySelect');
+  intensityLabelEl = controlBarEl ? controlBarEl.querySelector('.dyscalc-intensity-label') : null;
 
   if (pauseBtnEl) {
     pauseBtnEl.addEventListener('click', () => {
@@ -467,6 +516,8 @@ function setupControls() {
 document.addEventListener('DOMContentLoaded', () => {
   simTaskAreaEl = document.getElementById('simTaskArea');
   reflectionEl = document.getElementById('reflectionCard');
+  controlBarEl = document.getElementById('dyscalcControlBar');
+  simBackBtnEl = document.getElementById('simBackBtn');
 
   if (!simTaskAreaEl) return;
 

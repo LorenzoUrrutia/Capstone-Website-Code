@@ -19,6 +19,9 @@ let interruptOverlayEl;
 let interruptTextEl;
 let dismissInterruptBtnEl;
 let ambientAudioEl;
+let simHudEl;
+let taskContainerEl;
+let reflectionCardEl;
 
 // Distraction scheduler
 let toastIntervalId = null;
@@ -96,6 +99,9 @@ function setup() {
   interruptTextEl = document.getElementById('interruptText');
   dismissInterruptBtnEl = document.getElementById('dismissInterruptBtn');
   ambientAudioEl = document.getElementById('adhdAmbientAudio');
+  simHudEl = document.getElementById('simHud');
+  taskContainerEl = document.getElementById('task-container');
+  reflectionCardEl = document.getElementById('reflectionCard');
 
   // Configure audio settings
   if (ambientAudioEl) {
@@ -147,6 +153,16 @@ function initState() {
   }
   if (answerButtonsEl) {
     answerButtonsEl.innerHTML = '';
+  }
+
+  if (taskContainerEl) {
+    taskContainerEl.hidden = false;
+  }
+  if (simHudEl) {
+    simHudEl.hidden = false;
+  }
+  if (reflectionCardEl) {
+    reflectionCardEl.hidden = true;
   }
 
   // Clear toasts and interruption
@@ -262,17 +278,23 @@ function handleReset() {
 }
 
 function showCompletionMessage() {
-  if (questionTextEl) {
-    questionTextEl.textContent = "All questions completed!";
-  }
-
-  if (answerButtonsEl) {
-    answerButtonsEl.innerHTML = '';
-  }
-
   // Stop distractions when completed
   stopDistractionScheduler();
   clearAllToasts();
+
+  if (ambientAudioEl) {
+    ambientAudioEl.pause();
+  }
+
+  if (taskContainerEl) {
+    taskContainerEl.hidden = true;
+  }
+  if (simHudEl) {
+    simHudEl.hidden = true;
+  }
+  if (reflectionCardEl) {
+    reflectionCardEl.hidden = false;
+  }
 }
 
 // Control handlers

@@ -5,13 +5,18 @@ let intensity = 'mild'; // 'mild' | 'moderate' | 'strong'
 let wordDifficulty = 'Harry_Potter';
 let hasStarted = false;
 
+let simStageEl;
 let containerEl;
 let paperContentEl;
+let paperScrollEl;
 let startOverlayEl;
 let startBtnEl;
 let textLines = [];
 let charElements = []; // array of character span elements
 let animationFrameId = null;
+let simHudEl;
+let reflectionCardEl;
+let hasCompleted = false;
 
 // Sentence pools organized by difficulty level
 const sentencePool = {
@@ -56,6 +61,16 @@ function initState() {
   intensity = 'mild';
   wordDifficulty = 'Harry_Potter';
   hasStarted = false;
+  hasCompleted = false;
+
+  if (simStageEl) simStageEl.hidden = false;
+  if (containerEl) containerEl.hidden = false;
+  if (simHudEl) simHudEl.hidden = false;
+  if (reflectionCardEl) reflectionCardEl.hidden = true;
+
+  if (paperScrollEl) {
+    paperScrollEl.scrollTop = 0;
+  }
   
   textLines = selectSentencesInOrder(wordDifficulty);
   renderPassage();
@@ -175,6 +190,7 @@ function setWordDifficulty(v) {
 }
 
 function setPaused(value) {
+  if (hasCompleted) return;
   paused = value;
   if (paused) {
     stopAnimation();
@@ -187,19 +203,57 @@ function resetSim() {
   stopAnimation();
   hasStarted = false;
   paused = false;
+  hasCompleted = false;
   showStartOverlay(true);
   const sel = document.getElementById('intensitySelect');
   const wordSel = document.getElementById('wordDifficultySelect');
   if (sel) sel.disabled = false;
   if (wordSel) wordSel.disabled = false;
+
+  if (simStageEl) simStageEl.hidden = false;
+  if (containerEl) containerEl.hidden = false;
+  if (simHudEl) simHudEl.hidden = false;
+  if (reflectionCardEl) reflectionCardEl.hidden = true;
+  if (paperScrollEl) {
+    paperScrollEl.scrollTop = 0;
+  }
+
+  renderPassage();
   updateControlsUI();
+}
+
+function completeSimulation() {
+  if (hasCompleted) return;
+  hasCompleted = true;
+  paused = true;
+  stopAnimation();
+
+  if (paperContentEl) {
+    paperContentEl.innerHTML = '';
+  }
+  if (simStageEl) simStageEl.hidden = true;
+  if (simHudEl) simHudEl.hidden = true;
+  if (containerEl) containerEl.hidden = true;
+  if (reflectionCardEl) reflectionCardEl.hidden = false;
+}
+
+function handleReadingProgress() {
+  if (!hasStarted || paused || hasCompleted || !paperScrollEl) return;
+  const atBottom = paperScrollEl.scrollTop + paperScrollEl.clientHeight >= paperScrollEl.scrollHeight - 4;
+  if (atBottom) {
+    completeSimulation();
+  }
 }
 
 function updateControlsUI() {
   const pauseBtn = document.getElementById('pauseBtn');
+  const doneReadingBtn = document.getElementById('doneReadingBtn');
   if (pauseBtn) {
     pauseBtn.textContent = paused ? 'Resume' : 'Pause';
     pauseBtn.disabled = !hasStarted;
+  }
+  if (doneReadingBtn) {
+    doneReadingBtn.disabled = !hasStarted || hasCompleted;
   }
   const sel = document.getElementById('intensitySelect');
   if (sel) sel.value = intensity;
@@ -216,22 +270,29 @@ function showStartOverlay(visible) {
 }
 
 function setup() {
+  simStageEl = document.querySelector('.sim-stage');
   containerEl = document.getElementById('canvas-container');
   startOverlayEl = document.getElementById('startOverlay');
   startBtnEl = document.getElementById('startBtn');
   paperContentEl = document.getElementById('paper-content');
+  paperScrollEl = document.querySelector('.paper-scroll');
+  simHudEl = document.getElementById('simHud');
+  reflectionCardEl = document.getElementById('reflectionCard');
   initState();
 
   // Wire simple controls if present
   const pauseBtn = document.getElementById('pauseBtn');
+  const doneReadingBtn = document.getElementById('doneReadingBtn');
   const resetBtn = document.getElementById('resetBtn');
   const sel = document.getElementById('intensitySelect');
   const wordSel = document.getElementById('wordDifficultySelect');
 
   if (pauseBtn) pauseBtn.addEventListener('click', () => { setPaused(!paused); updateControlsUI(); });
+  if (doneReadingBtn) doneReadingBtn.addEventListener('click', () => { if (hasStarted) completeSimulation(); });
   if (resetBtn) resetBtn.addEventListener('click', () => { resetSim(); });
   if (sel) sel.addEventListener('change', (e) => { setIntensity(e.target.value); });
   if (wordSel) wordSel.addEventListener('change', (e) => { setWordDifficulty(e.target.value); });
+  if (paperScrollEl) paperScrollEl.addEventListener('scroll', handleReadingProgress);
 
   if (startBtnEl) {
     startBtnEl.addEventListener('click', () => {

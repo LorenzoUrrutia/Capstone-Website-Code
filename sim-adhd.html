@@ -206,6 +206,29 @@
       box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
     }
 
+    .sim-adhd-page .sim-reflection {
+      width: min(900px, 92vw);
+      margin: 20px auto 0;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 25, 40, 0.1);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 22px rgba(15, 25, 40, 0.12);
+      color: #1e2a35;
+    }
+
+    .sim-adhd-page .sim-reflection h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .sim-adhd-page .sim-reflection p {
+      margin: 0 0 10px 0;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      color: #2a3a48;
+    }
+
     /* Toast notifications */
     .sim-adhd-page .toast-layer {
       position: fixed;
@@ -388,7 +411,7 @@
     </div>
   </div>
 
-  <div class="sim-hud" role="group" aria-label="Simulation controls">
+  <div id="simHud" class="sim-hud" role="group" aria-label="Simulation controls">
     <div class="controls">
       <button id="pauseBtn" class="btn">Pause</button>
       <button id="resetBtn" class="btn">Reset</button>
@@ -403,6 +426,12 @@
       </label>
     </div>
   </div>
+
+  <section id="reflectionCard" class="sim-reflection" hidden>
+    <h3>Reflection</h3>
+    <p>Placeholder reflection text for ADHD simulation. This section will be replaced with final copy in a future draft.</p>
+    <p>Additional placeholder sentence for layout testing, spacing checks, and final content review before publication.</p>
+  </section>
 
   <a class="sim-back" href="simulations.html">Back</a>
 

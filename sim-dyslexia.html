@@ -175,6 +175,29 @@
       text-decoration: none;
       box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
     }
+
+    .sim-dyslexia-page .sim-reflection {
+      width: min(900px, 92vw);
+      margin: 20px auto 0;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 25, 40, 0.1);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: 0 8px 22px rgba(15, 25, 40, 0.12);
+      color: #1e2a35;
+    }
+
+    .sim-dyslexia-page .sim-reflection h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .sim-dyslexia-page .sim-reflection p {
+      margin: 0 0 10px 0;
+      font-size: 0.98rem;
+      line-height: 1.5;
+      color: #2a3a48;
+    }
   </style>
 </head>
 <body class="dark-site sim-dyslexia-page">
@@ -198,9 +221,10 @@
     </div>
   </main>
 
-  <div class="sim-hud" role="group" aria-label="Simulation controls">
+  <div id="simHud" class="sim-hud" role="group" aria-label="Simulation controls">
     <div class="controls">
       <button id="pauseBtn" class="btn">Pause</button>
+      <button id="doneReadingBtn" class="btn">Done Reading</button>
       <button id="resetBtn" class="btn">Reset</button>
 
       <label style="display:flex;align-items:center;gap:8px;">
@@ -222,6 +246,12 @@
       </label>
     </div>
   </div>
+
+  <section id="reflectionCard" class="sim-reflection" hidden>
+    <h3>Reflection</h3>
+    <p>Placeholder reflection text for dyslexia simulation. This section is temporary and will be replaced with finalized messaging.</p>
+    <p>Additional placeholder sentence used to confirm structure, readability, and visual spacing of the end-state panel.</p>
+  </section>
 
   <a class="sim-back" href="simulations.html">Back</a>
 
