@@ -77,10 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const explanationEl = overlay.querySelector('#quizFeedbackExplanation');
       const doneBtn = overlay.querySelector('#quizFeedbackDoneBtn');
 
-      const selectedLabel = selectedBtn.textContent.trim().toLowerCase();
+      const selectedLabel = (selectedBtn.dataset.answer || selectedBtn.textContent.trim()).toLowerCase();
       const selectedIsCorrect = selectedBtn.getAttribute('data-correct') === 'true';
-      const selectedPretty = selectedLabel === 'true' ? 'True' : 'False';
-
       const correctAnswer = (details.dataset.correctAnswer || '').toLowerCase();
       const normalizedCorrectAnswer = correctAnswer === 'true' || correctAnswer === 'false'
         ? correctAnswer
@@ -89,12 +87,27 @@ document.addEventListener('DOMContentLoaded', () => {
         ? selectedLabel === normalizedCorrectAnswer
         : selectedIsCorrect;
 
+      const correctClassification = (() => {
+        if (normalizedCorrectAnswer) {
+          return normalizedCorrectAnswer === 'true' ? 'Myth' : 'Fact';
+        }
+
+        const correctBtn = details.querySelector('.quiz-choice[data-correct="true"]');
+        const correctValue = (correctBtn?.dataset.answer || correctBtn?.textContent?.trim() || '').toLowerCase();
+        if (correctValue === 'true') return 'Myth';
+        if (correctValue === 'false') return 'Fact';
+        return isCorrect ? 'Myth' : 'Fact';
+      })();
+
       const trueExplanation = details.dataset.trueExplanation || 'Review the statement and compare it to the facts above.';
       const falseExplanation = details.dataset.falseExplanation || 'Review the statement and compare it to the facts above.';
       const selectedExplanation = selectedLabel === 'true' ? trueExplanation : falseExplanation;
 
+      if (selectionEl) {
+        selectionEl.innerHTML = `<strong>Correct answer: ${correctClassification}.</strong>`;
+      }
       if (resultEl) {
-        resultEl.innerHTML = `<strong>That is ${isCorrect ? 'correct' : 'incorrect'}.</strong>`;
+        resultEl.textContent = '';
       }
       if (explanationEl) {
         explanationEl.textContent = selectedExplanation;
@@ -120,7 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Add selection to clicked button
       btn.classList.add('selected');
 
-      const choice = btn.textContent.trim().toLowerCase();
+      const choice = (btn.dataset.answer || btn.textContent.trim()).toLowerCase();
       const hasTrueFalseExplanations = !!(details.dataset.trueExplanation || details.dataset.falseExplanation);
 
       if (hasTrueFalseExplanations && (choice === 'true' || choice === 'false')) {

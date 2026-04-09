@@ -1091,11 +1091,11 @@ body.quiz-modal-open {
 }
 
 /* ==============================================
-   Scoped typography system (Claude-like)
-   Applies only to pages with body.claude-type
+   Scoped typography system 
+   Applies only to pages with body
    ============================================== */
 
-.claude-type {
+.body-type {
   --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-family: var(--font-ui);
   font-weight: 400;
@@ -1105,37 +1105,37 @@ body.quiz-modal-open {
   text-rendering: optimizeLegibility;
 }
 
-.claude-type p,
-.claude-type li,
-.claude-type span,
-.claude-type label,
-.claude-type summary,
-.claude-type details {
+.body-type p,
+.body-type li,
+.body-type span,
+.body-type label,
+.body-type summary,
+.body-type details {
   font-family: var(--font-ui);
   font-weight: 400;
   line-height: 1.6;
 }
 
-.claude-type h1,
-.claude-type h2,
-.claude-type h3,
-.claude-type h4,
-.claude-type .topnav a,
-.claude-type button,
-.claude-type .cta-button {
+.body-type h1,
+.body-type h2,
+.body-type h3,
+.body-type h4,
+.body-type .topnav a,
+.body-type button,
+.body-type .cta-button {
   font-family: var(--font-ui);
   font-weight: 600;
 }
 
-.claude-type input,
-.claude-type textarea,
-.claude-type select,
-.claude-type button {
+.body-type input,
+.body-type textarea,
+.body-type select,
+.body-type button {
   font-family: var(--font-ui);
   font-weight: 500;
   line-height: 1.5;
 }
 
-.claude-type .topnav a {
+.body-type .topnav a {
   font-weight: 600;
 }
