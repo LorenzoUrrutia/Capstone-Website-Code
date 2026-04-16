@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.innerHTML = `
         <div class="quiz-feedback-modal">
           <p id="quizFeedbackSelection"></p>
-          <p id="quizFeedbackResult"></p>
           <p id="quizFeedbackExplanation"></p>
           <button id="quizFeedbackDoneBtn" class="cta-button" type="button">Done</button>
         </div>
@@ -70,10 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    function showTrueFalseFeedback(details, selectedBtn) {
+    function showQuizFeedback(details, selectedBtn) {
       const overlay = getOrCreateQuizModal();
       const selectionEl = overlay.querySelector('#quizFeedbackSelection');
-      const resultEl = overlay.querySelector('#quizFeedbackResult');
       const explanationEl = overlay.querySelector('#quizFeedbackExplanation');
       const doneBtn = overlay.querySelector('#quizFeedbackDoneBtn');
 
@@ -87,27 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
         ? selectedLabel === normalizedCorrectAnswer
         : selectedIsCorrect;
 
-      const correctClassification = (() => {
-        if (normalizedCorrectAnswer) {
-          return normalizedCorrectAnswer === 'true' ? 'Myth' : 'Fact';
-        }
-
-        const correctBtn = details.querySelector('.quiz-choice[data-correct="true"]');
-        const correctValue = (correctBtn?.dataset.answer || correctBtn?.textContent?.trim() || '').toLowerCase();
-        if (correctValue === 'true') return 'Myth';
-        if (correctValue === 'false') return 'Fact';
-        return isCorrect ? 'Myth' : 'Fact';
-      })();
-
       const trueExplanation = details.dataset.trueExplanation || 'Review the statement and compare it to the facts above.';
       const falseExplanation = details.dataset.falseExplanation || 'Review the statement and compare it to the facts above.';
       const selectedExplanation = selectedLabel === 'true' ? trueExplanation : falseExplanation;
 
       if (selectionEl) {
-        selectionEl.innerHTML = `<strong>Correct answer: ${correctClassification}.</strong>`;
-      }
-      if (resultEl) {
-        resultEl.textContent = '';
+        selectionEl.innerHTML = `<strong>${isCorrect ? 'Correct.' : 'Incorrect.'}</strong>`;
       }
       if (explanationEl) {
         explanationEl.textContent = selectedExplanation;
@@ -137,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const hasTrueFalseExplanations = !!(details.dataset.trueExplanation || details.dataset.falseExplanation);
 
       if (hasTrueFalseExplanations && (choice === 'true' || choice === 'false')) {
-        showTrueFalseFeedback(details, btn);
+        showQuizFeedback(details, btn);
       } else {
         setTimeout(() => {
           advanceToNextQuestion(details);
