@@ -343,29 +343,22 @@ function createDotGroup(count) {
 }
 
 function buildQuantityOptions() {
-  const options = [];
-  while (options.length < 3) {
-    const baseCount = Math.floor(randBetween(4, 11));
-    const magnitude = Math.floor(randBetween(1, 6));
+  const highestAdjusted = Math.floor(randBetween(6, 14));
+  const targetAdjustedValues = [highestAdjusted, highestAdjusted - 1, highestAdjusted - 1];
+
+  const options = targetAdjustedValues.map((adjusted) => {
     const sign = Math.random() < 0.5 ? 1 : -1;
-    const adjusted = baseCount + (sign * magnitude);
+    const maxMagnitude = sign > 0 ? Math.max(1, adjusted - 1) : 6;
+    const magnitude = Math.floor(randBetween(1, Math.min(6, maxMagnitude) + 1));
+    const baseCount = adjusted - (sign * magnitude);
 
-    if (adjusted <= 0) continue;
-
-    options.push({
+    return {
       baseCount,
       sign,
       magnitude,
       adjusted
-    });
-  }
-
-  // Ensure one clear greatest value
-  const maxValue = Math.max(...options.map((o) => o.adjusted));
-  const maxCount = options.filter((o) => o.adjusted === maxValue).length;
-  if (maxCount !== 1) {
-    return buildQuantityOptions();
-  }
+    };
+  });
 
   return options.sort(() => Math.random() - 0.5);
 }
