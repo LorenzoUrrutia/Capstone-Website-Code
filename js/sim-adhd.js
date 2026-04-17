@@ -165,6 +165,9 @@ function initState() {
     reflectionCardEl.hidden = true;
   }
 
+  // Keep simulation page locked during task phase
+  document.body.style.overflow = 'hidden';
+
   // Clear toasts and interruption
   clearAllToasts();
   hideInterrupt();
