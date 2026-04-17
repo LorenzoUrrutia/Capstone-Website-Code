@@ -124,7 +124,10 @@ function renderPassage() {
   });
   
   paperContentEl.appendChild(p);
-  
+
+  // Apply letter substitutions for strong intensity
+  applyLetterSubstitutions();
+
   // Start animation if simulation has started
   if (hasStarted && !paused) {
     startAnimation();
@@ -133,8 +136,34 @@ function renderPassage() {
 
 function intensityToMag(level) {
   if (level === 'moderate') return 2.2;
-  if (level === 'strong') return 4.5;
+  if (level === 'strong') return 2.2; // same shake as moderate; distinction is letter swaps
   return 0.8; // mild
+}
+
+// Pairs of commonly confused letters in dyslexia
+const CONFUSABLE_PAIRS = [
+  ['b', 'd'],
+  ['p', 'q'],
+];
+
+// For strong intensity only: swap some confusable letters so they appear as their mirror pair.
+// Each eligible character has a 60% chance of being swapped so the effect is noticeable but not total.
+function applyLetterSubstitutions() {
+  if (intensity !== 'strong') return;
+  charElements.forEach((span) => {
+    const ch = span.textContent;
+    for (const [a, b] of CONFUSABLE_PAIRS) {
+      if (ch === a && Math.random() < 0.6) {
+        span.dataset.original = ch;
+        span.textContent = b;
+        break;
+      } else if (ch === b && Math.random() < 0.6) {
+        span.dataset.original = ch;
+        span.textContent = a;
+        break;
+      }
+    }
+  });
 }
 
 function applyJitterEffect() {
@@ -180,7 +209,10 @@ function stopAnimation() {
 function setIntensity(v) {
   intensity = v;
   updateControlsUI();
-  // Intensity only affects visual jitter magnitude, not word selection
+  // Re-render so letter substitutions apply/clear when intensity changes before start
+  if (!hasStarted) {
+    renderPassage();
+  }
 }
 
 function setWordDifficulty(v) {
