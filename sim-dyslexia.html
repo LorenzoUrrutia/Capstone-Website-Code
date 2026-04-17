@@ -79,49 +79,6 @@
       width: 0.3em;
     }
 
-    .sim-dyslexia-page .sim-start-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0, 0, 0, 0.18);
-    }
-
-    .sim-dyslexia-page .sim-start-card {
-      background: rgba(255, 255, 255, 0.95);
-      color: #1e2a35;
-      border-radius: 16px;
-      padding: 20px 24px;
-      box-shadow: 0 12px 28px rgba(15, 25, 40, 0.18);
-      max-width: min(520px, 88vw);
-      text-align: center;
-    }
-
-    .sim-dyslexia-page .sim-start-card h2 {
-      margin: 0 0 12px 0;
-      font-size: 1.4rem;
-    }
-
-    .sim-dyslexia-page .sim-start-card p {
-      margin: 8px 0 0 0;
-      font-size: 0.95rem;
-      color: #2a3a48;
-    }
-
-    .sim-dyslexia-page .sim-start-btn {
-      appearance: none;
-      border: none;
-      background: #1e2a35;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 999px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
     .sim-dyslexia-page .sim-hud {
       position: fixed;
       left: 50%;
@@ -212,14 +169,6 @@
       <div id="canvas-container" class="sketch">
         <div class="paper-scroll">
           <div id="paper-content"></div>
-        </div>
-      </div>
-
-      <div id="startOverlay" class="sim-start-overlay" role="dialog" aria-modal="true" aria-label="Start simulation">
-        <div class="sim-start-card">
-          <button id="startBtn" class="sim-start-btn">Start</button>
-          <p>Click to start the simulation.</p>
-          <p>This demonstrates reading under visual crowding + time pressure.</p>
         </div>
       </div>
 

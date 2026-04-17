@@ -9,8 +9,6 @@ let distractionEnabled = false;
 // DOM elements
 let questionTextEl;
 let answerButtonsEl;
-let startOverlayEl;
-let startBtnEl;
 let resetBtnEl;
 let pauseBtnEl;
 let intensitySelectEl;
@@ -89,8 +87,6 @@ function setup() {
   // Get DOM elements
   questionTextEl = document.getElementById('question-text');
   answerButtonsEl = document.getElementById('answer-buttons');
-  startOverlayEl = document.getElementById('startOverlay');
-  startBtnEl = document.getElementById('startBtn');
   resetBtnEl = document.getElementById('resetBtn');
   pauseBtnEl = document.getElementById('pauseBtn');
   intensitySelectEl = document.getElementById('intensitySelect');
@@ -109,10 +105,6 @@ function setup() {
   }
 
   // Set up event listeners
-  if (startBtnEl) {
-    startBtnEl.addEventListener('click', handleStart);
-  }
-
   if (resetBtnEl) {
     resetBtnEl.addEventListener('click', handleReset);
   }
@@ -131,6 +123,7 @@ function setup() {
 
   // Initialize the simulation
   initState();
+  handleStart();
 }
 
 function initState() {
@@ -139,13 +132,6 @@ function initState() {
   paused = false;
   intensity = 'mild';
   distractionEnabled = false;
-
-  document.body.classList.add('pre-start');
-  
-  // Show start overlay
-  if (startOverlayEl) {
-    startOverlayEl.style.display = 'flex';
-  }
 
   // Clear any existing question
   if (questionTextEl) {
@@ -191,18 +177,6 @@ function updateControlsUI() {
 function handleStart() {
   hasStarted = true;
   distractionEnabled = true;
-
-  document.body.classList.remove('pre-start');
-  
-  // Hide start overlay
-  if (startOverlayEl) {
-    startOverlayEl.style.display = 'none';
-  }
-
-  // Disable intensity selector
-  if (intensitySelectEl) {
-    intensitySelectEl.disabled = true;
-  }
 
   // Start background audio
   if (ambientAudioEl) {
@@ -266,11 +240,6 @@ function handleAnswerClick() {
 
 function handleReset() {
   currentQuestionIndex = 0;
-  // Re-enable intensity selector
-  if (intensitySelectEl) {
-    intensitySelectEl.disabled = false;
-  }
-  
   // Stop and reset audio
   if (ambientAudioEl) {
     ambientAudioEl.pause();

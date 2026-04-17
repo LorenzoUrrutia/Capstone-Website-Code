@@ -9,8 +9,6 @@ let simStageEl;
 let containerEl;
 let paperContentEl;
 let paperScrollEl;
-let startOverlayEl;
-let startBtnEl;
 let textLines = [];
 let charElements = []; // array of character span elements
 let animationFrameId = null;
@@ -60,7 +58,7 @@ function initState() {
   paused = false;
   intensity = 'mild';
   wordDifficulty = 'Harry_Potter';
-  hasStarted = false;
+  hasStarted = true;
   hasCompleted = false;
 
   if (simStageEl) simStageEl.hidden = false;
@@ -74,6 +72,7 @@ function initState() {
   
   textLines = selectSentencesInOrder(wordDifficulty);
   renderPassage();
+  startAnimation();
   updateControlsUI();
 }
 
@@ -233,14 +232,9 @@ function setPaused(value) {
 
 function resetSim() {
   stopAnimation();
-  hasStarted = false;
+  hasStarted = true;
   paused = false;
   hasCompleted = false;
-  showStartOverlay(true);
-  const sel = document.getElementById('intensitySelect');
-  const wordSel = document.getElementById('wordDifficultySelect');
-  if (sel) sel.disabled = false;
-  if (wordSel) wordSel.disabled = false;
 
   if (simStageEl) simStageEl.hidden = false;
   if (containerEl) containerEl.hidden = false;
@@ -304,8 +298,6 @@ function showStartOverlay(visible) {
 function setup() {
   simStageEl = document.querySelector('.sim-stage');
   containerEl = document.getElementById('canvas-container');
-  startOverlayEl = document.getElementById('startOverlay');
-  startBtnEl = document.getElementById('startBtn');
   paperContentEl = document.getElementById('paper-content');
   paperScrollEl = document.querySelector('.paper-scroll');
   simHudEl = document.getElementById('simHud');
@@ -325,18 +317,4 @@ function setup() {
   if (sel) sel.addEventListener('change', (e) => { setIntensity(e.target.value); });
   if (wordSel) wordSel.addEventListener('change', (e) => { setWordDifficulty(e.target.value); });
   if (paperScrollEl) paperScrollEl.addEventListener('scroll', handleReadingProgress);
-
-  if (startBtnEl) {
-    startBtnEl.addEventListener('click', () => {
-      hasStarted = true;
-      paused = false;
-      showStartOverlay(false);
-      if (sel) sel.disabled = true;
-      if (wordSel) wordSel.disabled = true;
-      updateControlsUI();
-      startAnimation();
-    });
-  }
-
-  showStartOverlay(true);
 }
