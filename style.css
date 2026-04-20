@@ -630,7 +630,7 @@ body.quiz-modal-open {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: calc(100vh - 80px);
   padding: 32px 20px;
 }
 
@@ -1234,14 +1234,14 @@ body.quiz-modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 20px 48px;
+  padding: 32px 20px 120px;
 }
 
 .sim-dyslexia-page .sim-stage {
   position: relative;
   width: min(1100px, 92vw);
   min-height: 75vh;
-  height: min(720px, 80vh);
+  height: min(680px, calc(80vh - 120px));
 }
 
 .sim-dyslexia-page #canvas-container {
