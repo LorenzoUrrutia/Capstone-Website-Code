@@ -205,7 +205,13 @@ function showReflection() {
     simBackBtnEl.hidden = false;
   }
 
-  reflectionEl.hidden = false;
+  if (reflectionEl) {
+    const body = reflectionEl.querySelector('.sim-reflection-body');
+    const html = `<p>The shifting numbers and visual changes in this simulation are designed to approximate how numbers and quantities can feel unstable or harder to process. In reality, numbers do not actually move or change, but differences in how the brain processes numerical information can make them feel less consistent or harder to interpret. This is only a simplified representation, and experiences with dyscalculia can vary widely.</p>`;
+    if (body) body.innerHTML = html;
+    else reflectionEl.innerHTML = `<h3>Reflection</h3><div class="sim-reflection-body">${html}</div>`;
+    reflectionEl.hidden = false;
+  }
 }
 
 function renderTask() {
@@ -511,6 +517,8 @@ document.addEventListener('DOMContentLoaded', () => {
   reflectionEl = document.getElementById('reflectionCard');
   controlBarEl = document.getElementById('dyscalcControlBar');
   simBackBtnEl = document.getElementById('simBackBtn');
+
+  if (reflectionEl) { reflectionEl.hidden = true; }
 
   if (!simTaskAreaEl) return;
 

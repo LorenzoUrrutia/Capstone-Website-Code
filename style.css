@@ -460,6 +460,43 @@ body.dark-site .sketch, body.dark-site .infographic{
   color: var(--text-secondary);
 }
 
+/* Standardized simulation reflection panel */
+.sim-reflection {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1200;
+  width: calc(100vw - 64px);
+  max-width: 1200px;
+  max-height: 92vh;
+  overflow: auto;
+  background: rgba(255, 255, 255, 1);
+  color: var(--text-primary);
+  border: 1px solid rgba(15, 25, 40, 0.06);
+  border-radius: 12px;
+  padding: 28px 28px 24px 28px;
+  box-shadow: 0 30px 80px rgba(15, 25, 40, 0.22);
+  line-height: 1.75;
+}
+
+.sim-reflection h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.25rem;
+}
+
+.sim-reflection .sim-reflection-body {
+  font-size: 1.12rem;
+  color: var(--text-secondary);
+  max-width: 100%;
+}
+
+@media (max-width:960px) {
+  .sim-reflection { width: calc(100vw - 36px); padding: 22px; }
+  .sim-reflection h3 { font-size: 1.12rem; }
+  .sim-reflection .sim-reflection-body { font-size: 1.06rem; }
+}
+
 body.dark-site .back-to-top{
   background: var(--bg-surface);
   border-color: var(--border-subtle);

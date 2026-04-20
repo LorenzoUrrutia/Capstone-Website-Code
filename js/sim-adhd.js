@@ -98,6 +98,7 @@ function setup() {
   simHudEl = document.getElementById('simHud');
   taskContainerEl = document.getElementById('task-container');
   reflectionCardEl = document.getElementById('reflectionCard');
+    if (reflectionCardEl) { reflectionCardEl.hidden = true; }
 
   // Configure audio settings
   if (ambientAudioEl) {
@@ -265,6 +266,10 @@ function showCompletionMessage() {
     simHudEl.hidden = true;
   }
   if (reflectionCardEl) {
+    const body = reflectionCardEl.querySelector('.sim-reflection-body');
+    const html = `<p>The distractions and interruptions in this simulation are designed to approximate how attention can be pulled away or become difficult to maintain. In real life, these challenges come from internal attention regulation differences and everyday environments, not constant popups like those shown here. This is only a simplified representation, and experiences with ADHD can vary widely.</p>`;
+    if (body) body.innerHTML = html;
+    else reflectionCardEl.innerHTML = `<h3>Reflection</h3><div class="sim-reflection-body">${html}</div>`;
     reflectionCardEl.hidden = false;
   }
 }
