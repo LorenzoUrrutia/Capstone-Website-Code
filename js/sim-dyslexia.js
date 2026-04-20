@@ -260,13 +260,6 @@ function completeSimulation() {
   if (simStageEl) simStageEl.hidden = true;
   if (simHudEl) simHudEl.hidden = true;
   if (containerEl) containerEl.hidden = true;
-  if (reflectionCardEl) {
-    const body = reflectionCardEl.querySelector('.sim-reflection-body');
-    const html = `<p>The moving and shifting text in this simulation is designed to approximate the feeling of visual instability that some people with dyslexia experience. In reality, the text on a page does not physically move, but difficulties with visual processing and letter recognition can make it seem inconsistent or harder to track. This is only a simplified representation, and real experiences with dyslexia can vary widely.</p>`;
-    if (body) body.innerHTML = html;
-    else reflectionCardEl.innerHTML = `<h3>Reflection</h3><div class="sim-reflection-body">${html}</div>`;
-    reflectionCardEl.hidden = false;
-  }
 }
 
 function handleReadingProgress() {
@@ -318,7 +311,7 @@ function setup() {
   const wordSel = document.getElementById('wordDifficultySelect');
 
   if (pauseBtn) pauseBtn.addEventListener('click', () => { setPaused(!paused); updateControlsUI(); });
-  if (doneReadingBtn) doneReadingBtn.addEventListener('click', () => { if (hasStarted) completeSimulation(); });
+  if (doneReadingBtn) doneReadingBtn.addEventListener('click', () => { if (hasStarted) window.location.href = 'reflection-dyslexia.html'; });
   if (resetBtn) resetBtn.addEventListener('click', () => { resetSim(); });
   if (sel) sel.addEventListener('change', (e) => { setIntensity(e.target.value); });
   if (wordSel) wordSel.addEventListener('change', (e) => { setWordDifficulty(e.target.value); });

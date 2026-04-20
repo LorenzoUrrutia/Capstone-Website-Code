@@ -5,162 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Dyslexia Simulation — Understanding Learning Disabilities</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .sim-dyslexia-page {
-      background: #F2F6FA;
-      min-height: 100vh;
-    }
-
-    .sim-dyslexia-page .sim-fullscreen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 20px 48px;
-    }
-
-    .sim-dyslexia-page .sim-stage {
-      position: relative;
-      width: min(1100px, 92vw);
-      min-height: 75vh;
-      height: min(720px, 80vh);
-    }
-
-    .sim-dyslexia-page #canvas-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background: #F7F6F2;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(15, 25, 40, 0.08);
-      border: 1px solid rgba(15, 25, 40, 0.08);
-      overflow: hidden;
-    }
-
-    .sim-dyslexia-page #canvas-container.hidden-before-start {
-      background: #F3F2EE;
-    }
-
-    .sim-dyslexia-page .paper-scroll {
-      position: absolute;
-      inset: 40px;
-      overflow-y: auto;
-      overflow-x: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .sim-dyslexia-page #paper-content {
-      padding: 20px;
-      font-size: 18px;
-      line-height: 1.6;
-      color: #1a1a1a;
-      font-family: "Georgia", "Times New Roman", serif;
-      text-align: center;
-      max-width: 800px;
-    }
-
-    .sim-dyslexia-page #paper-content p {
-      margin-bottom: 0;
-    }
-
-    .sim-dyslexia-page #paper-content span {
-      display: inline-block;
-    }
-
-    .sim-dyslexia-page #paper-content .word {
-      display: inline-block;
-      white-space: nowrap;
-    }
-
-    .sim-dyslexia-page #paper-content .space {
-      display: inline-block;
-      width: 0.3em;
-    }
-
-    .sim-dyslexia-page .sim-hud {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: calc(20px + env(safe-area-inset-bottom));
-      z-index: 4;
-      background: rgba(255, 255, 255, 0.92);
-      color: #1e2a35;
-      padding: 10px 14px;
-      border-radius: 14px;
-      box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-      max-width: min(900px, 94vw);
-    }
-
-    .sim-dyslexia-page .sim-hud .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-
-    .sim-dyslexia-page .sim-hud .btn[disabled] {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    @media (max-width: 640px) {
-      .sim-dyslexia-page .sim-hud {
-        padding: 8px 10px;
-        border-radius: 12px;
-        font-size: 0.9rem;
-      }
-
-      .sim-dyslexia-page .sim-hud .btn {
-        padding: 6px 10px;
-        font-size: 0.85rem;
-      }
-    }
-
-    .sim-dyslexia-page .sim-back {
-      position: fixed;
-      right: 18px;
-      bottom: 18px;
-      z-index: 3;
-      background: rgba(255, 255, 255, 0.9);
-      color: #1e2a35;
-      border: 1px solid rgba(15, 25, 40, 0.12);
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: 0.85rem;
-      text-decoration: none;
-      box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
-    }
-
-    .sim-dyslexia-page .sim-reflection {
-      width: min(900px, 92vw);
-      margin: 0;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 6;
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(15, 25, 40, 0.1);
-      border-radius: 14px;
-      padding: 18px 20px;
-      box-shadow: 0 8px 22px rgba(15, 25, 40, 0.12);
-      color: #1e2a35;
-    }
-
-    .sim-dyslexia-page .sim-reflection h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.2rem;
-    }
-
-    .sim-dyslexia-page .sim-reflection p {
-      margin: 0 0 10px 0;
-      font-size: 0.98rem;
-      line-height: 1.5;
-      color: #2a3a48;
-    }
-  </style>
+</head>
 </head>
 <body class="dark-site sim-dyslexia-page">
 
@@ -181,7 +26,7 @@
       <button id="doneReadingBtn" class="btn">Done Reading</button>
       <button id="resetBtn" class="btn">Reset</button>
 
-      <label style="display:flex;align-items:center;gap:8px;">
+      <label class="label-inline">
         Intensity
         <select id="intensitySelect" class="btn">
           <option value="mild">Mild</option>
@@ -190,7 +35,7 @@
         </select>
       </label>
 
-      <label style="display:flex;align-items:center;gap:8px;">
+      <label class="label-inline">
         Book
         <select id="wordDifficultySelect" class="btn">
           <option value="Harry_Potter">Harry Potter</option>
