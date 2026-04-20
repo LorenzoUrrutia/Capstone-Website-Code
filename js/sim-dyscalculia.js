@@ -18,6 +18,8 @@ let simTaskAreaEl;
 let reflectionEl;
 let controlBarEl;
 let simBackBtnEl;
+let simTitleEl;
+let simCardEl;
 let pauseBtnEl;
 let resetBtnEl;
 let intensitySelectEl;
@@ -137,6 +139,8 @@ function resetSimulation() {
     simBackBtnEl.hidden = false;
   }
   if (reflectionEl) reflectionEl.hidden = true;
+  if (simTitleEl) simTitleEl.hidden = false;
+  if (simCardEl) simCardEl.hidden = false;
   updatePauseUI();
   renderTask();
   restartAnimationLoop();
@@ -211,6 +215,8 @@ function showReflection() {
     if (body) body.innerHTML = html;
     else reflectionEl.innerHTML = `<h3>Reflection</h3><div class="sim-reflection-body">${html}</div>`;
     reflectionEl.hidden = false;
+    if (simTitleEl) simTitleEl.hidden = true;
+    if (simCardEl) simCardEl.hidden = true;
   }
 }
 
@@ -517,6 +523,8 @@ document.addEventListener('DOMContentLoaded', () => {
   reflectionEl = document.getElementById('reflectionCard');
   controlBarEl = document.getElementById('dyscalcControlBar');
   simBackBtnEl = document.getElementById('simBackBtn');
+  simTitleEl = document.getElementById('simTitle');
+  simCardEl = document.querySelector('.dyscalc-sim-card');
 
   if (reflectionEl) { reflectionEl.hidden = true; }
 
