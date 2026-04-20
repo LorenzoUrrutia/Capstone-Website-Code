@@ -452,10 +452,6 @@ function applyDistortionEffects() {
 
   if (taskName === 'symbol') {
     const operatorEl = document.getElementById('operatorEl');
-    const expression = simTaskAreaEl.querySelector('.unstable-expression');
-    if (expression) {
-      expression.style.transform = `translate(${randBetween(-amp, amp)}px, ${randBetween(-amp * 0.3, amp * 0.3)}px)`;
-    }
 
     if (operatorEl && Math.random() < chance) {
       const original = operatorEl.dataset.original || '+';

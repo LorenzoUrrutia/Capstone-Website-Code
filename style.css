@@ -470,7 +470,7 @@ body.dark-site .sketch, body.dark-site .infographic{
   width: calc(100vw - 64px);
   max-width: 1200px;
   max-height: 92vh;
-  overflow: auto;
+  overflow: hidden;
   background: rgba(255, 255, 255, 1);
   color: var(--text-primary);
   border: 1px solid rgba(15, 25, 40, 0.06);
@@ -626,12 +626,23 @@ body.quiz-modal-open {
 
 /* Dyscalculia simulation */
 .sim-page-content {
-  max-width: 980px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 20px;
 }
 
 .dyscalc-sim-card {
-  max-width: 900px;
+  width: min(900px, 92vw);
   margin: 0 auto;
+  will-change: transform;
+  isolation: isolate;
+  background: #FDFCF9;
+  border: 1px solid rgba(15, 25, 40, 0.10);
+  box-shadow: 0 20px 60px rgba(15, 25, 40, 0.18), 0 4px 16px rgba(15, 25, 40, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
 }
 
 .dyscalc-subtitle {
@@ -650,6 +661,7 @@ body.quiz-modal-open {
   border: 1px solid var(--border-subtle);
   border-radius: 14px;
   padding: 1.1rem;
+  width: 100%;
   min-height: 330px;
 }
 
@@ -836,7 +848,24 @@ body.quiz-modal-open {
 }
 
 .dyscalc-controlbar {
-  margin-top: 1rem;
+  /* Match ADHD control bar visual style (floating HUD at bottom center) */
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  bottom: 24px;
+  will-change: transform;
+  isolation: isolate;
+  pointer-events: auto;
+  z-index: 4;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1e2a35;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
+  max-width: min(900px, 94vw);
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -844,8 +873,15 @@ body.quiz-modal-open {
 }
 
 .dyscalc-controlbar .cta-button {
-  padding: 0.65rem 1rem;
-  min-width: 96px;
+  appearance: none;
+  border: 1px solid rgba(15, 25, 40, 0.15);
+  background: #fff;
+  color: #1e2a35;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .dyscalc-intensity-label {
@@ -1226,8 +1262,7 @@ body.quiz-modal-open {
 .sim-dyslexia-page .paper-scroll {
   position: absolute;
   inset: 40px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1287,6 +1322,25 @@ body.quiz-modal-open {
   cursor: not-allowed;
 }
 
+.sim-dyslexia-page .sim-hud .btn {
+  appearance: none;
+  border: 1px solid rgba(15, 25, 40, 0.15);
+  background: #fff;
+  color: #1e2a35;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sim-dyslexia-page .sim-hud select {
+  padding-right: 28px;
+  background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%230B6CD4" d="M1 1l5 5 5-5" stroke="%230B6CD4" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
 @media (max-width: 640px) {
   .sim-dyslexia-page .sim-hud {
     padding: 8px 10px;
@@ -1341,6 +1395,13 @@ body.quiz-modal-open {
   font-size: 0.98rem;
   line-height: 1.5;
   color: #2a3a48;
+}
+
+body.sim-adhd-page,
+body.sim-dyslexia-page,
+body.dark-site {
+  overflow: hidden;
+  height: 100vh;
 }
 
 /* --- Styles moved from sim-adhd.html --- */

@@ -135,7 +135,7 @@ function renderPassage() {
 
 function intensityToMag(level) {
   if (level === 'moderate') return 2.2;
-  if (level === 'strong') return 2.2; // same shake as moderate; distinction is letter swaps
+  if (level === 'strong') return 2.5; // same shake as moderate; distinction is letter swaps
   return 0.8; // mild
 }
 
