@@ -206,12 +206,10 @@ function stopAnimation() {
 }
 
 function setIntensity(v) {
-  intensity = v;
+  intensity = v === 'hard' ? 'strong' : v;
   updateControlsUI();
-  // Re-render so letter substitutions apply/clear when intensity changes before start
-  if (!hasStarted) {
-    renderPassage();
-  }
+  // Re-render so letter substitutions apply/clear immediately when intensity changes
+  renderPassage();
 }
 
 function setWordDifficulty(v) {
