@@ -969,6 +969,179 @@ body.quiz-modal-open {
   overflow: hidden;
 }
 
+/* ADHD Myth / Fact flip cards */
+.myth-fact-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 320px;
+  width: 100%;
+}
+
+.myth-fact-card {
+  perspective: 1100px;
+  width: min(600px, 100%);
+  height: 320px;
+  display: none;
+}
+
+.myth-fact-card.is-active {
+  display: block;
+}
+
+.myth-fact-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s ease;
+}
+
+.myth-fact-card.is-flipped .myth-fact-card-inner {
+  transform: rotateY(180deg);
+}
+
+.myth-fact-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
+
+.myth-fact-front {
+  transform: rotateY(0deg);
+}
+
+.myth-fact-back {
+  transform: rotateY(180deg);
+  gap: 8px;
+  overflow-y: auto;
+}
+
+.myth-fact-card.is-correct .myth-fact-back {
+  background: rgba(34, 197, 94, 0.16);
+  border-color: rgba(22, 163, 74, 0.45);
+}
+
+.myth-fact-card.is-incorrect .myth-fact-back {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(220, 38, 38, 0.35);
+}
+
+.myth-fact-statement {
+  margin: 0 0 8px;
+  font-size: 1.4rem !important;
+  text-align: center !important;
+  line-height: 1.5 !important;
+  font-weight: 600 !important;
+}
+
+.myth-fact-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.myth-fact-actions .quiz-choice {
+  width: 100%;
+  margin-bottom: 0;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9rem;
+}
+
+.myth-fact-card.is-flipped .myth-fact-actions .quiz-choice {
+  pointer-events: none;
+}
+
+.myth-fact-result {
+  margin: 0 0 6px;
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.myth-fact-explanation {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+.myth-fact-next {
+  width: 100%;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.myth-fact-progress {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.myth-fact-finished {
+  width: min(400px, 100%);
+  height: 260px;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.myth-fact-finished p {
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.myth-fact-reset {
+  align-self: flex-start;
+  margin-top: auto;
+  margin-bottom: 0;
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.myth-fact-reset:hover {
+  background: rgba(6, 182, 212, 0.1);
+  border-color: var(--accent-secondary);
+}
+
+.myth-fact-card.is-shaking {
+  animation: myth-fact-shake 0.38s ease;
+}
+
+@keyframes myth-fact-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
 /* Dyscalculia simulation */
 .sim-page-content {
   display: flex;
