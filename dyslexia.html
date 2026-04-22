@@ -73,51 +73,94 @@
             <h2>Myth or Fact</h2>
           </div>
 
-          <div class="quiz-questions">
-            <details data-q="1" data-correct-answer="false" data-true-explanation="Dyslexia is not a vision problem, people with dyslexia don't see letters backwards and are no more likely to have eye and vision problems than other kids." data-false-explanation="Dyslexia is not a vision problem, people with dyslexia don't see letters backwards and are no more likely to have eye and vision problems than other kids.">
-              <summary>Dyslexia is a vision problem</summary>
-              <div class="answers mt-8">
-                <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-                <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
-              </div>
-              <div class="feedback mt-8" aria-live="polite"></div>
-            </details>
+          <p class="myth-fact-progress"></p>
 
-            <details data-q="2" data-correct-answer="true" data-true-explanation="Dyslexia can also impact writing, spelling, spoken language, working memory, and organization. It's a much broader condition than just struggling to read words on a page." data-false-explanation=" Dyslexia can also impact writing, spelling, spoken language, working memory, and organization. It's a much broader condition than just struggling to read words on a page.">
-              <summary>Dyslexia does not only affects reading</summary>
-              <div class="answers mt-8">
-                <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-                <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
+          <div class="myth-fact-grid" aria-label="Dyslexia myth or fact cards">
+            <article class="myth-fact-card is-active" data-correct="myth" data-explanation="Dyslexia is not a vision problem, people with dyslexia don't see letters backwards and are no more likely to have eye and vision problems than other kids.">
+              <div class="myth-fact-card-inner">
+                <div class="myth-fact-face myth-fact-front">
+                  <p class="myth-fact-statement">Dyslexia means seeing letters backwards</p>
+                  <div class="myth-fact-actions">
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+                  </div>
+                </div>
+                <div class="myth-fact-face myth-fact-back" aria-live="polite">
+                  <p class="myth-fact-result"></p>
+                  <p class="myth-fact-explanation"></p>
+                  <button class="quiz-choice myth-fact-next" type="button">Next</button>
+                </div>
               </div>
-              <div class="feedback mt-8" aria-live="polite"></div>
-            </details>
+            </article>
 
-            <details data-q="3" data-correct-answer="false" data-true-explanation="Dyslexia is a universal neurobiological condition found in all languages, regardless of the writing system. While it may look different, for example, readers of transparent languages like Italian might struggle more with speed than accuracy, the underlying brain processing differences remain the same." data-false-explanation="Dyslexia is a universal neurobiological condition found in all languages, regardless of the writing system. While it may look different, for example, readers of transparent languages like Italian might struggle more with speed than accuracy, the underlying brain processing differences remain the same.">
-              <summary>Dyslexia only exists in the English language</summary>
-              <div class="answers mt-8">
-                <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-                <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
+            <article class="myth-fact-card" data-correct="myth" data-explanation="Dyslexia can also impact writing, spelling, spoken language, working memory, and organization. It's a much broader condition than just struggling to read words on a page.">
+              <div class="myth-fact-card-inner">
+                <div class="myth-fact-face myth-fact-front">
+                  <p class="myth-fact-statement">Dyslexia is linked to low intelligence</p>
+                  <div class="myth-fact-actions">
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+                  </div>
+                </div>
+                <div class="myth-fact-face myth-fact-back" aria-live="polite">
+                  <p class="myth-fact-result"></p>
+                  <p class="myth-fact-explanation"></p>
+                  <button class="quiz-choice myth-fact-next" type="button">Next</button>
+                </div>
               </div>
-              <div class="feedback mt-8" aria-live="polite"></div>
-            </details>
+            </article>
 
-            <details data-q="4" data-correct-answer="false" data-true-explanation="Dyslexia occurs across all IQ levels and has no connection to intelligence. Many highly successful people, including scientists, lawyers, and entrepreneurs, have dyslexia." data-false-explanation="Dyslexia occurs across all IQ levels and has no connection to intelligence. Many highly successful people, including scientists, lawyers, and entrepreneurs, have dyslexia.">
-              <summary>Dyslexia correlates to low intellegence</summary>
-              <div class="answers mt-8">
-                <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-                <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
+            <article class="myth-fact-card" data-correct="fact" data-explanation="Dyslexia is a universal neurobiological condition found in all languages, regardless of the writing system. While it may look different, for example, readers of transparent languages like Italian might struggle more with speed than accuracy, the underlying brain processing differences remain the same.">
+              <div class="myth-fact-card-inner">
+                <div class="myth-fact-face myth-fact-front">
+                  <p class="myth-fact-statement">People with dyslexia can learn to read effectively with the right support</p>
+                  <div class="myth-fact-actions">
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+                  </div>
+                </div>
+                <div class="myth-fact-face myth-fact-back" aria-live="polite">
+                  <p class="myth-fact-result"></p>
+                  <p class="myth-fact-explanation"></p>
+                  <button class="quiz-choice myth-fact-next" type="button">Next</button>
+                </div>
               </div>
-              <div class="feedback mt-8" aria-live="polite"></div>
-            </details>
+            </article>
 
-            <details data-q="5" data-correct-answer="false" data-true-explanation="People with dyslexia do not outgrow it; it is a lifelong condition. However, with appropriate support and strategies, individuals can manage their difficulties and succeed academically and professionally." data-false-explanation="People with dyslexia do not outgrow it; it is a lifelong condition. However, with appropriate support and strategies, individuals can manage their difficulties and succeed academically and professionally.">
-              <summary>People with dyslexia will outgrow it</summary>
-              <div class="answers mt-8">
-                <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-                <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
+            <article class="myth-fact-card" data-correct="myth" data-explanation="Dyslexia occurs across all IQ levels and has no connection to intelligence. Many highly successful people, including scientists, lawyers, and entrepreneurs, have dyslexia.">
+              <div class="myth-fact-card-inner">
+                <div class="myth-fact-face myth-fact-front">
+                  <p class="myth-fact-statement">More boys have dyslexia than girls</p>
+                  <div class="myth-fact-actions">
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+                  </div>
+                </div>
+                <div class="myth-fact-face myth-fact-back" aria-live="polite">
+                  <p class="myth-fact-result"></p>
+                  <p class="myth-fact-explanation"></p>
+                  <button class="quiz-choice myth-fact-next" type="button">Next</button>
+                </div>
               </div>
-              <div class="feedback mt-8" aria-live="polite"></div>
-            </details>
+            </article>
+
+            <article class="myth-fact-card" data-correct="fact" data-explanation="People with dyslexia do not outgrow it; it is a lifelong condition. However, with appropriate support and strategies, individuals can manage their difficulties and succeed academically and professionally.">
+              <div class="myth-fact-card-inner">
+                <div class="myth-fact-face myth-fact-front">
+                  <p class="myth-fact-statement">Dyslexia is a lifelong condition</p>
+                  <div class="myth-fact-actions">
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                    <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+                  </div>
+                </div>
+                <div class="myth-fact-face myth-fact-back" aria-live="polite">
+                  <p class="myth-fact-result"></p>
+                  <p class="myth-fact-explanation"></p>
+                  <button class="quiz-choice myth-fact-next" type="button">Next</button>
+                </div>
+              </div>
+            </article>
+
           </div>
         </section>
       </div>
@@ -129,5 +172,6 @@
   <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
   <script src="js/site.js"></script>
+  <script src="js/myth-fact.js"></script>
 </body>
 </html>

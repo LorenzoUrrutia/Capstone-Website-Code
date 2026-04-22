@@ -71,51 +71,95 @@
       <div class="adhd-card-header">
         <h2>Myth or Fact</h2>
       </div>
-      <div class="quiz-questions">
-        <details data-q="1" data-correct-answer="false" data-true-explanation="Dyscalculia and math anxiety aren’t the same thing. Many people feel anxious about math, even when they don’t have dyscalculia. The difference is that people with dyscalculia have a hard time with the skills to do math problems. This may or may not create some anxiety." data-false-explanation="Dyscalculia and math anxiety aren’t the same thing. Many people feel anxious about math, even when they don’t have dyscalculia. 3The difference is that people with dyscalculia have a hard time with the skills to do math problems. This may or may not create some anxiety.">
-          <summary>Dyscalculia is another name for math anxiety</summary>
-          <div class="answers mt-8">
-            <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-            <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
-          </div>
-          <div class="feedback mt-8" aria-live="polite"></div>
-        </details>
 
-        <details data-q="2" data-correct-answer="false" data-true-explanation="With the right support and accommodations, such as extra time, visual aids, or calculator use, people with dyscalculia can learn math" data-false-explanation="With the right support and accommodations, such as extra time, visual aids, or calculator use, people with dyscalculia can learn math">
-          <summary>Individuals with dyscalculia can't learn math</summary>
-          <div class="answers mt-8">
-            <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-            <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
-          </div>
-          <div class="feedback mt-8" aria-live="polite"></div>
-        </details>
+      <p class="myth-fact-progress"></p>
 
-        <details data-q="3" data-correct-answer="false" data-true-explanation="Kids don’t have dyscalculia because they’re not trying hard enough. In fact, many kids with dyscalculia are trying as hard as they can to get better at math. We don’t know for sure what causes dyscalculia. But research shows it’s related to differences in the brain, differences that kids can’t control." data-false-explanation="Kids don’t have dyscalculia because they’re not trying hard enough. In fact, many kids with dyscalculia are trying as hard as they can to get better at math. We don’t know for sure what causes dyscalculia. But research shows it’s related to differences in the brain, differences that kids can’t control.">
-          <summary>Kids with Dyscalculia don't try hard enough</summary>
-          <div class="answers mt-8">
-            <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-            <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
+      <div class="myth-fact-grid" aria-label="Dyscalculia myth or fact cards">
+        <article class="myth-fact-card is-active" data-correct="myth" data-explanation="Dyscalculia and math anxiety aren’t the same thing. Many people feel anxious about math, even when they don’t have dyscalculia. The difference is that people with dyscalculia have a hard time with the skills to do math problems. This may or may not create some anxiety.">
+          <div class="myth-fact-card-inner">
+            <div class="myth-fact-face myth-fact-front">
+              <p class="myth-fact-statement">Dyscalculia only affects math class</p>
+              <div class="myth-fact-actions">
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+              </div>
+            </div>
+            <div class="myth-fact-face myth-fact-back" aria-live="polite">
+              <p class="myth-fact-result"></p>
+              <p class="myth-fact-explanation"></p>
+              <button class="quiz-choice myth-fact-next" type="button">Next</button>
+            </div>
           </div>
-          <div class="feedback mt-8" aria-live="polite"></div>
-        </details>
+        </article>
 
-        <details data-q="4" data-correct-answer="false" data-true-explanation="Dyscalculia causes people to have a hard time with number sense and other math concepts. It’s very different from dyslexia, which is a learning disability in reading." data-false-explanation="Dyscalculia causes people to have a hard time with number sense and other math concepts. It’s very different from dyslexia, which is a learning disability in reading.">
-          <summary>Dyscalculia is just dyslexia for Math</summary>
-          <div class="answers mt-8">
-            <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-            <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
+        <article class="myth-fact-card" data-correct="fact" data-explanation="With the right support and accommodations, such as extra time, visual aids, or calculator use, people with dyscalculia can learn math.">
+          <div class="myth-fact-card-inner">
+            <div class="myth-fact-face myth-fact-front">
+              <p class="myth-fact-statement">People with dyscalculia can improve with the right strategies</p>
+              <div class="myth-fact-actions">
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+              </div>
+            </div>
+            <div class="myth-fact-face myth-fact-back" aria-live="polite">
+              <p class="myth-fact-result"></p>
+              <p class="myth-fact-explanation"></p>
+              <button class="quiz-choice myth-fact-next" type="button">Next</button>
+            </div>
           </div>
-          <div class="feedback mt-8" aria-live="polite"></div>
-        </details>
+        </article>
 
-        <details data-q="5" data-correct-answer="false" data-true-explanation="There is no link between dyscalculia and IQ. Individuals with dyscalculia typically have average to above-average intelligence and may excel in areas like language, creativity, or the arts." data-false-explanation="There is no link between dyscalculia and IQ. Individuals with dyscalculia typically have average to above-average intelligence and may excel in areas like language, creativity, or the arts.">
-          <summary>Having Dyscalculia means you are not intellegent</summary>
-          <div class="answers mt-8">
-            <button class="quiz-choice" data-correct="false" data-answer="false">Myth</button>
-            <button class="quiz-choice" data-correct="true" data-answer="true">Fact</button>
+        <article class="myth-fact-card" data-correct="myth" data-explanation="Kids don’t have dyscalculia because they’re not trying hard enough. In fact, many kids with dyscalculia are trying as hard as they can to get better at math. We don’t know for sure what causes dyscalculia. But research shows it’s related to differences in the brain, differences that kids can’t control.">
+          <div class="myth-fact-card-inner">
+            <div class="myth-fact-face myth-fact-front">
+              <p class="myth-fact-statement">Dyscalculia means you are bad at all subjects</p>
+              <div class="myth-fact-actions">
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+              </div>
+            </div>
+            <div class="myth-fact-face myth-fact-back" aria-live="polite">
+              <p class="myth-fact-result"></p>
+              <p class="myth-fact-explanation"></p>
+              <button class="quiz-choice myth-fact-next" type="button">Next</button>
+            </div>
           </div>
-          <div class="feedback mt-8" aria-live="polite"></div>
-        </details>
+        </article>
+
+        <article class="myth-fact-card" data-correct="fact" data-explanation="Dyscalculia causes people to have a hard time with number sense and other math concepts. It’s very different from dyslexia, which is a learning disability in reading.">
+          <div class="myth-fact-card-inner">
+            <div class="myth-fact-face myth-fact-front">
+              <p class="myth-fact-statement">Dyscalculia is as common as dyslexia</p>
+              <div class="myth-fact-actions">
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+              </div>
+            </div>
+            <div class="myth-fact-face myth-fact-back" aria-live="polite">
+              <p class="myth-fact-result"></p>
+              <p class="myth-fact-explanation"></p>
+              <button class="quiz-choice myth-fact-next" type="button">Next</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="myth-fact-card" data-correct="myth" data-explanation="There is no link between dyscalculia and IQ. Individuals with dyscalculia typically have average to above-average intelligence and may excel in areas like language, creativity, or the arts.">
+          <div class="myth-fact-card-inner">
+            <div class="myth-fact-face myth-fact-front">
+              <p class="myth-fact-statement">Dyscalculia is caused by not paying attention in math class</p>
+              <div class="myth-fact-actions">
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="myth">Myth</button>
+                <button class="quiz-choice myth-fact-choice" type="button" data-choice="fact">Fact</button>
+              </div>
+            </div>
+            <div class="myth-fact-face myth-fact-back" aria-live="polite">
+              <p class="myth-fact-result"></p>
+              <p class="myth-fact-explanation"></p>
+              <button class="quiz-choice myth-fact-next" type="button">Next</button>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
     </div>
@@ -127,5 +171,6 @@
   <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
 
   <script src="js/site.js"></script>
+  <script src="js/myth-fact.js"></script>
 </body>
 </html>

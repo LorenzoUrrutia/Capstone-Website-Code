@@ -72,8 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (resultElement) {
       resultElement.textContent = isCorrect
-        ? `✓ Correct — ${correctChoice === 'myth' ? 'Myth' : 'Fact'}.`
-        : `Incorrect — Correct answer: ${correctChoice === 'myth' ? 'Myth' : 'Fact'}.`;
+        ? `✓ Correct: ${correctChoice === 'myth' ? 'Myth' : 'Fact'}.`
+        : `Incorrect. Correct answer: ${correctChoice === 'myth' ? 'Myth' : 'Fact'}.`;
     }
 
     if (explanationElement) {
