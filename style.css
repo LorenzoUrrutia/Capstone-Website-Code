@@ -417,17 +417,20 @@ body.dark-site .card{
 }
 
 body.dark-site .adhd-box{
-  overflow: hidden;
+  overflow: visible;
   padding-top: 0;
 }
 
 body.dark-site .adhd-card-header{
   display: flex;
   align-items: center;
-  margin: 0 -2rem 1rem;
+  gap: 12px;
+  min-height: 52px;
+  overflow: visible;
+  margin: -2rem -2rem 1.25rem;
   padding: 10px 20px;
-  background: #00008B;
-  border-radius: 0;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
 }
 
 body.dark-site .adhd-card-header h2{
@@ -435,6 +438,23 @@ body.dark-site .adhd-card-header h2{
   color: #ffffff !important;
   font-size: 18px;
   font-weight: 600;
+}
+
+body.dark-site .adhd-card-header,
+body.dark-site .adhd-card-header *{
+  color: #ffffff !important;
+}
+
+body.main-adhd-page .adhd-card-header{
+  background-color: #0ea5a0;
+}
+
+body.main-dyslexia-page .adhd-card-header{
+  background-color: #7c3aed;
+}
+
+body.main-dyscalculia-page .adhd-card-header{
+  background-color: #e07b10;
 }
 
 body.dark-site a{
@@ -511,6 +531,306 @@ body.dark-site .back-to-top{
   background: var(--bg-surface);
   border-color: var(--border-subtle);
   color: var(--text-primary);
+}
+
+/* Shared subpage styling */
+.subpage-card{
+  overflow: hidden;
+  padding-top: 0;
+}
+
+.subpage-card-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  margin: -2rem -2rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+}
+
+.subpage-card-header.theme-adhd{
+  background-color: #0ea5a0;
+}
+
+.subpage-card-header.theme-dyslexia{
+  background-color: #7c3aed;
+}
+
+.subpage-card-header.theme-dyscalculia{
+  background-color: #e07b10;
+}
+
+.subpage-header-icon{
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.subpage-card-header h2{
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.subpage-card-header,
+.subpage-card-header *{
+  color: #ffffff !important;
+}
+
+.back-row .cta-button.subpage-back-button{
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  border: none;
+}
+
+.back-row .cta-button.theme-adhd-button{
+  background-color: #0ea5a0;
+}
+
+.back-row .cta-button.theme-dyslexia-button{
+  background-color: #7c3aed;
+}
+
+.back-row .cta-button.theme-dyscalculia-button{
+  background-color: #e07b10;
+}
+
+.labeled-card-list{
+  list-style: none;
+  padding-left: 0 !important;
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+
+.labeled-card-list li{
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+.labeled-card-list li strong{
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ADHD evaluation slide */
+#adhd-eval .eval-card-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #0ea5a0;
+  padding: 10px 20px;
+  margin: -2rem -2rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+}
+
+#adhd-eval .eval-header-icon{
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+}
+
+#adhd-eval .eval-card-header h2{
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#adhd-eval .eval-card-header,
+#adhd-eval .eval-card-header *{
+  color: #ffffff !important;
+}
+
+#adhd-eval .eval-step-card{
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+#adhd-eval .eval-step-card h4{
+  margin: 0 0 6px;
+}
+
+#adhd-eval .eval-step-card p{
+  margin: 0;
+}
+
+#adhd-eval .diagnostic-criteria-list{
+  list-style: none;
+  counter-reset: diagnostic-counter;
+  padding-left: 0;
+  margin: 6px 0 10px;
+}
+
+#adhd-eval .diagnostic-criteria-list li{
+  counter-increment: diagnostic-counter;
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 8px;
+}
+
+#adhd-eval .diagnostic-criteria-list li::before{
+  content: counter(diagnostic-counter) ".";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: #0ea5a0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.back-row .cta-button.eval-back-button{
+  background-color: #0ea5a0;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  border: none;
+}
+
+/* Dyslexia evaluation slide */
+#dyslexia-eval .eval-card-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #7c3aed;
+  padding: 10px 20px;
+  margin: -2rem -2rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+}
+
+#dyslexia-eval .eval-header-icon{
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+}
+
+#dyslexia-eval .eval-card-header h2{
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#dyslexia-eval .eval-card-header,
+#dyslexia-eval .eval-card-header *{
+  color: #ffffff !important;
+}
+
+#dyslexia-eval .eval-step-card{
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+#dyslexia-eval .eval-step-card h4{
+  margin: 0 0 6px;
+}
+
+#dyslexia-eval .eval-step-card p{
+  margin: 0;
+}
+
+.back-row .cta-button.dyslexia-eval-back-button{
+  background-color: #7c3aed;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  border: none;
+}
+
+/* Dyscalculia evaluation slide */
+#dyscalculia-eval .eval-card-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #e07b10;
+  padding: 10px 20px;
+  margin: -2rem -2rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+}
+
+#dyscalculia-eval .eval-header-icon{
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+}
+
+#dyscalculia-eval .eval-card-header h2{
+  margin: 0;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+#dyscalculia-eval .eval-card-header,
+#dyscalculia-eval .eval-card-header *{
+  color: #ffffff !important;
+}
+
+#dyscalculia-eval .eval-step-card{
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+#dyscalculia-eval .eval-step-card h4{
+  margin: 0 0 6px;
+}
+
+#dyscalculia-eval .eval-step-card p{
+  margin: 0;
+}
+
+.back-row .cta-button.dyscalculia-eval-back-button{
+  background-color: #e07b10;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  border: none;
 }
 
 /* Reduce vertical space between headings and list content for improved density */
