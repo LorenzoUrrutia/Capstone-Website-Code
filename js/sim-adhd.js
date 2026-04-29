@@ -181,13 +181,6 @@ function handleStart() {
   hasStarted = true;
   distractionEnabled = true;
 
-  // Start background audio
-  if (ambientAudioEl) {
-    ambientAudioEl.play().catch(err => {
-      console.warn('Audio autoplay blocked:', err);
-    });
-  }
-
   // Show first question
   showQuestion();
 
@@ -196,6 +189,12 @@ function handleStart() {
 }
 
 function showQuestion() {
+  if (ambientAudioEl && ambientAudioEl.paused && !paused) {
+    ambientAudioEl.play().catch(err => {
+      console.warn('Audio playback failed:', err);
+    });
+  }
+
   if (currentQuestionIndex >= questions.length) {
     // All questions completed
     showCompletionMessage();
