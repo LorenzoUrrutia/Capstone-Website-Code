@@ -369,6 +369,26 @@ h3{font-size:1.5rem;margin:0 0 1rem;font-weight:700;letter-spacing:-0.2px;color:
 h4{font-size:22px;margin:0 0 8px;font-weight:700;color:var(--text-primary)}
 
 /* Responsive tweaks */
+@media (max-width: 1366px) {
+  .topnav {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  body.main-adhd-page .card,
+  body.main-dyslexia-page .card,
+  body.main-dyscalculia-page .card {
+    max-width: 92vw;
+  }
+
+  .dyscalc-controlbar,
+  .sim-dyslexia-page .sim-hud,
+  .sim-adhd-page .sim-hud {
+    max-width: 92vw;
+    bottom: 16px;
+  }
+}
+
 @media (max-width:900px){
   .topbar .container{padding:0 10px}
 }
@@ -980,7 +1000,7 @@ body.quiz-modal-open {
 
 .myth-fact-card {
   perspective: 1100px;
-  width: min(600px, 100%);
+  width: min(500px, 92vw);
   height: 320px;
   display: none;
 }
@@ -1153,7 +1173,7 @@ body.quiz-modal-open {
 }
 
 .dyscalc-sim-card {
-  width: min(900px, 92vw);
+  width: min(860px, 92vw);
   margin: 0 auto;
   will-change: transform;
   isolation: isolate;
@@ -1373,7 +1393,7 @@ body.quiz-modal-open {
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
-  bottom: 24px;
+  bottom: 16px;
   will-change: transform;
   isolation: isolate;
   pointer-events: auto;
@@ -1383,7 +1403,7 @@ body.quiz-modal-open {
   padding: 10px 14px;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: min(900px, 94vw);
+  max-width: min(900px, 92vw);
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -1818,14 +1838,14 @@ body.quiz-modal-open {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(20px + env(safe-area-inset-bottom));
+  bottom: calc(16px + env(safe-area-inset-bottom));
   z-index: 4;
   background: rgba(255, 255, 255, 0.92);
   color: #1e2a35;
   padding: 10px 14px;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: min(900px, 94vw);
+  max-width: min(900px, 92vw);
 }
 
 .sim-dyslexia-page .sim-hud .controls {
@@ -2017,14 +2037,14 @@ body.quiz-modal-open {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(20px + env(safe-area-inset-bottom));
+  bottom: calc(16px + env(safe-area-inset-bottom));
   z-index: 4;
   background: rgba(255, 255, 255, 0.92);
   color: #1e2a35;
   padding: 10px 14px;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: min(900px, 94vw);
+  max-width: min(900px, 92vw);
 }
 
 .sim-adhd-page .sim-hud .controls {
