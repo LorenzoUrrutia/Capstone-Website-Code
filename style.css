@@ -103,7 +103,8 @@ header.topbar{
 }
 .topnav{
   display:flex;
-  gap:2.5rem;
+  gap:1rem;
+  flex-wrap:wrap;
   align-items:center;
   justify-content:center;
   padding:0;
@@ -256,6 +257,12 @@ header.topbar{
 .card h2{margin-top:0;font-size:2rem;margin-bottom:1.25rem;font-weight:700;letter-spacing:-0.3px;color:var(--text-primary)}
 .card p, .card li{color:var(--text-secondary);font-size:1.05rem;line-height:1.8;margin-bottom:1rem}
 
+body.main-adhd-page .card,
+body.main-dyslexia-page .card,
+body.main-dyscalculia-page .card {
+  max-width: 92vw;
+}
+
 /* Infographic & sketch */
 .infographic{
   height:160px;
@@ -369,9 +376,8 @@ h3{font-size:1.5rem;margin:0 0 1rem;font-weight:700;letter-spacing:-0.2px;color:
 h4{font-size:22px;margin:0 0 8px;font-weight:700;color:var(--text-primary)}
 
 /* Responsive tweaks */
-@media (max-width: 1366px) {
+@media (min-width: 1024px) and (max-width: 1366px) {
   .topnav {
-    flex-wrap: wrap;
     gap: 1rem;
   }
 
@@ -382,6 +388,7 @@ h4{font-size:22px;margin:0 0 8px;font-weight:700;color:var(--text-primary)}
   }
 
   .dyscalc-controlbar,
+  .sim-dyscalculia-page .sim-hud,
   .sim-dyslexia-page .sim-hud,
   .sim-adhd-page .sim-hud {
     max-width: 92vw;
@@ -1403,7 +1410,7 @@ body.quiz-modal-open {
   padding: 10px 14px;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: min(900px, 92vw);
+  max-width: 92vw;
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -1838,14 +1845,14 @@ body.quiz-modal-open {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(16px + env(safe-area-inset-bottom));
+  bottom: 16px;
   z-index: 4;
   background: rgba(255, 255, 255, 0.92);
   color: #1e2a35;
   padding: 10px 14px;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: min(900px, 92vw);
+  max-width: 92vw;
 }
 
 .sim-dyslexia-page .sim-hud .controls {
@@ -2037,14 +2044,14 @@ body.quiz-modal-open {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(16px + env(safe-area-inset-bottom));
+  bottom: 16px;
   z-index: 4;
   background: rgba(255, 255, 255, 0.92);
   color: #1e2a35;
   padding: 10px 14px;
   border-radius: 14px;
   box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: min(900px, 92vw);
+  max-width: 92vw;
 }
 
 .sim-adhd-page .sim-hud .controls {
