@@ -5,6 +5,7 @@ let currentQuestionIndex = 0;
 let paused = false;
 let intensity = 'mild';
 let distractionEnabled = false;
+let isAdvancingQuestion = false;
 
 // DOM elements
 let questionTextEl;
@@ -133,6 +134,7 @@ function initState() {
   paused = false;
   intensity = 'mild';
   distractionEnabled = false;
+  isAdvancingQuestion = false;
 
   // Clear any existing question
   if (questionTextEl) {
@@ -200,6 +202,8 @@ function showQuestion() {
     return;
   }
 
+  isAdvancingQuestion = false;
+
   const currentQuestion = questions[currentQuestionIndex];
 
   // Display question text
@@ -222,15 +226,8 @@ function showQuestion() {
 }
 
 function handleAnswerClick() {
-  // Disable all answer buttons immediately to prevent double-clicks
-  if (answerButtonsEl) {
-    const buttons = answerButtonsEl.querySelectorAll('.answer-btn');
-    buttons.forEach(btn => {
-      btn.disabled = true;
-      btn.style.opacity = '0.6';
-      btn.style.cursor = 'not-allowed';
-    });
-  }
+  if (isAdvancingQuestion) return;
+  isAdvancingQuestion = true;
 
   // Auto-advance to next question after brief delay
   setTimeout(() => {
@@ -326,7 +323,7 @@ function scheduleDistractions() {
     }
     
     // Check if it's time for an interruption (and no interruption is currently showing)
-    if (now >= nextInterruptTime && interruptOverlayEl && interruptOverlayEl.style.display === 'none') {
+    if (now >= nextInterruptTime && !isInterruptVisible()) {
       showInterrupt();
       nextInterruptTime = now + getRandomInterruptInterval();
     }
@@ -334,6 +331,13 @@ function scheduleDistractions() {
   
   // Continue the loop
   toastIntervalId = requestAnimationFrame(scheduleDistractions);
+}
+
+function isInterruptVisible() {
+  if (!interruptOverlayEl) return false;
+  if (interruptOverlayEl.classList.contains('hidden')) return false;
+  const computedStyle = window.getComputedStyle(interruptOverlayEl);
+  return computedStyle.display !== 'none' && computedStyle.visibility !== 'hidden';
 }
 
 function getRandomToastInterval() {
@@ -460,19 +464,17 @@ function showInterrupt() {
   const message = interruptMessages[Math.floor(Math.random() * interruptMessages.length)];
   interruptTextEl.textContent = message;
   
+  interruptOverlayEl.classList.remove('hidden');
   interruptOverlayEl.style.display = 'flex';
-  
-  // Disable answer buttons and next button
-  disableInteraction();
+  interruptOverlayEl.style.pointerEvents = 'auto';
 }
 
 function hideInterrupt() {
   if (interruptOverlayEl) {
+    interruptOverlayEl.classList.add('hidden');
     interruptOverlayEl.style.display = 'none';
+    interruptOverlayEl.style.pointerEvents = 'none';
   }
-  
-  // Re-enable answer buttons and next button
-  enableInteraction();
 }
 
 function handleDismissInterrupt() {
@@ -484,30 +486,6 @@ function handleDismissInterrupt() {
   }
 }
 
-function disableInteraction() {
-  // Disable answer buttons
-  if (answerButtonsEl) {
-    const buttons = answerButtonsEl.querySelectorAll('.answer-btn');
-    buttons.forEach(btn => {
-      btn.disabled = true;
-      btn.style.opacity = '0.5';
-      btn.style.cursor = 'not-allowed';
-    });
-  }
-}
-
-function enableInteraction() {
-  // Enable answer buttons
-  if (answerButtonsEl) {
-    const buttons = answerButtonsEl.querySelectorAll('.answer-btn');
-    buttons.forEach(btn => {
-      btn.disabled = false;
-      btn.style.opacity = '';
-      btn.style.cursor = '';
-    });
-  }
-}
-
 // Task-switching friction
 function applyTaskSwitchingFriction() {
   const questionCard = document.querySelector('.sim-adhd-page .question-card');
@@ -516,14 +494,6 @@ function applyTaskSwitchingFriction() {
   
   // Step 1: Apply visual disruption (blur + dim)
   questionCard.classList.add('task-blur');
-  
-  // Keep buttons disabled during re-orientation
-  const buttons = answerButtonsEl?.querySelectorAll('.answer-btn');
-  buttons?.forEach(btn => {
-    btn.disabled = true;
-    btn.style.opacity = '0.5';
-    btn.style.cursor = 'not-allowed';
-  });
   
   // Step 2: Remove blur and apply question highlight after brief delay
   const blurDuration = 400;
@@ -541,15 +511,6 @@ function applyTaskSwitchingFriction() {
         questionTextEl.classList.remove('question-highlight');
       }, 800);
     }
-    
-    // Step 3: Re-enable answer buttons after input friction delay
-    setTimeout(() => {
-      buttons?.forEach(btn => {
-        btn.disabled = false;
-        btn.style.opacity = '';
-        btn.style.cursor = '';
-      });
-    }, 400);
     
   }, blurDuration);
 }
