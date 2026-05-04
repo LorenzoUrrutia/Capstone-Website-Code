@@ -353,8 +353,8 @@ function getRandomToastInterval() {
       break;
     case 'mild':
     default:
-      min = 5600;
-      max = 9500;
+      min = 9000;
+      max = 14000;
       break;
   }
   
@@ -375,8 +375,8 @@ function getRandomInterruptInterval() {
       break;
     case 'mild':
     default:
-      min = 23000;
-      max = 38000;
+      min = 32000;
+      max = 52000;
       break;
   }
   
