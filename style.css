@@ -1974,7 +1974,7 @@ body.quiz-modal-open {
   position: relative;
   width: 100%;
   height: 100%;
-  background: #FFFBEA;
+  background: #F7F6F2;
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(15, 25, 40, 0.08);
   border: 1px solid rgba(15, 25, 40, 0.08);
@@ -1999,7 +1999,7 @@ body.quiz-modal-open {
 }
 
 .sim-adhd-page .question-card {
-  background: rgba(255, 251, 220, 0.95);
+  background: rgba(255, 255, 255, 0.95);
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(15, 25, 40, 0.08);
@@ -2024,7 +2024,7 @@ body.quiz-modal-open {
 .sim-adhd-page .answer-btn {
   appearance: none;
   border: 2px solid rgba(15, 25, 40, 0.12);
-  background: #FFFDE7;
+  background: #fff;
   color: #1e2a35;
   padding: 14px 20px;
   border-radius: 8px;
