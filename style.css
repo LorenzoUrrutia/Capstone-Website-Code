@@ -1959,7 +1959,7 @@ body.quiz-modal-open {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 20px 500px;
+  padding: 60px 20px 100px;
   overflow: hidden;
 }
 
@@ -1967,7 +1967,7 @@ body.quiz-modal-open {
   position: relative;
   width: min(1100px, 92vw);
   min-height: 75vh;
-  height: min(720px, 80vh);
+  height: min(600px, 75vh);
 }
 
 .sim-adhd-page #task-container {
@@ -2003,8 +2003,8 @@ body.quiz-modal-open {
   padding: 32px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(15, 25, 40, 0.08);
-  max-width: 600px;
-  width: 100%;
+  max-width: 860px;
+  width: min(860px, 88vw);
 }
 
 .sim-adhd-page .question-text {
