@@ -104,6 +104,10 @@ function setup() {
   // Configure audio settings
   if (ambientAudioEl) {
     ambientAudioEl.volume = 0.2;
+    ambientAudioEl.loop = true;
+    ambientAudioEl.play().catch(err => {
+      console.warn('Audio playback failed:', err);
+    });
   }
 
   // Set up event listeners
