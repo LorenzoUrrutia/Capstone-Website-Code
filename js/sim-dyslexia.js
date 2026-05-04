@@ -10,7 +10,7 @@ let containerEl;
 let paperContentEl;
 let paperScrollEl;
 let textLines = [];
-let charElements = []; // array of character span elements
+let charElements = []; // array of character span elementss
 let animationFrameId = null;
 let simHudEl;
 let reflectionCardEl;
