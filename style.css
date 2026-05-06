@@ -152,6 +152,59 @@ header.topbar {
   padding: 0 2rem;
   width: min(var(--max-width), 96vw);
   margin: 0 auto;
+  position: relative;
+  min-height: 48px;
+}
+
+.site-logo {
+  position: absolute;
+  left: calc(-1 * ((100vw - min(var(--max-width), 96vw)) / 2) + 32px);
+  top: 50%;
+  transform: translateY(-50%);
+  display: block;
+  user-select: none;
+}
+
+.site-logo-badge {
+  width: 74px;
+  height: 74px;
+  border-radius: 999px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
+  line-height: 1.05;
+  background: conic-gradient(
+    from 0deg,
+    var(--color-adhd) 0% 33.33%,
+    var(--color-dyslexia) 33.33% 66.66%,
+    var(--color-dyscalculia) 66.66% 100%
+  );
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.14);
+}
+
+.site-logo-badge::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  background: #ffffff;
+  z-index: 0;
+}
+
+.site-logo-badge span {
+  position: relative;
+  z-index: 1;
+  display: block;
 }
 
 .topnav {
@@ -1773,6 +1826,8 @@ body.quiz-modal-open { overflow: hidden; }
 @media (max-width: 600px) {
   .topnav     { flex-wrap: wrap; gap: 8px; }
   .container  { padding: 0 12px; }
+  .site-logo  { left: 32px; }
+  .site-logo-badge { width: 62px; height: 62px; font-size: 0.52rem; }
   .topic-grid { flex-direction: column; }
   .cta-button { width: 100%; }
   .back-row   { left: 1rem; bottom: 1rem; }
