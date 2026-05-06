@@ -556,6 +556,7 @@ body.main-dyscalculia-page .adhd-card-header { background-color: var(--color-dys
 .page-hero--adhd        { background: var(--color-adhd); }
 .page-hero--dyslexia    { background: var(--color-dyslexia); }
 .page-hero--dyscalculia { background: var(--color-dyscalculia); }
+.page-hero--simulations { background: #1C1714; }
 
 .page-hero-eyebrow {
   font-size: 0.78rem;
