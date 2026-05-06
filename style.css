@@ -1,10 +1,12 @@
-:root{
-  --bg-main: #F5F1EB;
+/* =============================================
+   VARIABLES
+   ============================================= */
+:root {
+  --bg-main: #ffffff;
   --bg-surface: #F9F7F3;
   --bg-elevated: #FDFCF9;
   --text-primary: #2D2520;
   --text-secondary: #5F5550;
-  --primary-color: #2b6cff;
   --link-color: #4a6ca8;
   --link-hover-color: #36588f;
   --link-border-color: rgba(74, 108, 168, 0.45);
@@ -15,881 +17,227 @@
   --accent-secondary: #06B6D4;
   --accent-warm: #F59E0B;
   --border-subtle: rgba(0,0,0,0.08);
-  --shadow-light: rgba(255,255,255,0.5);
-  --shadow-dark: rgba(0,0,0,0.1);
-  --radius-blob: 60% 40% 70% 30% / 40% 50% 60% 50%;
   --max-width: 1100px;
   --spacing-section: 1.5rem;
   --spacing-card: 2rem;
   --spacing-content: 2.5rem;
+  --color-adhd: #0ea5a0;
+  --color-dyslexia: #7c3aed;
+  --color-dyscalculia: #e07b10;
 }
 
-/* Base layout and type */
-*{box-sizing:border-box}
-body{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
-  margin:0;
+/* =============================================
+   BASE
+   ============================================= */
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Georgia", "Times New Roman", serif;
+  margin: 0;
   background: var(--bg-main);
   color: var(--text-primary);
-  -webkit-font-smoothing:antialiased;
+  -webkit-font-smoothing: antialiased;
   font-size: 1.05rem;
   line-height: 1.8;
   min-height: 100vh;
 }
 
-a{
-  color:var(--link-color);
-  text-decoration:none;
-  border-bottom:1px solid var(--link-border-color);
-  font-weight:500;
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  border-bottom: 1px solid var(--link-border-color);
+  font-weight: 500;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
-a:hover{
-  color:var(--link-hover-color);
-  border-bottom-color:var(--link-border-hover-color);
+a:hover {
+  color: var(--link-hover-color);
+  border-bottom-color: var(--link-border-hover-color);
 }
-a:focus-visible{
-  outline:2px solid rgba(43, 108, 255, 0.35);
-  outline-offset:2px;
-  border-bottom-color:var(--link-border-hover-color);
+a:focus-visible {
+  outline: 2px solid rgba(43, 108, 255, 0.35);
+  outline-offset: 2px;
+  border-bottom-color: var(--link-border-hover-color);
 }
 
-  /* Editorial layout helpers: keep readable line length while widening page */
-  .content p,
-  .content li{
-    max-width:75ch;
-  }
+/* =============================================
+   TYPOGRAPHY
+   ============================================= */
+h1 { font-size: 3rem; margin: 0 0 2rem; font-weight: 800; letter-spacing: -0.5px; text-align: center; color: var(--text-primary); }
+h2 { font-size: 2rem; margin: 0 0 1.25rem; font-weight: 700; letter-spacing: -0.3px; color: var(--text-primary); }
+h3 { font-size: 1.5rem; margin: 0 0 1rem; font-weight: 700; letter-spacing: -0.2px; color: var(--text-primary); }
+h4 { font-size: 22px; margin: 0 0 8px; font-weight: 700; color: var(--text-primary); }
 
-  /* Allow grid cards to expand to the content edges while paragraphs stay readable */
-  .card{max-width:none}
+.body-type {
+  --font-ui: "Georgia", "Times New Roman", serif;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
 
-  /* Slightly larger column gap for two-column grids */
-  .section-grid{
-    display: grid;
-    grid-template-columns: 1fr;
-    max-width: 75ch;
-    margin: 0 auto;
-    gap: 0.25rem;
-  }
+.body-type p,
+.body-type li,
+.body-type span,
+.body-type label,
+.body-type summary,
+.body-type details {
+  font-family: var(--font-ui);
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.body-type h1,
+.body-type h2,
+.body-type h3,
+.body-type h4,
+.body-type .topnav a,
+.body-type button,
+.body-type .cta-button { font-family: var(--font-ui); font-weight: 600; }
+
+.body-type input,
+.body-type textarea,
+.body-type select,
+.body-type button { font-family: var(--font-ui); font-weight: 500; line-height: 1.5; }
+
+.body-type .topnav a { font-weight: 600; }
+
+/* =============================================
+   LAYOUT
+   ============================================= */
+.container { width: min(var(--max-width), 96vw); margin: 0 auto; padding: 0 2rem; }
+.content   { width: min(var(--max-width), 96vw); margin: var(--spacing-content) auto; padding: 1rem 2rem var(--spacing-content) 2rem; }
+
+.content p,
+.content li { max-width: 75ch; }
+
+.card { max-width: none; }
+
+.section-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 75ch;
+  margin: 0 auto;
+  gap: 0.25rem;
+}
 
 body.main-adhd-page .section-grid,
 body.main-dyslexia-page .section-grid,
-body.main-dyscalculia-page .section-grid{
-  max-width: 720px;
-  margin: 0 auto;
-}
+body.main-dyscalculia-page .section-grid { max-width: 720px; }
 
-/* Container - expanded for editorial layout */
-.container{width:min(var(--max-width),96vw);margin:0 auto;padding:0 2rem}
-.content{width:min(var(--max-width),96vw);margin:var(--spacing-content) auto;padding:1rem 2rem var(--spacing-content) 2rem}
+body.main-adhd-page .card,
+body.main-dyslexia-page .card,
+body.main-dyscalculia-page .card { max-width: 92vw; }
 
-/* Top navigation bar (slim, editorial) */
-header.topbar{
-  background: linear-gradient(135deg, #E8DFD5, #F0E8E0);
+footer { padding: 3rem 2rem; text-align: center; color: var(--text-secondary); font-size: 0.95rem; margin-top: 5rem; border-top: 1px solid var(--border-subtle); }
+
+/* =============================================
+   NAVIGATION
+   ============================================= */
+header.topbar {
+  background: #ffffff;
   padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
-.topbar .container{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  padding:0 2rem;
-  width:min(var(--max-width),96vw);
-  margin:0 auto
+
+.topbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 2rem;
+  width: min(var(--max-width), 96vw);
+  margin: 0 auto;
 }
-.topnav{
-  display:flex;
-  gap:1rem;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-  padding:0;
+
+.topnav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
-.topnav a{
-  color:var(--nav-link-color);
-  text-decoration:none;
-  border-bottom:none;
-  padding:0.6rem 1.25rem;
-  border-radius:24px;
-  font-weight:600;
-  font-size:1rem;
+
+.topnav a {
+  color: var(--nav-link-color);
+  text-decoration: none;
+  border-bottom: none;
+  padding: 0.6rem 1.25rem;
+  border-radius: 24px;
+  font-weight: 600;
+  font-size: 1rem;
   transition: all 0.3s ease;
   position: relative;
 }
-.topnav a:hover{
-  background:var(--nav-link-hover-bg);
-  color:var(--nav-link-color);
-}
-.topnav a.active{
-  background: transparent;
-  color: var(--nav-link-color);
-  box-shadow: none;
-}
-.topnav a.active:hover{
-  box-shadow: none;
-  background: var(--nav-link-hover-bg);
-}
 
-/* Respect prefers-reduced-motion */
+.topnav a:hover,
+.topnav a.active:hover { background: var(--nav-link-hover-bg); color: var(--nav-link-color); }
+
+.topnav a.active { background: transparent; color: var(--nav-link-color); box-shadow: none; }
+
+/* =============================================
+   ACCESSIBILITY
+   ============================================= */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  header.topbar,
-  .topnav a,
-  .back-to-top,
-  .cta-button,
-  .card,
-  .topic-tile,
-  .jump {
-    transition: none;
-  }
-  .topnav a:hover,
-  .topnav a.active:hover,
-  .back-to-top:hover,
-  .card:hover,
-  .topic-tile:hover,
-  .jump:hover,
-  .cta-button:hover {
-    transform: none;
-    box-shadow: none;
-  }
-  .card::before,
-  .topic-tile::before {
-    transition: none;
-    opacity: 0;
-  }
+  header.topbar, .topnav a, .cta-button, .card, .topic-tile, .jump { transition: none; }
+  .topnav a:hover, .topnav a.active:hover,
+  .card:hover, .topic-tile:hover, .jump:hover, .cta-button:hover { transform: none; box-shadow: none; }
+  .card::before, .topic-tile::before { transition: none; opacity: 0; }
 }
 
-/* Home intro */
-.home-intro{max-width:920px;margin:26px auto 18px;text-align:left;padding:6px 12px}
-.home-intro h1{font-size:3rem;margin:0 0 1.5rem;font-weight:800;letter-spacing:-0.5px;color:var(--text-primary)}
-.home-intro p{margin:0 0 14px;color:var(--text-secondary);font-size:1.05rem}
+/* =============================================
+   COMPONENTS — CARDS
+   ============================================= */
+.section { margin: var(--spacing-section) 0; padding: 0; }
 
-/* Topic tiles (compact) */
-.topic-grid{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
-.topic-tile{
-  flex:1;
-  min-width:220px;
-  background:var(--bg-surface);
-  border:2px solid var(--border-subtle);
-  border-radius:14px;
-  padding:2rem;
-  box-shadow:0 8px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
-  transition:all 0.3s ease;
-  position:relative;
-  background-clip:padding-box;
-}
-.topic-tile::before{
-  content:'';
-  position:absolute;
-  top:-2px;left:-2px;right:-2px;bottom:-2px;
-  background:linear-gradient(135deg, #FFCCC1, #FFB3A7);
-  border-radius:14px;
-  z-index:-1;
-  opacity:0;
-  transition:opacity 0.3s ease;
-}
-.topic-tile:hover{
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
-}
-.topic-tile h3{margin:0 0 6px;font-size:1.5rem;font-weight:700;color:var(--text-primary)}
-.topic-tile p{margin:0 0 10px;color:var(--text-secondary)}
-
-/* Jump pills */
-.jump-row{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start;margin:6px 0 16px}
-.jump{
-  background:var(--bg-surface);
-  padding:0.5rem 1rem;
-  border-radius:14px;
-  text-decoration:none;
-  color:var(--text-primary);
-  font-weight:600;
-  border:1px solid var(--border-subtle);
-  font-size:0.95rem;
-  box-shadow:0 4px 8px rgba(0, 0, 0, 0.2);
-  transition:all 0.3s ease;
-}
-.jump:hover{
-  transform:translateY(-2px);
-  box-shadow:0 6px 12px rgba(0, 0, 0, 0.3);
-  border-color:var(--accent-secondary);
-}
-.jump:focus{outline:2px solid var(--accent-primary)}
-
-/* Sections */
-.section{margin:var(--spacing-section) 0;padding:0}
-.card{
-  background:var(--bg-surface);
-  border-radius:14px;
-  padding:var(--spacing-card);
-  border:1px solid var(--border-subtle);
-  box-shadow:0 8px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-  transition:all 0.3s ease;
-  position:relative;
-  overflow:visible;
-  background-clip:padding-box;
-}
-.card::before{
-  content:'';
-  position:absolute;
-  top:-2px;left:-2px;right:-2px;bottom:-2px;
-  background:linear-gradient(135deg, #FFCCC1, #FFB3A7);
-  border-radius:14px;
-  z-index:-1;
-  opacity:0;
-  transition:opacity 0.3s ease;
-}
-.card:hover{
-  transform:translateY(-8px) scale(1.02);
-  box-shadow:0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-}
-.card:hover::before{opacity:0}
-.card h2{margin-top:0;font-size:2rem;margin-bottom:1.25rem;font-weight:700;letter-spacing:-0.3px;color:var(--text-primary)}
-.card p, .card li{color:var(--text-secondary);font-size:1.05rem;line-height:1.8;margin-bottom:1rem}
-
-body.main-adhd-page .card,
-body.main-dyslexia-page .card,
-body.main-dyscalculia-page .card {
-  max-width: 92vw;
-}
-
-/* Infographic & sketch */
-.infographic{
-  height:160px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--text-secondary);
-  border-radius:14px;
-  background:var(--bg-elevated);
-  border:1px solid var(--border-subtle);
-  box-shadow:0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.sketch{
-  height:300px;
-  border-radius:14px;
-  background:var(--bg-elevated);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:var(--text-secondary);
-  border:2px dashed var(--border-subtle);
-}
-
-/* Back to top */
-.back-to-top{
-  position:fixed;
-  right:2rem;
-  bottom:2rem;
-  width:56px;
-  height:56px;
-  padding:0;
-  border-radius:14px;
-  border:1px solid var(--border-subtle);
-  background:var(--bg-surface);
-  color:var(--text-primary);
-  font-size:1.5rem;
-  font-weight:bold;
-  display:none;
-  box-shadow:0 8px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-  cursor:pointer;
-  transition:all 0.3s ease;
-  z-index:999;
-  align-items:center;
-  justify-content:center;
-}
-.back-to-top.visible{
-  display:flex;
-}
-.back-to-top:hover{
-  transform:translateY(-6px);
-  box-shadow:0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
-  background:linear-gradient(135deg,var(--accent-primary),var(--accent-secondary));
-  color:white;
-}
-.back-to-top:active{
-  transform:translateY(-2px);
-  box-shadow:0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* CTA primary button: calm accent */
-.cta-row{display:flex;justify-content:flex-start;margin:2rem 0;gap:1rem}
-.back-row{
-  position: fixed;
-  left: 1.5rem;
-  bottom: 1.5rem;
-  z-index: 4;
-  margin: 0;
-}
-.back-row .cta-button{
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
-  border-radius: 999px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-}
-.cta-button{
-  background:#fff;
-  color:var(--text-primary);
-  display:inline-block;
-  padding:1rem 2.5rem;
-  border-radius:14px;
-  border-bottom:none;
-  text-decoration:none;
-  font-weight:700;
-  border:1px solid var(--border-subtle);
-  font-size:1.05rem;
-  letter-spacing:0.3px;
-  box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
-  transition:all 0.3s ease;
-  cursor:pointer;
-}
-.cta-button:hover{
-  transform:translateY(-4px);
-  box-shadow:0 8px 16px rgba(0, 0, 0, 0.15);
-  background:#fafafa;
-}
-.cta-button:active{
-  transform:translateY(-1px);
-  box-shadow:0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Adjust cards grid */
-.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;padding:10px 0}
-
-/* Footer */
-footer{padding:3rem 2rem;text-align:center;color:var(--text-secondary);font-size:0.95rem;margin-top:5rem;border-top:1px solid var(--border-subtle)}
-
-/* Headings */
-h1{font-size:3rem;margin:0 0 2rem;font-weight:800;letter-spacing:-0.5px;text-align:center;color:var(--text-primary)}
-h2{font-size:2rem;margin:0 0 1.25rem;font-weight:700;letter-spacing:-0.3px;color:var(--text-primary)}
-h3{font-size:1.5rem;margin:0 0 1rem;font-weight:700;letter-spacing:-0.2px;color:var(--text-primary)}
-h4{font-size:22px;margin:0 0 8px;font-weight:700;color:var(--text-primary)}
-
-/* Responsive tweaks */
-@media (min-width: 1024px) and (max-width: 1366px) {
-  .topnav {
-    gap: 1rem;
-  }
-
-  body.main-adhd-page .card,
-  body.main-dyslexia-page .card,
-  body.main-dyscalculia-page .card {
-    max-width: 92vw;
-  }
-
-  .dyscalc-controlbar,
-  .sim-dyscalculia-page .sim-hud,
-  .sim-dyslexia-page .sim-hud,
-  .sim-adhd-page .sim-hud {
-    max-width: 92vw;
-    bottom: 16px;
-  }
-}
-
-@media (max-width:900px){
-  .topbar .container{padding:0 10px}
-}
-@media (max-width:600px){
-  .topnav{flex-wrap:wrap;gap:8px}
-  .container{padding:0 12px}
-  .home-intro h1{font-size:24px}
-  .topic-grid{flex-direction:column}
-  .cta-button{width:100%}
-  .back-row{
-    left: 1rem;
-    bottom: 1rem;
-  }
-  .back-row .cta-button{
-    width: auto;
-  }
-}
-
-/* Simulation pages use consistent dark theme */
-body.dark-site{
-  background: var(--bg-main);
-  color: var(--text-primary);
-}
-
-body.dark-site header.topbar{
-  background: linear-gradient(135deg, #E8DFD5, #F0E8E0);
-}
-
-body.dark-site .topnav a{
-  color: var(--nav-link-color);
-  border-bottom: none;
-}
-
-body.dark-site .topnav a:hover{
-  color: var(--nav-link-color);
-  background: var(--nav-link-hover-bg);
-}
-
-body.dark-site p,
-body.dark-site li,
-body.dark-site h1,
-body.dark-site h2,
-body.dark-site h3,
-body.dark-site strong,
-body.dark-site b{
-  color: var(--text-primary);
-}
-
-body.dark-site .card{
+.card {
   background: var(--bg-surface);
+  border-radius: 14px;
+  padding: var(--spacing-card);
   border: 1px solid var(--border-subtle);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
-}
-
-body.dark-site .adhd-box{
-  overflow: visible;
-  padding-top: 0;
-}
-
-body.dark-site .adhd-card-header{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: 52px;
-  overflow: visible;
-  margin: -2rem -2rem 1.25rem;
-  padding: 10px 20px;
-  border-radius: 12px 12px 0 0;
-  box-shadow: none;
-}
-
-body.dark-site .adhd-card-header h2{
-  margin: 0;
-  color: #ffffff !important;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-body.dark-site .adhd-card-header,
-body.dark-site .adhd-card-header *{
-  color: #ffffff !important;
-}
-
-body.main-adhd-page .adhd-card-header{
-  background-color: #0ea5a0;
-}
-
-body.main-dyslexia-page .adhd-card-header{
-  background-color: #7c3aed;
-}
-
-body.main-dyscalculia-page .adhd-card-header{
-  background-color: #e07b10;
-}
-
-body.dark-site a{
-  color: var(--link-color);
-  border-bottom-color: var(--link-border-color);
-}
-
-body.dark-site a:hover{
-  color: var(--link-hover-color);
-  border-bottom-color: var(--link-border-hover-color);
-}
-
-body.dark-site .jump{
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  color: var(--text-primary);
-}
-
-body.dark-site .sketch, body.dark-site .infographic{
-  background: var(--bg-elevated);
-  border: 1px dashed var(--border-subtle);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  color: var(--text-secondary);
-}
-
-/* Standardized simulation reflection panel */
-.sim-reflection {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1200;
-  width: calc(100vw - 64px);
-  max-width: 1200px;
-  max-height: 92vh;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 1);
-  color: var(--text-primary);
-  border: 1px solid rgba(15, 25, 40, 0.06);
-  border-radius: 12px;
-  padding: 28px 28px 24px 28px;
-  box-shadow: 0 30px 80px rgba(15, 25, 40, 0.22);
-  line-height: 1.75;
-}
-
-.sim-reflection h3 {
-  margin: 0 0 12px 0;
-  font-size: 1.25rem;
-}
-
-.sim-reflection .sim-reflection-body {
-  font-size: 1.12rem;
-  color: var(--text-secondary);
-  max-width: 100%;
-}
-
-@media (max-width:960px) {
-  .sim-reflection { width: calc(100vw - 36px); padding: 22px; }
-  .sim-reflection h3 { font-size: 1.12rem; }
-  .sim-reflection .sim-reflection-body { font-size: 1.06rem; }
-}
-
-/* Page-specific reflection overrides removed so all simulations use the unified
-   `.sim-reflection` styles (Dyscalculia's appearance). */
-
-/* Utility classes moved from inline styles */
-.mt-8 { margin-top: 8px; }
-.label-inline { display: flex; align-items: center; gap: 8px; }
-.hidden { display: none !important; }
-.center-text { text-align: center; }
-.indent-1-5 { text-indent: 1.5em; }
-
-body.dark-site .back-to-top{
-  background: var(--bg-surface);
-  border-color: var(--border-subtle);
-  color: var(--text-primary);
-}
-
-/* Shared subpage styling */
-.subpage-card{
-  overflow: hidden;
-  padding-top: 0;
-}
-
-.subpage-card-header{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 20px;
-  margin: -2rem -2rem 1.25rem;
-  border-radius: 12px 12px 0 0;
-  box-shadow: none;
-}
-
-.subpage-card-header.theme-adhd{
-  background-color: #0ea5a0;
-}
-
-.subpage-card-header.theme-dyslexia{
-  background-color: #7c3aed;
-}
-
-.subpage-card-header.theme-dyscalculia{
-  background-color: #e07b10;
-}
-
-.subpage-header-icon{
-  width: 30px;
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.35);
-  color: #ffffff;
-  font-size: 16px;
-  line-height: 1;
-}
-
-.subpage-card-header h2{
-  margin: 0;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.subpage-card-header,
-.subpage-card-header *{
-  color: #ffffff !important;
-}
-
-.back-row .cta-button.subpage-back-button{
-  color: #ffffff;
-  border-radius: 999px;
-  padding: 8px 18px;
-  border: none;
-}
-
-.back-row .cta-button.theme-adhd-button{
-  background-color: #0ea5a0;
-}
-
-.back-row .cta-button.theme-dyslexia-button{
-  background-color: #7c3aed;
-}
-
-.back-row .cta-button.theme-dyscalculia-button{
-  background-color: #e07b10;
-}
-
-.labeled-card-list{
-  list-style: none;
-  padding-left: 0 !important;
-  margin-top: 6px;
-  margin-bottom: 10px;
-}
-
-.labeled-card-list li{
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-}
-
-.labeled-card-list li strong{
-  display: block;
-  margin-bottom: 6px;
-}
-
-/* ADHD evaluation slide */
-#adhd-eval .eval-card-header{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: #0ea5a0;
-  padding: 10px 20px;
-  margin: -2rem -2rem 1.25rem;
-  border-radius: 12px 12px 0 0;
-  box-shadow: none;
-}
-
-#adhd-eval .eval-header-icon{
-  width: 30px;
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.35);
-  color: #ffffff;
-  font-size: 16px;
-  line-height: 1;
-}
-
-#adhd-eval .eval-card-header h2{
-  margin: 0;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-#adhd-eval .eval-card-header,
-#adhd-eval .eval-card-header *{
-  color: #ffffff !important;
-}
-
-#adhd-eval .eval-step-card{
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-}
-
-#adhd-eval .eval-step-card h4{
-  margin: 0 0 6px;
-}
-
-#adhd-eval .eval-step-card p{
-  margin: 0;
-}
-
-#adhd-eval .diagnostic-criteria-list{
-  list-style: none;
-  counter-reset: diagnostic-counter;
-  padding-left: 0;
-  margin: 6px 0 10px;
-}
-
-#adhd-eval .diagnostic-criteria-list li{
-  counter-increment: diagnostic-counter;
+  transition: all 0.3s ease;
   position: relative;
-  padding-left: 2rem;
-  margin-bottom: 8px;
+  overflow: visible;
+  background-clip: padding-box;
 }
 
-#adhd-eval .diagnostic-criteria-list li::before{
-  content: counter(diagnostic-counter) ".";
+.card::before {
+  content: '';
   position: absolute;
-  left: 0;
-  top: -1px;
-  color: #0ea5a0;
-  font-size: 1.4rem;
-  font-weight: 700;
-  line-height: 1;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(135deg, #FFCCC1, #FFB3A7);
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.back-row .cta-button.eval-back-button{
-  background-color: #0ea5a0;
-  color: #ffffff;
-  border-radius: 999px;
-  padding: 8px 18px;
-  border: none;
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.05);
 }
+.card:hover::before { opacity: 0; }
 
-/* Dyslexia evaluation slide */
-#dyslexia-eval .eval-card-header{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: #7c3aed;
-  padding: 10px 20px;
-  margin: -2rem -2rem 1.25rem;
-  border-radius: 12px 12px 0 0;
-  box-shadow: none;
-}
-
-#dyslexia-eval .eval-header-icon{
-  width: 30px;
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.35);
-  color: #ffffff;
-  font-size: 16px;
-  line-height: 1;
-}
-
-#dyslexia-eval .eval-card-header h2{
-  margin: 0;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-#dyslexia-eval .eval-card-header,
-#dyslexia-eval .eval-card-header *{
-  color: #ffffff !important;
-}
-
-#dyslexia-eval .eval-step-card{
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-}
-
-#dyslexia-eval .eval-step-card h4{
-  margin: 0 0 6px;
-}
-
-#dyslexia-eval .eval-step-card p{
-  margin: 0;
-}
-
-.back-row .cta-button.dyslexia-eval-back-button{
-  background-color: #7c3aed;
-  color: #ffffff;
-  border-radius: 999px;
-  padding: 8px 18px;
-  border: none;
-}
-
-/* Dyscalculia evaluation slide */
-#dyscalculia-eval .eval-card-header{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: #e07b10;
-  padding: 10px 20px;
-  margin: -2rem -2rem 1.25rem;
-  border-radius: 12px 12px 0 0;
-  box-shadow: none;
-}
-
-#dyscalculia-eval .eval-header-icon{
-  width: 30px;
-  height: 30px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  background: rgba(0, 0, 0, 0.35);
-  color: #ffffff;
-  font-size: 16px;
-  line-height: 1;
-}
-
-#dyscalculia-eval .eval-card-header h2{
-  margin: 0;
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-#dyscalculia-eval .eval-card-header,
-#dyscalculia-eval .eval-card-header *{
-  color: #ffffff !important;
-}
-
-#dyscalculia-eval .eval-step-card{
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-}
-
-#dyscalculia-eval .eval-step-card h4{
-  margin: 0 0 6px;
-}
-
-#dyscalculia-eval .eval-step-card p{
-  margin: 0;
-}
-
-.back-row .cta-button.dyscalculia-eval-back-button{
-  background-color: #e07b10;
-  color: #ffffff;
-  border-radius: 999px;
-  padding: 8px 18px;
-  border: none;
-}
-
-/* Reduce vertical space between headings and list content for improved density */
-.card h2, .card h3 { margin-bottom: 6px; }
+.card h2 { margin-top: 0; font-size: 2rem; margin-bottom: 6px; font-weight: 700; letter-spacing: -0.3px; color: var(--text-primary); }
+.card h3 { margin-top: 18px; margin-bottom: 6px; }
 .card h4 { margin: 14px 0 6px; }
-.card p { margin: 0 0 12px; }
+.card p, .card li { color: #000000; font-size: 1.05rem; line-height: 1.8; margin-bottom: 12px; }
 .card > :first-child { margin-top: 0; }
-.card h3 { margin-top: 18px; }
 .card ul { margin-top: 6px; margin-bottom: 10px; padding-left: 1.25rem; }
 .card li { margin-bottom: 6px; }
 
-/* Ensure ADHD grid cards follow the same tightened spacing */
-.section-grid .card h2 { margin-bottom: 6px; }
-.section-grid .card h3 { margin-top: 18px; margin-bottom: 6px; }
-.section-grid .card h4 { margin: 14px 0 6px; }
-.section-grid .card p { margin: 0 0 12px; }
-.section-grid .card ul { margin-top: 6px; margin-bottom: 10px; }
-.section-grid .card li { margin-bottom: 6px; }
-
-/* Mini card groups (replaces plain <ul> lists on main condition pages) */
-.mini-card-group {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.mini-card-group { display: flex; flex-direction: column; gap: 8px; }
 
 .mini-card {
   background: var(--bg-elevated);
@@ -902,7 +250,546 @@ body.dark-site .back-to-top{
   line-height: 1.6;
 }
 
-/* Quiz choice buttons */
+.labeled-card-list { list-style: none; padding-left: 0 !important; margin-top: 6px; margin-bottom: 10px; }
+
+.labeled-card-list li {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+.labeled-card-list li strong { display: block; margin-bottom: 6px; }
+
+.content-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; padding: 10px 0; }
+
+.infographic {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  border-radius: 14px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sketch {
+  height: 300px;
+  border-radius: 14px;
+  background: var(--bg-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  border: 2px dashed var(--border-subtle);
+}
+
+/* =============================================
+   COMPONENTS — CONDITION CARD HEADERS
+   ============================================= */
+/* Shared structure for main-page and subpage card headers */
+.adhd-card-header,
+.subpage-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  margin: -2rem -2rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+}
+
+.adhd-card-header { min-height: 52px; gap: 12px; overflow: visible; }
+
+.adhd-box,
+.subpage-card { overflow: visible; padding-top: 0; }
+
+.adhd-card-header h2,
+.subpage-card-header h2 { margin: 0; color: #ffffff !important; font-size: 18px; font-weight: 600; }
+
+.adhd-card-header,
+.adhd-card-header *,
+.subpage-card-header,
+.subpage-card-header * { color: #ffffff !important; }
+
+/* Main condition page header colors */
+body.main-adhd-page .adhd-card-header       { background-color: var(--color-adhd); }
+body.main-dyslexia-page .adhd-card-header    { background-color: var(--color-dyslexia); }
+body.main-dyscalculia-page .adhd-card-header { background-color: var(--color-dyscalculia); }
+
+/* Subpage header colors */
+.subpage-card-header.theme-adhd        { background-color: var(--color-adhd); }
+.subpage-card-header.theme-dyslexia    { background-color: var(--color-dyslexia); }
+.subpage-card-header.theme-dyscalculia { background-color: var(--color-dyscalculia); }
+
+.subpage-header-icon,
+.eval-header-icon {
+  width: 30px;
+  height: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* =============================================
+   COMPONENTS — EVAL PAGES (consolidated)
+   ============================================= */
+.eval-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  margin: -2rem -2rem 1.25rem;
+  border-radius: 12px 12px 0 0;
+  box-shadow: none;
+}
+
+.eval-card-header h2 { margin: 0; color: #ffffff; font-size: 18px; font-weight: 600; }
+.eval-card-header, .eval-card-header * { color: #ffffff !important; }
+
+#adhd-eval .eval-card-header       { background-color: var(--color-adhd); }
+#dyslexia-eval .eval-card-header    { background-color: var(--color-dyslexia); }
+#dyscalculia-eval .eval-card-header { background-color: var(--color-dyscalculia); }
+
+.eval-step-card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+}
+
+.eval-step-card h4 { margin: 0 0 6px; }
+.eval-step-card p  { margin: 0; }
+
+#adhd-eval .diagnostic-criteria-list {
+  list-style: none;
+  counter-reset: diagnostic-counter;
+  padding-left: 0;
+  margin: 6px 0 10px;
+}
+
+#adhd-eval .diagnostic-criteria-list li {
+  counter-increment: diagnostic-counter;
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 8px;
+}
+
+#adhd-eval .diagnostic-criteria-list li::before {
+  content: counter(diagnostic-counter) ".";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: var(--color-adhd);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* =============================================
+   COMPONENTS — BUTTONS
+   ============================================= */
+.cta-row { display: flex; justify-content: flex-start; margin: 2rem 0; gap: 1rem; }
+
+.cta-button {
+  background: #fff;
+  color: var(--text-primary);
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border-radius: 14px;
+  border-bottom: none;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid var(--border-subtle);
+  font-size: 1.05rem;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.cta-button:hover  { transform: translateY(-4px); box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); background: #fafafa; }
+.cta-button:active { transform: translateY(-1px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+
+.back-row {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 4;
+  margin: 0;
+}
+
+.back-row .cta-button {
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.back-row .cta-button.subpage-back-button,
+.back-row .cta-button.eval-back-button,
+.back-row .cta-button.dyslexia-eval-back-button,
+.back-row .cta-button.dyscalculia-eval-back-button { color: #ffffff; border: none; }
+
+.back-row .cta-button.theme-adhd-button,
+.back-row .cta-button.eval-back-button                { background-color: var(--color-adhd); }
+.back-row .cta-button.theme-dyslexia-button,
+.back-row .cta-button.dyslexia-eval-back-button        { background-color: var(--color-dyslexia); }
+.back-row .cta-button.theme-dyscalculia-button,
+.back-row .cta-button.dyscalculia-eval-back-button     { background-color: var(--color-dyscalculia); }
+
+
+/* =============================================
+   ABOUT PAGE — HERO
+   ============================================= */
+.about-hero {
+  background: #1C1714;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 5rem 2rem 4.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.about-hero-eyebrow {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+
+.about-hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin: 0;
+  text-align: left;
+  max-width: 18ch;
+}
+
+.about-hero-sub {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 52ch;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.about-hero-cta {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.85rem 2rem;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #1C1714;
+  font-weight: 700;
+  font-size: 1rem;
+  border-bottom: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.about-hero-cta:hover {
+  background: #f0ece6;
+  color: #1C1714;
+  transform: translateY(-2px);
+  border-bottom: none;
+}
+
+.about-hero-stripe {
+  display: flex;
+  height: 5px;
+  width: 100%;
+}
+
+.stripe-adhd,
+.stripe-dyslexia,
+.stripe-dyscalculia {
+  flex: 1;
+  display: block;
+}
+
+.stripe-adhd        { background: var(--color-adhd); }
+.stripe-dyslexia    { background: var(--color-dyslexia); }
+.stripe-dyscalculia { background: var(--color-dyscalculia); }
+
+@media (max-width: 600px) {
+  .about-hero-inner { padding: 3.5rem 1.25rem 3rem; }
+  .about-hero-title { font-size: 2rem; }
+}
+
+/* =============================================
+   CONDITION PAGE HERO
+   ============================================= */
+.page-hero {
+  padding: 4rem 0 3.5rem;
+}
+
+.page-hero-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.page-hero--adhd        { background: var(--color-adhd); }
+.page-hero--dyslexia    { background: var(--color-dyslexia); }
+.page-hero--dyscalculia { background: var(--color-dyscalculia); }
+
+.page-hero-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.page-hero-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin: 0;
+  text-align: left;
+}
+
+.page-hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 55ch;
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .page-hero { padding: 3rem 0 2.5rem; }
+  .page-hero-title { font-size: 2.25rem; }
+}
+
+/* =============================================
+   ABOUT PAGE — EDITORIAL CONTENT
+   ============================================= */
+.about-body {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.about-section {
+  padding: 4rem 0 0;
+}
+
+.about-section:first-child {
+  padding-top: 4.5rem;
+}
+
+.about-section--last {
+  padding-bottom: 6rem;
+}
+
+.about-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.25);
+  margin-bottom: 0.6rem;
+}
+
+.about-heading {
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+  margin: 0 0 1.25rem;
+  text-align: left;
+}
+
+.about-section > p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 62ch;
+  margin: 0 0 1rem;
+}
+
+/* Topic rows */
+.about-topics-section { padding-bottom: 0; }
+
+.about-topic-row {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding: 2.5rem 0;
+}
+
+.about-topic-row--flip { flex-direction: row-reverse; }
+
+.about-topic-card {
+  flex-shrink: 0;
+  width: 210px;
+  height: 160px;
+  border-radius: 14px;
+  border-bottom: none;
+  padding: 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.about-topic-card:hover {
+  transform: translateY(-4px);
+  filter: brightness(1.08);
+  border-bottom: none;
+}
+
+.topic-card-name {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.2px;
+}
+
+.topic-card-cta {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.02em;
+}
+
+.about-topic-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 55ch;
+  margin: 0;
+}
+
+/* Definition list (used for Causes sections) */
+.about-definition-list {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.about-definition-item {
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  padding: 1.5rem 1.75rem;
+}
+
+.about-definition-item dt {
+  font-weight: 800;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  line-height: 1.4;
+  margin-bottom: 0.6rem;
+}
+
+.about-definition-item dd {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.97rem;
+  line-height: 1.75;
+}
+
+@media (max-width: 680px) {
+  .about-topic-row,
+  .about-topic-row--flip { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .about-topic-card { width: 100%; height: 120px; }
+  .about-body { padding: 0 1.25rem; }
+  .about-heading { font-size: 1.5rem; }
+  .about-definition-list { grid-template-columns: 1fr; }
+  .about-definition-item { padding: 1.25rem 1.4rem; }
+}
+
+/* =============================================
+   COMPONENTS — TOPIC TILES & JUMPS
+   ============================================= */
+.home-intro { max-width: 920px; margin: 26px auto 18px; text-align: left; padding: 6px 12px; }
+.home-intro h1 { font-size: 3rem; margin: 0 0 1.5rem; font-weight: 800; letter-spacing: -0.5px; color: var(--text-primary); }
+.home-intro p  { margin: 0 0 14px; color: var(--text-secondary); font-size: 1.05rem; }
+
+.topic-grid { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 12px; }
+
+.topic-tile {
+  flex: 1;
+  min-width: 220px;
+  background: var(--bg-surface);
+  border: 2px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 2rem;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  background-clip: padding-box;
+}
+
+.topic-tile::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(135deg, #FFCCC1, #FFB3A7);
+  border-radius: 14px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.topic-tile:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1); }
+.topic-tile h3 { margin: 0 0 6px; font-size: 1.5rem; font-weight: 700; color: var(--text-primary); }
+.topic-tile p  { margin: 0 0 10px; color: var(--text-secondary); }
+
+.jump-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-start; margin: 6px 0 16px; }
+
+.jump {
+  background: var(--bg-surface);
+  padding: 0.5rem 1rem;
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  font-size: 0.95rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.jump:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); border-color: var(--accent-secondary); }
+.jump:focus { outline: 2px solid var(--accent-primary); }
+
+/* =============================================
+   COMPONENTS — QUIZ BUTTONS & FEEDBACK
+   ============================================= */
 .quiz-choice {
   display: block;
   width: 100%;
@@ -919,34 +806,9 @@ body.dark-site .back-to-top{
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.quiz-choice:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-  border-color: var(--accent-secondary);
-  background: rgba(6, 182, 212, 0.1);
-}
+.quiz-choice:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); border-color: var(--accent-secondary); background: rgba(6, 182, 212, 0.1); }
 
-.quiz-choice.selected {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  border-color: var(--accent-primary);
-  font-weight: 600;
-  box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3);
-}
-
-body.dark-site .quiz-choice {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-}
-
-body.dark-site .quiz-choice:hover {
-  background: rgba(6, 182, 212, 0.1);
-}
-
-body.dark-site .quiz-choice.selected {
-  background: var(--bg-surface);
-  color: var(--text-primary);
-}
+.quiz-choice.selected { background: var(--bg-surface); color: var(--text-primary); border-color: var(--accent-primary); font-weight: 600; box-shadow: 0 6px 16px rgba(124, 58, 237, 0.3); }
 
 .quiz-feedback-overlay {
   position: fixed;
@@ -959,9 +821,7 @@ body.dark-site .quiz-choice.selected {
   z-index: 5000;
 }
 
-.quiz-feedback-overlay.visible {
-  display: flex;
-}
+.quiz-feedback-overlay.visible { display: flex; }
 
 .quiz-feedback-modal {
   width: min(680px, 92vw);
@@ -973,48 +833,25 @@ body.dark-site .quiz-choice.selected {
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
 }
 
-.quiz-feedback-modal h3 {
-  margin: 0 0 0.5rem;
-}
+.quiz-feedback-modal h3 { margin: 0 0 0.5rem; }
+.quiz-feedback-modal p  { margin: 0 0 0.75rem; color: var(--text-secondary); }
+.quiz-feedback-list     { margin: 0 0 1rem; padding-left: 1.2rem; }
+.quiz-feedback-list li  { margin-bottom: 0.6rem; color: var(--text-primary); }
 
-.quiz-feedback-modal p {
-  margin: 0 0 0.75rem;
-  color: var(--text-secondary);
-}
+body.quiz-modal-open { overflow: hidden; }
 
-.quiz-feedback-list {
-  margin: 0 0 1rem;
-  padding-left: 1.2rem;
-}
-
-.quiz-feedback-list li {
-  margin-bottom: 0.6rem;
-  color: var(--text-primary);
-}
-
-body.quiz-modal-open {
-  overflow: hidden;
-}
-
-/* ADHD Myth / Fact flip cards */
+/* =============================================
+   COMPONENTS — MYTH/FACT CARDS
+   ============================================= */
 .myth-fact-grid {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 320px;
   width: 100%;
 }
 
-.myth-fact-card {
-  perspective: 1100px;
-  width: min(500px, 92vw);
-  height: 320px;
-  display: none;
-}
-
-.myth-fact-card.is-active {
-  display: block;
-}
+.myth-fact-card { perspective: 1100px; width: min(520px, 92vw); height: 240px; display: none; }
+.myth-fact-card.is-active { display: block; }
 
 .myth-fact-card-inner {
   position: relative;
@@ -1024,9 +861,7 @@ body.quiz-modal-open {
   transition: transform 0.65s ease;
 }
 
-.myth-fact-card.is-flipped .myth-fact-card-inner {
-  transform: rotateY(180deg);
-}
+.myth-fact-card.is-flipped .myth-fact-card-inner { transform: rotateY(180deg); }
 
 .myth-fact-face {
   position: absolute;
@@ -1036,90 +871,33 @@ body.quiz-modal-open {
   border-radius: 12px;
   border: 1px solid var(--border-subtle);
   background: var(--bg-elevated);
-  padding: 14px;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
 }
 
-.myth-fact-front {
-  transform: rotateY(0deg);
-}
+.myth-fact-front { transform: rotateY(0deg); }
+.myth-fact-back  { transform: rotateY(180deg); gap: 10px; overflow: hidden; }
 
-.myth-fact-back {
-  transform: rotateY(180deg);
-  gap: 8px;
-  overflow-y: auto;
-}
+.myth-fact-card.is-correct .myth-fact-back   { background: rgba(34, 197, 94, 0.16); border-color: rgba(22, 163, 74, 0.45); }
+.myth-fact-card.is-incorrect .myth-fact-back { background: rgba(239, 68, 68, 0.14); border-color: rgba(220, 38, 38, 0.35); }
 
-.myth-fact-card.is-correct .myth-fact-back {
-  background: rgba(34, 197, 94, 0.16);
-  border-color: rgba(22, 163, 74, 0.45);
-}
+.myth-fact-statement { margin: 0; font-size: 1.25rem !important; text-align: center !important; line-height: 1.5 !important; font-weight: 700 !important; }
 
-.myth-fact-card.is-incorrect .myth-fact-back {
-  background: rgba(239, 68, 68, 0.14);
-  border-color: rgba(220, 38, 38, 0.35);
-}
+.myth-fact-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
-.myth-fact-statement {
-  margin: 0 0 8px;
-  font-size: 1.4rem !important;
-  text-align: center !important;
-  line-height: 1.5 !important;
-  font-weight: 600 !important;
-}
+.myth-fact-actions .quiz-choice { width: 100%; margin-bottom: 0; text-align: center; padding: 10px 0; font-size: 0.9rem; }
 
-.myth-fact-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: auto;
-}
+.myth-fact-card.is-flipped .myth-fact-actions .quiz-choice { pointer-events: none; }
 
-.myth-fact-actions .quiz-choice {
-  width: 100%;
-  margin-bottom: 0;
-  text-align: center;
-  padding: 10px 0;
-  font-size: 0.9rem;
-}
+.myth-fact-result      { margin: 0; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+.myth-fact-explanation { margin: 0; font-size: 0.9rem; line-height: 1.5; color: var(--text-primary); flex: 1; min-height: 0; overflow-y: auto; }
 
-.myth-fact-card.is-flipped .myth-fact-actions .quiz-choice {
-  pointer-events: none;
-}
+.myth-fact-next { width: 100%; margin-top: 0; flex-shrink: 0; padding: 10px 0; font-size: 0.9rem; text-align: center; }
 
-.myth-fact-result {
-  margin: 0 0 6px;
-  font-weight: 700;
-  font-size: 0.88rem;
-}
-
-.myth-fact-explanation {
-  margin: 0;
-  font-size: 0.82rem;
-  line-height: 1.4;
-  color: var(--text-primary);
-  overflow: hidden;
-}
-
-.myth-fact-next {
-  width: 100%;
-  margin-top: auto;
-  margin-bottom: 0;
-  padding: 10px 0;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.myth-fact-progress {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
 
 .myth-fact-finished {
   width: min(400px, 100%);
@@ -1134,11 +912,7 @@ body.quiz-modal-open {
   padding: 1rem;
 }
 
-.myth-fact-finished p {
-  margin: 0;
-  color: var(--text-primary);
-  font-weight: 600;
-}
+.myth-fact-finished p { margin: 0; color: var(--text-primary); font-weight: 600; }
 
 .myth-fact-reset {
   align-self: flex-start;
@@ -1152,24 +926,381 @@ body.quiz-modal-open {
   font-weight: 600;
 }
 
-.myth-fact-reset:hover {
-  background: rgba(6, 182, 212, 0.1);
-  border-color: var(--accent-secondary);
+.myth-fact-reset:hover { background: rgba(6, 182, 212, 0.1); border-color: var(--accent-secondary); }
+.myth-fact-card.is-shaking { animation: myth-fact-shake 0.38s ease; }
+
+/* =============================================
+   SUBPAGE LAYOUT
+   ============================================= */
+.subpage-body {
+  width: min(740px, 92vw);
+  margin: 0 auto;
+  padding: 0 2rem 5rem;
 }
 
-.myth-fact-card.is-shaking {
-  animation: myth-fact-shake 0.38s ease;
+.subpage-header {
+  padding: 2.75rem 0 2rem;
 }
 
-@keyframes myth-fact-shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-5px); }
-  40% { transform: translateX(5px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+.subpage-back {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  border-bottom: none;
+  margin-bottom: 1.25rem;
+  transition: color 0.2s;
+}
+.subpage-back:hover { color: var(--text-primary); border-bottom: none; }
+
+.subpage-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+  line-height: 1;
+}
+.subpage-eyebrow--adhd        { color: var(--color-adhd); }
+.subpage-eyebrow--dyslexia    { color: var(--color-dyslexia); }
+.subpage-eyebrow--dyscalculia { color: var(--color-dyscalculia); }
+
+.subpage-title {
+  font-size: 2.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.35px;
+  margin: 0 0 1rem;
+  line-height: 1.2;
 }
 
-/* Dyscalculia simulation */
+.subpage-lead {
+  font-size: 1.03rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 62ch;
+}
+
+.subpage-divider {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 0 0 2rem;
+}
+
+.subpage-section {
+  margin-bottom: 2.25rem;
+}
+
+.subpage-h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.1px;
+  margin: 0 0 0.75rem;
+}
+
+.subpage-h3 {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin: 1.75rem 0 0.6rem;
+}
+
+.subpage-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.subpage-list li {
+  font-size: 0.97rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.subpage-prose {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin: 0 0 1rem;
+  max-width: 62ch;
+}
+
+/* Two-column definition rows */
+.subpage-dl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.subpage-dl-row {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 1.5rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  align-items: baseline;
+}
+
+.subpage-dl-row:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.subpage-dl-row dt {
+  font-weight: 700;
+  font-size: 0.93rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.subpage-dl-row dd {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+/* Numbered eval steps */
+.eval-flow {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.eval-flow-step {
+  display: grid;
+  grid-template-columns: 1.6rem 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  align-items: start;
+}
+
+.eval-flow-step:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.eval-flow-num {
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: rgba(0, 0, 0, 0.2);
+  padding-top: 0.1rem;
+  line-height: 1.5;
+}
+
+.eval-flow-text strong {
+  display: block;
+  font-size: 0.97rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+  line-height: 1.4;
+}
+
+.eval-flow-text p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 600px) {
+  .subpage-dl-row { grid-template-columns: 1fr; gap: 0.2rem; }
+  .subpage-title { font-size: 1.65rem; }
+  .subpage-body { padding: 0 1.25rem 4rem; }
+}
+
+/* =============================================
+   SIMULATIONS PAGE CARDS
+   ============================================= */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 -2rem 1.25rem;
+  padding: 10px 20px;
+  border-radius: 0;
+}
+
+.card-adhd .card-header       { background-color: var(--color-adhd); }
+.card-dyslexia .card-header    { background-color: var(--color-dyslexia); }
+.card-dyscalculia .card-header { background-color: var(--color-dyscalculia); }
+
+.card-header h2 { margin: 0; color: #ffffff !important; font-size: 18px; font-weight: 600; }
+
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1rem;
+  color: #ffffff;
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+.sim-hero { text-align: center; padding: 2.5rem 1rem 1.75rem; }
+.sim-hero h2 { font-size: 2rem; font-weight: 800; margin: 0 0 0.65rem; color: #2D2520; }
+.sim-hero p  { font-size: 1.05rem; color: #5F5550; margin: 0; }
+
+.card-body-text { font-size: 14px; line-height: 1.65; color: #000000; margin: 0 0 1rem; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 1.25rem; }
+
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  line-height: 1;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  color: #444;
+  background: transparent;
+}
+
+.card-adhd .tag       { border-color: var(--color-adhd);        color: #0a7a76; }
+.card-dyslexia .tag    { border-color: var(--color-dyslexia);    color: #5b24c4; }
+.card-dyscalculia .tag { border-color: var(--color-dyscalculia); color: #b05e08; }
+
+.card-adhd,
+.card-dyslexia,
+.card-dyscalculia { transition: all 0.2s ease; overflow: hidden; padding-top: 0; }
+
+.card-adhd:hover,
+.card-dyslexia:hover,
+.card-dyscalculia:hover { transform: translateY(-2px); }
+
+.card-adhd .cta-button,
+.card-dyslexia .cta-button,
+.card-dyscalculia .cta-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  color: #ffffff !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
+}
+
+.card-adhd .cta-button       { background-color: var(--color-adhd); }
+.card-dyslexia .cta-button    { background-color: var(--color-dyslexia); }
+.card-dyscalculia .cta-button { background-color: var(--color-dyscalculia); }
+
+.card-adhd .cta-button:hover,
+.card-dyslexia .cta-button:hover,
+.card-dyscalculia .cta-button:hover { transform: translateY(-2px); filter: brightness(1.08); }
+
+/* =============================================
+   SIMULATIONS — SHARED HUD, BACK & REFLECTION
+   ============================================= */
+.sim-hud {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 16px;
+  z-index: 4;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1e2a35;
+  padding: 10px 14px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
+  max-width: 92vw;
+}
+
+.sim-hud .controls { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+
+.sim-hud .btn {
+  appearance: none;
+  border: 1px solid rgba(15, 25, 40, 0.15);
+  background: #fff;
+  color: #1e2a35;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sim-hud .btn[disabled] { opacity: 0.6; cursor: not-allowed; }
+
+.sim-hud select {
+  padding-right: 28px;
+  background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%230B6CD4" d="M1 1l5 5 5-5" stroke="%230B6CD4" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.sim-back {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1e2a35;
+  border: 1px solid rgba(15, 25, 40, 0.12);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
+}
+
+/* Base reflection panel (dyscalculia sim uses this directly) */
+.sim-reflection {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1200;
+  width: calc(100vw - 64px);
+  max-width: 1200px;
+  max-height: 92vh;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 1);
+  color: var(--text-primary);
+  border: 1px solid rgba(15, 25, 40, 0.06);
+  border-radius: 12px;
+  padding: 28px 28px 24px;
+  box-shadow: 0 30px 80px rgba(15, 25, 40, 0.22);
+  line-height: 1.75;
+}
+
+.sim-reflection h3 { margin: 0 0 12px; font-size: 1.25rem; }
+.sim-reflection .sim-reflection-body { font-size: 1.12rem; color: var(--text-secondary); max-width: 100%; }
+
+/* Smaller reflection for ADHD and dyslexia sims */
+.sim-adhd-page .sim-reflection,
+.sim-dyslexia-page .sim-reflection {
+  width: min(900px, 92vw);
+  z-index: 6;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 25, 40, 0.1);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: 0 8px 22px rgba(15, 25, 40, 0.12);
+}
+
+.sim-adhd-page .sim-reflection h3,
+.sim-dyslexia-page .sim-reflection h3 { margin: 0 0 10px; font-size: 1.2rem; }
+
+.sim-adhd-page .sim-reflection p,
+.sim-dyslexia-page .sim-reflection p { margin: 0 0 10px; font-size: 0.98rem; line-height: 1.5; color: #2a3a48; }
+
+/* =============================================
+   SIMULATION — DYSCALCULIA
+   ============================================= */
 .sim-page-content {
   display: flex;
   flex-direction: column;
@@ -1190,16 +1321,8 @@ body.quiz-modal-open {
   border-radius: 16px;
 }
 
-.dyscalc-subtitle {
-  color: var(--text-secondary);
-  margin-bottom: 0.75rem;
-}
-
-.dyscalc-progress {
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin-bottom: 0.85rem;
-}
+.dyscalc-subtitle { color: var(--text-secondary); margin-bottom: 0.75rem; }
+.dyscalc-progress { font-weight: 600; color: var(--text-secondary); margin-bottom: 0.85rem; }
 
 .dyscalc-task-area {
   background: var(--bg-elevated);
@@ -1210,24 +1333,10 @@ body.quiz-modal-open {
   min-height: 330px;
 }
 
-.dyscalc-task-card h3 {
-  margin-top: 0;
-  margin-bottom: 0.55rem;
-}
+.dyscalc-task-card h3 { margin-top: 0; margin-bottom: 0.55rem; }
+.task-feedback { margin-top: 0.8rem; min-height: 1.8rem; color: var(--text-secondary); }
 
-.task-feedback {
-  margin-top: 0.8rem;
-  min-height: 1.8rem;
-  color: var(--text-secondary);
-}
-
-.compare-row {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 0.7rem;
-  flex-wrap: wrap;
-}
+.compare-row { display: flex; gap: 1rem; justify-content: center; margin-top: 0.7rem; flex-wrap: wrap; }
 
 .dyscalc-option-btn,
 .dot-group {
@@ -1241,50 +1350,19 @@ body.quiz-modal-open {
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
-.dyscalc-option-btn:hover,
-.dot-group:hover {
-  border-color: var(--accent-secondary);
-}
+.dyscalc-option-btn:hover, .dot-group:hover { border-color: var(--accent-secondary); }
 
 .dyscalc-option-btn.selected,
-.dot-group.selected {
-  border-color: var(--accent-primary);
-  box-shadow: 0 5px 14px rgba(124, 58, 237, 0.18);
-  font-weight: 700;
-}
+.dot-group.selected { border-color: var(--accent-primary); box-shadow: 0 5px 14px rgba(124, 58, 237, 0.18); font-weight: 700; }
 
-.unstable-number {
-  min-width: 120px;
-  font-size: 2rem;
-  font-weight: 800;
-}
+.unstable-number  { min-width: 120px; font-size: 2rem; font-weight: 800; }
 
-.symbol-expression {
-  font-size: 2rem;
-  font-weight: 800;
-  display: flex;
-  justify-content: center;
-  gap: 0.7rem;
-  margin: 0.85rem 0;
-}
+.symbol-expression { font-size: 2rem; font-weight: 800; display: flex; justify-content: center; gap: 0.7rem; margin: 0.85rem 0; }
+.operator          { width: 1.2ch; text-align: center; }
 
-.operator {
-  width: 1.2ch;
-  text-align: center;
-}
+.symbol-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.65rem; }
 
-.symbol-options {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 0.65rem;
-}
-
-.dot-groups {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-  gap: 0.8rem;
-  margin-top: 0.8rem;
-}
+.dot-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 0.8rem; margin-top: 0.8rem; }
 
 .dot-group {
   display: flex;
@@ -1311,25 +1389,10 @@ body.quiz-modal-open {
   color: var(--text-primary);
 }
 
-.dot-group-modifier .modifier-sign {
-  font-size: 1.35em;
-  font-weight: 800;
-  line-height: 1;
-}
+.dot-group-modifier .modifier-sign  { font-size: 1.35em; font-weight: 800; line-height: 1; }
+.dot-group-modifier .modifier-roman { font-size: 1em;    font-weight: 800; line-height: 1.1; }
 
-.dot-group-modifier .modifier-roman {
-  font-size: 1em;
-  font-weight: 800;
-  line-height: 1.1;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 999px;
-  background: var(--text-primary);
-  opacity: 0.92;
-}
+.dot { width: 12px; height: 12px; border-radius: 999px; background: var(--text-primary); opacity: 0.92; }
 
 .number-line-shell {
   margin-top: 0.8rem;
@@ -1339,27 +1402,10 @@ body.quiz-modal-open {
   background: #fff;
 }
 
-.number-line {
-  position: relative;
-  width: min(620px, 100%);
-  margin: 0 auto;
-  height: 90px;
-}
+.number-line { position: relative; width: min(620px, 100%); margin: 0 auto; height: 90px; }
 
-.number-line-track {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 42px;
-  height: 4px;
-  background: #3d3d3d;
-  border-radius: 99px;
-}
-
-.number-line-ticks {
-  position: absolute;
-  inset: 0;
-}
+.number-line-track { position: absolute; left: 0; right: 0; top: 42px; height: 4px; background: #3d3d3d; border-radius: 99px; }
+.number-line-ticks { position: absolute; inset: 0; }
 
 .number-line-tick {
   position: absolute;
@@ -1388,17 +1434,12 @@ body.quiz-modal-open {
   cursor: grab;
 }
 
-.line-marker:active {
-  cursor: grabbing;
-}
+.line-marker:active { cursor: grabbing; }
 
 .dyscalc-controlbar {
-  /* Match ADHD control bar visual style (floating HUD at bottom center) */
   position: fixed;
-  left: 0;
-  right: 0;
-  margin-left: auto;
-  margin-right: auto;
+  left: 0; right: 0;
+  margin: 0 auto;
   width: fit-content;
   bottom: 16px;
   will-change: transform;
@@ -1429,12 +1470,7 @@ body.quiz-modal-open {
   cursor: pointer;
 }
 
-.dyscalc-intensity-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-weight: 600;
-}
+.dyscalc-intensity-label { display: inline-flex; align-items: center; gap: 0.55rem; font-weight: 600; }
 
 .dyscalc-intensity-select {
   border: 1px solid var(--border-subtle);
@@ -1453,326 +1489,12 @@ body.quiz-modal-open {
   padding: 1rem 1rem 0.55rem;
 }
 
-.dyscalc-reflection h3 {
-  margin: 0 0 0.45rem;
-}
-/* ========== RESPONSIVE DESIGN ========== */
-@media (max-width: 768px) {
-  header.topbar {
-    padding: 0.75rem 0;
-  }
+.dyscalc-reflection h3 { margin: 0 0 0.45rem; }
 
-  .topbar .container {
-    padding: 0 1.25rem;
-    gap: 8px;
-  }
-
-  .topnav {
-    gap: 1.5rem;
-  }
-
-  .topnav a {
-    font-size: 0.95rem;
-    padding: 0.5rem 0.9rem;
-  }
-
-  .card {
-    padding: 2rem;
-  }
-
-  .content {
-    padding: 3rem 1.25rem;
-  }
-
-  .cta-button {
-    padding: 0.875rem 2rem;
-    font-size: 1rem;
-  }
-
-  .section {
-    margin: 2rem 0;
-  }
-
-  .topic-tile {
-    padding: 1.5rem;
-  }
-
-  .home-intro h1 {
-    font-size: 2.25rem;
-  }
-
-  .container,
-  .topbar .container {
-    padding: 0 1.25rem;
-  }
-}
-
-@media (max-width: 480px) {
-  header.topbar {
-    padding: 0.6rem 0;
-  }
-
-  .topbar .container {
-    gap: 6px;
-    padding: 0 1rem;
-  }
-
-  .topnav {
-    gap: 0.75rem;
-  }
-
-  .topnav a {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.75rem;
-    border-radius: 12px;
-  }
-
-  h1 {
-    font-size: 1.875rem;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-  }
-
-  .card {
-    padding: 1.5rem;
-    border-radius: 12px;
-  }
-
-  .card::before {
-    border-radius: 12px;
-  }
-
-  .topic-tile {
-    border-radius: 12px;
-  }
-
-  .topic-tile::before {
-    border-radius: 12px;
-  }
-
-  .infographic {
-    border-radius: 12px;
-  }
-
-  .sketch {
-    border-radius: 12px;
-  }
-
-  .quiz-choice {
-    border-radius: 12px;
-  }
-
-  .back-to-top {
-    width: 48px;
-    height: 48px;
-    font-size: 1.25rem;
-    right: 1.5rem;
-    bottom: 1.5rem;
-    border-radius: 12px;
-  }
-
-  .cta-button {
-    padding: 0.75rem 1.75rem;
-    font-size: 0.95rem;
-    border-radius: 12px;
-  }
-
-  .content {
-    padding: 2rem 1rem;
-  }
-
-  .home-intro {
-    padding: 0.5rem 1rem;
-  }
-
-  .jump {
-    border-radius: 12px;
-  }
-}
-
-/* ==============================================
-   Simulations page
-   ============================================== */
-
-.card p, .card li { color: #000000; }
-
-/* Simulation card header bars */
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 0 -2rem 1.25rem;
-  padding: 10px 20px;
-  border-radius: 0;
-}
-.card-adhd .card-header       { background-color: #0ea5a0; }
-.card-dyslexia .card-header    { background-color: #7c3aed; }
-.card-dyscalculia .card-header { background-color: #e07b10; }
-
-.card-header h2 {
-  margin: 0;
-  color: #ffffff !important;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.card-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 1rem;
-  color: #ffffff;
-  flex-shrink: 0;
-}
-.card-adhd .card-icon       { background-color: rgba(0,0,0,0.18); }
-.card-dyslexia .card-icon    { background-color: rgba(0,0,0,0.18); }
-.card-dyscalculia .card-icon { background-color: rgba(0,0,0,0.18); }
-
-/* Hero section */
-.sim-hero {
-  text-align: center;
-  padding: 2.5rem 1rem 1.75rem;
-}
-.sim-hero h2 {
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 0 0 0.65rem;
-  color: #2D2520;
-}
-.sim-hero p {
-  font-size: 1.05rem;
-  color: #5F5550;
-  margin: 0;
-}
-
-/* Card body text */
-.card-body-text {
-  font-size: 14px;
-  line-height: 1.65;
-  color: #000000;
-  margin: 0 0 1rem;
-}
-
-/* Keyword tags */
-.tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-bottom: 1.25rem;
-}
-.tag {
-  display: inline-block;
-  font-size: 12px;
-  line-height: 1;
-  padding: 0.35rem 0.75rem;
-  border-radius: 20px;
-  border: 1px solid #ccc;
-  color: #444;
-  background: transparent;
-}
-.card-adhd .tag       { border-color: #0ea5a0; color: #0a7a76; }
-.card-dyslexia .tag    { border-color: #7c3aed; color: #5b24c4; }
-.card-dyscalculia .tag { border-color: #e07b10; color: #b05e08; }
-
-/* Card hover lift */
-.card-adhd,
-.card-dyslexia,
-.card-dyscalculia {
-  transition: all 0.2s ease;
-  overflow: hidden;
-  padding-top: 0;
-}
-.card-adhd:hover,
-.card-dyslexia:hover,
-.card-dyscalculia:hover {
-  transform: translateY(-2px);
-}
-
-/* Solid filled simulation buttons */
-.card-adhd .cta-button,
-.card-dyslexia .cta-button,
-.card-dyscalculia .cta-button {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  color: #ffffff !important;
-  font-weight: 600;
-  font-size: 0.95rem;
-  text-decoration: none !important;
-  transition: all 0.2s ease;
-}
-.card-adhd .cta-button       { background-color: #0ea5a0; }
-.card-dyslexia .cta-button    { background-color: #7c3aed; }
-.card-dyscalculia .cta-button { background-color: #e07b10; }
-
-.card-adhd .cta-button:hover,
-.card-dyslexia .cta-button:hover,
-.card-dyscalculia .cta-button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
-}
-
-/* ==============================================
-   Scoped typography system 
-   Applies only to pages with body
-   ============================================== */
-
-.body-type {
-  --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-family: var(--font-ui);
-  font-weight: 400;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
-
-.body-type p,
-.body-type li,
-.body-type span,
-.body-type label,
-.body-type summary,
-.body-type details {
-  font-family: var(--font-ui);
-  font-weight: 400;
-  line-height: 1.6;
-}
-
-.body-type h1,
-.body-type h2,
-.body-type h3,
-.body-type h4,
-.body-type .topnav a,
-.body-type button,
-.body-type .cta-button {
-  font-family: var(--font-ui);
-  font-weight: 600;
-}
-
-.body-type input,
-.body-type textarea,
-.body-type select,
-.body-type button {
-  font-family: var(--font-ui);
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-.body-type .topnav a {
-  font-weight: 600;
-}
-
-/* --- Styles moved from sim-dyslexia.html --- */
-.sim-dyslexia-page {
-  background: #F2F6FA;
-  min-height: 100vh;
-}
+/* =============================================
+   SIMULATION — DYSLEXIA
+   ============================================= */
+.sim-dyslexia-page { background: #F2F6FA; min-height: 100vh; }
 
 .sim-dyslexia-page .sim-fullscreen {
   min-height: 100vh;
@@ -1800,9 +1522,7 @@ body.quiz-modal-open {
   overflow: hidden;
 }
 
-.sim-dyslexia-page #canvas-container.hidden-before-start {
-  background: #F3F2EE;
-}
+.sim-dyslexia-page #canvas-container.hidden-before-start { background: #F3F2EE; }
 
 .sim-dyslexia-page .paper-scroll {
   position: absolute;
@@ -1823,136 +1543,15 @@ body.quiz-modal-open {
   max-width: 800px;
 }
 
-.sim-dyslexia-page #paper-content p {
-  margin-bottom: 0;
-}
+.sim-dyslexia-page #paper-content p              { margin-bottom: 0; }
+.sim-dyslexia-page #paper-content span           { display: inline-block; }
+.sim-dyslexia-page #paper-content .word          { display: inline-block; white-space: nowrap; }
+.sim-dyslexia-page #paper-content .space         { display: inline-block; width: 0.3em; }
 
-.sim-dyslexia-page #paper-content span {
-  display: inline-block;
-}
-
-.sim-dyslexia-page #paper-content .word {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.sim-dyslexia-page #paper-content .space {
-  display: inline-block;
-  width: 0.3em;
-}
-
-.sim-dyslexia-page .sim-hud {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 16px;
-  z-index: 4;
-  background: rgba(255, 255, 255, 0.92);
-  color: #1e2a35;
-  padding: 10px 14px;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: 92vw;
-}
-
-.sim-dyslexia-page .sim-hud .controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.sim-dyslexia-page .sim-hud .btn[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.sim-dyslexia-page .sim-hud .btn {
-  appearance: none;
-  border: 1px solid rgba(15, 25, 40, 0.15);
-  background: #fff;
-  color: #1e2a35;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.sim-dyslexia-page .sim-hud select {
-  padding-right: 28px;
-  background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%230B6CD4" d="M1 1l5 5 5-5" stroke="%230B6CD4" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-}
-
-@media (max-width: 640px) {
-  .sim-dyslexia-page .sim-hud {
-    padding: 8px 10px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-  }
-
-  .sim-dyslexia-page .sim-hud .btn {
-    padding: 6px 10px;
-    font-size: 0.85rem;
-  }
-}
-
-.sim-dyslexia-page .sim-back {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 3;
-  background: rgba(255, 255, 255, 0.9);
-  color: #1e2a35;
-  border: 1px solid rgba(15, 25, 40, 0.12);
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  text-decoration: none;
-  box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
-}
-
-.sim-dyslexia-page .sim-reflection {
-  width: min(900px, 92vw);
-  margin: 0;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 6;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(15, 25, 40, 0.1);
-  border-radius: 14px;
-  padding: 18px 20px;
-  box-shadow: 0 8px 22px rgba(15, 25, 40, 0.12);
-  color: #1e2a35;
-}
-
-.sim-dyslexia-page .sim-reflection h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.2rem;
-}
-
-.sim-dyslexia-page .sim-reflection p {
-  margin: 0 0 10px 0;
-  font-size: 0.98rem;
-  line-height: 1.5;
-  color: #2a3a48;
-}
-
-/* `.sim-no-scroll` can be applied to specific simulation pages to prevent page scrolling */
-.sim-no-scroll {
-  overflow: hidden;
-  height: 100vh;
-}
-
-/* --- Styles moved from sim-adhd.html --- */
-.sim-adhd-page {
-  background: #F2F6FA;
-  min-height: 100vh;
-}
+/* =============================================
+   SIMULATION — ADHD
+   ============================================= */
+.sim-adhd-page { background: #F2F6FA; min-height: 100vh; }
 
 .sim-adhd-page .sim-fullscreen {
   min-height: 100vh;
@@ -1991,12 +1590,7 @@ body.quiz-modal-open {
   gap: 32px;
 }
 
-.sim-adhd-page .task-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e2a35;
-  margin: 0;
-}
+.sim-adhd-page .task-title { font-size: 1.5rem; font-weight: 700; color: #1e2a35; margin: 0; }
 
 .sim-adhd-page .question-card {
   background: rgba(255, 255, 255, 0.95);
@@ -2007,19 +1601,9 @@ body.quiz-modal-open {
   width: min(860px, 88vw);
 }
 
-.sim-adhd-page .question-text {
-  font-size: 1.1rem;
-  color: #1e2a35;
-  margin: 0 0 24px 0;
-  text-align: center;
-  line-height: 1.5;
-}
+.sim-adhd-page .question-text { font-size: 1.1rem; color: #1e2a35; margin: 0 0 24px; text-align: center; line-height: 1.5; }
 
-.sim-adhd-page .answer-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.sim-adhd-page .answer-buttons { display: flex; flex-direction: column; gap: 12px; }
 
 .sim-adhd-page .answer-btn {
   appearance: none;
@@ -2035,104 +1619,11 @@ body.quiz-modal-open {
   text-align: left;
 }
 
-.sim-adhd-page .answer-btn:hover {
-  background: #f0f0f0;
-  border-color: rgba(15, 25, 40, 0.2);
-}
+.sim-adhd-page .answer-btn:hover { background: #f0f0f0; border-color: rgba(15, 25, 40, 0.2); }
 
-.sim-adhd-page .sim-hud {
-  position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 16px;
-  z-index: 4;
-  background: rgba(255, 255, 255, 0.92);
-  color: #1e2a35;
-  padding: 10px 14px;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(15, 25, 40, 0.14);
-  max-width: 92vw;
-}
-
-.sim-adhd-page .sim-hud .controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-}
-
-.sim-adhd-page .sim-hud .btn {
-  appearance: none;
-  border: 1px solid rgba(15, 25, 40, 0.15);
-  background: #fff;
-  color: #1e2a35;
-  padding: 8px 14px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.sim-adhd-page .sim-hud select {
-  padding-right: 28px;
-  background-image: url('data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%230B6CD4" d="M1 1l5 5 5-5" stroke="%230B6CD4" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-}
-
-.sim-adhd-page .sim-hud .btn[disabled] {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.sim-adhd-page .sim-back {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 3;
-  background: rgba(255, 255, 255, 0.9);
-  color: #1e2a35;
-  border: 1px solid rgba(15, 25, 40, 0.12);
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  text-decoration: none;
-  box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
-}
-
-.sim-adhd-page .sim-reflection {
-  width: min(900px, 92vw);
-  margin: 0;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 6;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(15, 25, 40, 0.1);
-  border-radius: 14px;
-  padding: 18px 20px;
-  box-shadow: 0 8px 22px rgba(15, 25, 40, 0.12);
-  color: #1e2a35;
-}
-
-.sim-adhd-page .sim-reflection h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.2rem;
-}
-
-.sim-adhd-page .sim-reflection p {
-  margin: 0 0 10px 0;
-  font-size: 0.98rem;
-  line-height: 1.5;
-  color: #2a3a48;
-}
-
-/* Toast notifications */
 .sim-adhd-page .toast-layer {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 20px; right: 20px;
   z-index: 5;
   display: flex;
   flex-direction: column;
@@ -2154,31 +1645,8 @@ body.quiz-modal-open {
   pointer-events: auto;
 }
 
-.sim-adhd-page.sim-shake {
-  animation: simShake 0.25s ease;
-}
+.sim-adhd-page.sim-shake { animation: simShake 0.25s ease; }
 
-@keyframes simShake {
-  0% { transform: translateX(0); }
-  20% { transform: translateX(-2px); }
-  40% { transform: translateX(2px); }
-  60% { transform: translateX(-1px); }
-  80% { transform: translateX(1px); }
-  100% { transform: translateX(0); }
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Interruption modal */
 .sim-adhd-page .interrupt-overlay {
   position: fixed;
   inset: 0;
@@ -2188,15 +1656,6 @@ body.quiz-modal-open {
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.2s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
 }
 
 .sim-adhd-page .interrupt-card {
@@ -2209,20 +1668,9 @@ body.quiz-modal-open {
   text-align: center;
 }
 
-.sim-adhd-page .interrupt-card h2 {
-  margin: 0 0 12px 0;
-  font-size: 1.3rem;
-  color: #1e2a35;
-}
+.sim-adhd-page .interrupt-card h2 { margin: 0 0 12px; font-size: 1.3rem; color: #1e2a35; }
+.sim-adhd-page .interrupt-card p  { margin: 0 0 20px; font-size: 1rem; color: #2a3a48; line-height: 1.5; }
 
-.sim-adhd-page .interrupt-card p {
-  margin: 0 0 20px 0;
-  font-size: 1rem;
-  color: #2a3a48;
-  line-height: 1.5;
-}
-
-/* Task-switching friction effects */
 .sim-adhd-page .task-blur {
   filter: blur(4px);
   opacity: 0.7;
@@ -2237,54 +1685,113 @@ body.quiz-modal-open {
   transition: outline 0.3s ease-out, background 0.3s ease-out;
 }
 
-@media (max-width: 640px) {
-  .sim-adhd-page .sim-hud {
-    padding: 8px 10px;
-    border-radius: 12px;
-    font-size: 0.9rem;
-  }
-
-  .sim-adhd-page .sim-hud .btn {
-    padding: 6px 10px;
-    font-size: 0.85rem;
-  }
-
-  .sim-adhd-page .question-card {
-    padding: 24px;
-  }
-
-  .sim-adhd-page .question-text {
-    font-size: 1.1rem;
-  }
-
-  .sim-adhd-page .task-title {
-    font-size: 1.5rem;
-  }
-
-  .sim-adhd-page .toast-layer {
-    top: 10px;
-    right: 10px;
-    max-width: 280px;
-  }
-
-  .sim-adhd-page .toast {
-    font-size: 0.85rem;
-    padding: 10px 14px;
-  }
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+@keyframes myth-fact-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-5px); }
+  40%       { transform: translateX(5px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
 }
 
-/* --- Styles moved from sim-dyscalculia.html --- */
-.dark-site .sim-back {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  z-index: 3;
-  background: rgba(255, 255, 255, 0.9);
-  color: #1e2a35;
-  border: 1px solid rgba(15, 25, 40, 0.12);
-  border-radius: 999px;
-  padding: 8px 14px;
-  font-size: 0.85rem;
-  text-decoration: none;
-  box-shadow: 0 6px 16px rgba(15, 25, 40, 0.12);
+@keyframes simShake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-2px); }
+  40%  { transform: translateX(2px); }
+  60%  { transform: translateX(-1px); }
+  80%  { transform: translateX(1px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* =============================================
+   UTILITIES
+   ============================================= */
+.mt-8          { margin-top: 8px; }
+.label-inline  { display: flex; align-items: center; gap: 8px; }
+.hidden        { display: none !important; }
+.center-text   { text-align: center; }
+.indent-1-5    { text-indent: 1.5em; }
+.sim-no-scroll { overflow: hidden; height: 100vh; }
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .topnav { gap: 1rem; }
+  body.main-adhd-page .card,
+  body.main-dyslexia-page .card,
+  body.main-dyscalculia-page .card { max-width: 92vw; }
+  .dyscalc-controlbar, .sim-hud { max-width: 92vw; bottom: 16px; }
+}
+
+@media (max-width: 960px) {
+  .sim-reflection { width: calc(100vw - 36px); padding: 22px; }
+  .sim-reflection h3 { font-size: 1.12rem; }
+  .sim-reflection .sim-reflection-body { font-size: 1.06rem; }
+}
+
+@media (max-width: 900px) {
+  .topbar .container { padding: 0 10px; }
+}
+
+@media (max-width: 768px) {
+  header.topbar      { padding: 0.75rem 0; }
+  .topbar .container { padding: 0 1.25rem; gap: 8px; }
+  .topnav            { gap: 1.5rem; }
+  .topnav a          { font-size: 0.95rem; padding: 0.5rem 0.9rem; }
+  .card              { padding: 2rem; }
+  .content           { padding: 3rem 1.25rem; }
+  .cta-button        { padding: 0.875rem 2rem; font-size: 1rem; }
+  .section           { margin: 2rem 0; }
+  .topic-tile        { padding: 1.5rem; }
+  .home-intro h1     { font-size: 2.25rem; }
+  .container, .topbar .container { padding: 0 1.25rem; }
+}
+
+@media (max-width: 640px) {
+  .sim-hud      { padding: 8px 10px; border-radius: 12px; font-size: 0.9rem; }
+  .sim-hud .btn { padding: 6px 10px; font-size: 0.85rem; }
+  .sim-adhd-page .question-card { padding: 24px; }
+  .sim-adhd-page .task-title    { font-size: 1.5rem; }
+  .sim-adhd-page .toast-layer   { top: 10px; right: 10px; max-width: 280px; }
+  .sim-adhd-page .toast         { font-size: 0.85rem; padding: 10px 14px; }
+}
+
+@media (max-width: 600px) {
+  .topnav     { flex-wrap: wrap; gap: 8px; }
+  .container  { padding: 0 12px; }
+  .topic-grid { flex-direction: column; }
+  .cta-button { width: 100%; }
+  .back-row   { left: 1rem; bottom: 1rem; }
+  .back-row .cta-button { width: auto; }
+}
+
+@media (max-width: 480px) {
+  header.topbar      { padding: 0.6rem 0; }
+  .topbar .container { gap: 6px; padding: 0 1rem; }
+  .topnav            { gap: 0.75rem; }
+  .topnav a          { font-size: 0.85rem; padding: 0.4rem 0.75rem; border-radius: 12px; }
+  h1                 { font-size: 1.875rem; }
+  h2                 { font-size: 1.25rem; }
+  .card, .card::before,
+  .topic-tile, .topic-tile::before,
+  .infographic, .sketch,
+  .quiz-choice       { border-radius: 12px; }
+  .card              { padding: 1.5rem; }
+.cta-button        { padding: 0.75rem 1.75rem; font-size: 0.95rem; border-radius: 12px; }
+  .content           { padding: 2rem 1rem; }
+  .home-intro        { padding: 0.5rem 1rem; }
+  .jump              { border-radius: 12px; }
 }

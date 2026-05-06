@@ -1,4 +1,4 @@
-// Minimal site JS: smooth anchor scrolling and back-to-top button
+// Minimal site JS: smooth anchor scrolling
 document.addEventListener('DOMContentLoaded', () => {
   // Delegate clicks on same-page hash links
   document.body.addEventListener('click', (e) => {
@@ -13,16 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
       history.replaceState(null, '', href);
     }
   });
-
-  // Back-to-top button
-  const back = document.getElementById('backToTop');
-  function updateBack() {
-    if (!back) return;
-    back.classList.toggle('visible', window.scrollY > 300);
-  }
-  window.addEventListener('scroll', updateBack, { passive: true });
-  updateBack();
-  if (back) back.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   // Quiz logic (ADHD page)
   const quizRoot = document.getElementById('quiz');

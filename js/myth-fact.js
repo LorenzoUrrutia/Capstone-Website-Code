@@ -3,15 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!quizRoot) return;
 
   const cards = Array.from(quizRoot.querySelectorAll('.myth-fact-card'));
-  const progress = document.querySelector('.myth-fact-progress');
   if (!cards.length) return;
 
   let currentIndex = 0;
-
-  function setProgress() {
-    if (!progress) return;
-    progress.textContent = `${currentIndex + 1} of ${cards.length}`;
-  }
 
   function showCard(index) {
     cards.forEach((card) => {
@@ -36,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     currentIndex = index;
-    setProgress();
   }
 
   function resetQuiz() {
